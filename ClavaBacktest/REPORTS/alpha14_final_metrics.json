@@ -1,0 +1,637 @@
+{
+  "5y_10k": {
+    "label": "Alpha14_5Y_10k",
+    "start_balance_usd": 10000.0,
+    "end_equity_usd": 149732.92,
+    "net_pnl_usd": 139732.92,
+    "roi_pct": 1397.33,
+    "max_dd_pct": 50.13,
+    "max_dd_usd": 45926.3,
+    "min_equity_usd": 8093.38,
+    "trades": 1154,
+    "trades_per_month": 19.0,
+    "wr_pct": 40.4,
+    "pf": 1.74,
+    "fees_usd": 7866.69,
+    "funding_usd": -5886.7,
+    "avg_trade_pnl_usd": 126.19,
+    "avg_trade_roi_pct": 1.47,
+    "hold_min_h": 4.4,
+    "hold_avg_h": 191.8,
+    "hold_max_h": 1464.0,
+    "best_trade_usd": 10548.82,
+    "best_trade_sym": "ADAUSDT",
+    "worst_trade_usd": -3504.87,
+    "worst_trade_sym": "AVAXUSDT",
+    "max_tp_move_pct": 199.11,
+    "max_tp_move_sym": "DOGEUSDT",
+    "max_sl_exec_pct": 34.38,
+    "avg_sl_exec_pct": 13.3,
+    "worst_move_pct": -34.38,
+    "positive_months": "33/61",
+    "median_monthly_roi_pct": 2.42,
+    "geom_monthly_roi_pct": 4.57,
+    "exit_reasons": {
+      "SIGNAL_EXIT": 1025,
+      "STOP_LOSS": 108,
+      "OPPOSITE_SIGNAL": 14,
+      "END_OF_SIM": 7
+    },
+    "by_yr": {
+      "2021": 409.0,
+      "2022": -1395.0,
+      "2023": 17917.0,
+      "2024": 26789.0,
+      "2025": 28193.0,
+      "2026": 73706.0
+    },
+    "per_coin": {
+      "ADAUSDT": {
+        "trades": 79,
+        "wins": 33,
+        "wr_pct": 41.8,
+        "net_pnl_usd": 26419.72,
+        "fees_usd": 414.72,
+        "sl_count": 4
+      },
+      "SOLUSDT": {
+        "trades": 79,
+        "wins": 36,
+        "wr_pct": 45.6,
+        "net_pnl_usd": 17274.61,
+        "fees_usd": 407.14,
+        "sl_count": 9
+      },
+      "AVAXUSDT": {
+        "trades": 93,
+        "wins": 44,
+        "wr_pct": 47.3,
+        "net_pnl_usd": 8761.86,
+        "fees_usd": 539.85,
+        "sl_count": 15
+      },
+      "DOGEUSDT": {
+        "trades": 96,
+        "wins": 39,
+        "wr_pct": 40.6,
+        "net_pnl_usd": 22630.82,
+        "fees_usd": 664.8,
+        "sl_count": 3
+      },
+      "1000SHIBUSDT": {
+        "trades": 78,
+        "wins": 37,
+        "wr_pct": 47.4,
+        "net_pnl_usd": 17701.92,
+        "fees_usd": 573.75,
+        "sl_count": 7
+      },
+      "HBARUSDT": {
+        "trades": 79,
+        "wins": 38,
+        "wr_pct": 48.1,
+        "net_pnl_usd": 15403.73,
+        "fees_usd": 509.44,
+        "sl_count": 6
+      },
+      "SUIUSDT": {
+        "trades": 50,
+        "wins": 19,
+        "wr_pct": 38.0,
+        "net_pnl_usd": 16899.65,
+        "fees_usd": 281.28,
+        "sl_count": 6
+      },
+      "UNIUSDT": {
+        "trades": 86,
+        "wins": 31,
+        "wr_pct": 36.0,
+        "net_pnl_usd": 8995.11,
+        "fees_usd": 332.37,
+        "sl_count": 13
+      },
+      "XRPUSDT": {
+        "trades": 77,
+        "wins": 28,
+        "wr_pct": 36.4,
+        "net_pnl_usd": -2985.49,
+        "fees_usd": 628.7,
+        "sl_count": 8
+      },
+      "BCHUSDT": {
+        "trades": 94,
+        "wins": 30,
+        "wr_pct": 31.9,
+        "net_pnl_usd": -8549.67,
+        "fees_usd": 636.7,
+        "sl_count": 9
+      },
+      "BNBUSDT": {
+        "trades": 82,
+        "wins": 32,
+        "wr_pct": 39.0,
+        "net_pnl_usd": 3182.09,
+        "fees_usd": 1043.9,
+        "sl_count": 12
+      },
+      "ETHUSDT": {
+        "trades": 80,
+        "wins": 33,
+        "wr_pct": 41.2,
+        "net_pnl_usd": 3786.75,
+        "fees_usd": 731.43,
+        "sl_count": 7
+      },
+      "LINKUSDT": {
+        "trades": 99,
+        "wins": 35,
+        "wr_pct": 35.4,
+        "net_pnl_usd": 8853.91,
+        "fees_usd": 537.55,
+        "sl_count": 6
+      },
+      "XLMUSDT": {
+        "trades": 82,
+        "wins": 31,
+        "wr_pct": 37.8,
+        "net_pnl_usd": 7244.61,
+        "fees_usd": 565.06,
+        "sl_count": 3
+      }
+    }
+  },
+  "6m_10k": {
+    "label": "Alpha14_6M_10k",
+    "start_balance_usd": 10000.0,
+    "end_equity_usd": 24031.86,
+    "net_pnl_usd": 14031.86,
+    "roi_pct": 140.32,
+    "max_dd_pct": 21.19,
+    "max_dd_usd": 4505.48,
+    "min_equity_usd": 9813.88,
+    "trades": 99,
+    "trades_per_month": 16.5,
+    "wr_pct": 54.5,
+    "pf": 3.8,
+    "fees_usd": 294.78,
+    "funding_usd": -157.32,
+    "avg_trade_pnl_usd": 143.33,
+    "avg_trade_roi_pct": 4.27,
+    "hold_min_h": 13.4,
+    "hold_avg_h": 241.0,
+    "hold_max_h": 908.0,
+    "best_trade_usd": 2805.8,
+    "best_trade_sym": "SOLUSDT",
+    "worst_trade_usd": -560.62,
+    "worst_trade_sym": "AVAXUSDT",
+    "max_tp_move_pct": 48.88,
+    "max_tp_move_sym": "BCHUSDT",
+    "max_sl_exec_pct": 17.0,
+    "avg_sl_exec_pct": 11.56,
+    "worst_move_pct": -17.0,
+    "positive_months": "7/7",
+    "median_monthly_roi_pct": 3.16,
+    "geom_monthly_roi_pct": 15.71,
+    "exit_reasons": {
+      "SIGNAL_EXIT": 81,
+      "STOP_LOSS": 10,
+      "OPPOSITE_SIGNAL": 1,
+      "END_OF_SIM": 7
+    },
+    "by_yr": {
+      "2026": 14189.0
+    },
+    "per_coin": {
+      "ADAUSDT": {
+        "trades": 6,
+        "wins": 4,
+        "wr_pct": 66.7,
+        "net_pnl_usd": 1851.73,
+        "fees_usd": 10.48,
+        "sl_count": 0
+      },
+      "SOLUSDT": {
+        "trades": 3,
+        "wins": 2,
+        "wr_pct": 66.7,
+        "net_pnl_usd": 2815.18,
+        "fees_usd": 13.4,
+        "sl_count": 0
+      },
+      "AVAXUSDT": {
+        "trades": 7,
+        "wins": 4,
+        "wr_pct": 57.1,
+        "net_pnl_usd": 1186.09,
+        "fees_usd": 20.48,
+        "sl_count": 2
+      },
+      "DOGEUSDT": {
+        "trades": 9,
+        "wins": 5,
+        "wr_pct": 55.6,
+        "net_pnl_usd": 2337.64,
+        "fees_usd": 35.57,
+        "sl_count": 0
+      },
+      "1000SHIBUSDT": {
+        "trades": 8,
+        "wins": 4,
+        "wr_pct": 50.0,
+        "net_pnl_usd": 1519.0,
+        "fees_usd": 22.01,
+        "sl_count": 1
+      },
+      "HBARUSDT": {
+        "trades": 11,
+        "wins": 8,
+        "wr_pct": 72.7,
+        "net_pnl_usd": 779.66,
+        "fees_usd": 36.96,
+        "sl_count": 0
+      },
+      "SUIUSDT": {
+        "trades": 5,
+        "wins": 3,
+        "wr_pct": 60.0,
+        "net_pnl_usd": 1742.88,
+        "fees_usd": 11.06,
+        "sl_count": 1
+      },
+      "UNIUSDT": {
+        "trades": 10,
+        "wins": 4,
+        "wr_pct": 40.0,
+        "net_pnl_usd": -433.27,
+        "fees_usd": 13.57,
+        "sl_count": 3
+      },
+      "XRPUSDT": {
+        "trades": 5,
+        "wins": 3,
+        "wr_pct": 60.0,
+        "net_pnl_usd": -492.89,
+        "fees_usd": 27.61,
+        "sl_count": 1
+      },
+      "BCHUSDT": {
+        "trades": 5,
+        "wins": 2,
+        "wr_pct": 40.0,
+        "net_pnl_usd": 324.84,
+        "fees_usd": 10.23,
+        "sl_count": 1
+      },
+      "BNBUSDT": {
+        "trades": 7,
+        "wins": 4,
+        "wr_pct": 57.1,
+        "net_pnl_usd": 1120.22,
+        "fees_usd": 34.44,
+        "sl_count": 0
+      },
+      "ETHUSDT": {
+        "trades": 5,
+        "wins": 3,
+        "wr_pct": 60.0,
+        "net_pnl_usd": 186.13,
+        "fees_usd": 18.67,
+        "sl_count": 0
+      },
+      "LINKUSDT": {
+        "trades": 8,
+        "wins": 3,
+        "wr_pct": 37.5,
+        "net_pnl_usd": 489.9,
+        "fees_usd": 19.96,
+        "sl_count": 0
+      },
+      "XLMUSDT": {
+        "trades": 10,
+        "wins": 5,
+        "wr_pct": 50.0,
+        "net_pnl_usd": 762.09,
+        "fees_usd": 20.33,
+        "sl_count": 1
+      }
+    }
+  },
+  "5y_1k": {
+    "label": "Alpha14_5Y_1k",
+    "start_balance_usd": 1000.0,
+    "end_equity_usd": 15744.21,
+    "net_pnl_usd": 14744.21,
+    "roi_pct": 1474.42,
+    "max_dd_pct": 50.97,
+    "max_dd_usd": 4998.74,
+    "min_equity_usd": 797.33,
+    "trades": 1146,
+    "trades_per_month": 18.9,
+    "wr_pct": 40.5,
+    "pf": 1.72,
+    "fees_usd": 844.13,
+    "funding_usd": -629.98,
+    "avg_trade_pnl_usd": 13.42,
+    "avg_trade_roi_pct": 1.49,
+    "hold_min_h": 4.4,
+    "hold_avg_h": 192.1,
+    "hold_max_h": 1464.0,
+    "best_trade_usd": 1129.26,
+    "best_trade_sym": "ADAUSDT",
+    "worst_trade_usd": -368.34,
+    "worst_trade_sym": "AVAXUSDT",
+    "max_tp_move_pct": 199.11,
+    "max_tp_move_sym": "DOGEUSDT",
+    "max_sl_exec_pct": 34.38,
+    "avg_sl_exec_pct": 13.4,
+    "worst_move_pct": -34.38,
+    "positive_months": "34/61",
+    "median_monthly_roi_pct": 1.46,
+    "geom_monthly_roi_pct": 4.65,
+    "exit_reasons": {
+      "SIGNAL_EXIT": 1015,
+      "STOP_LOSS": 110,
+      "OPPOSITE_SIGNAL": 14,
+      "END_OF_SIM": 7
+    },
+    "by_yr": {
+      "2021": 17.0,
+      "2022": -61.0,
+      "2023": 1978.0,
+      "2024": 2821.0,
+      "2025": 3137.0,
+      "2026": 7483.0
+    },
+    "per_coin": {
+      "ADAUSDT": {
+        "trades": 81,
+        "wins": 34,
+        "wr_pct": 42.0,
+        "net_pnl_usd": 2948.94,
+        "fees_usd": 49.6,
+        "sl_count": 4
+      },
+      "SOLUSDT": {
+        "trades": 79,
+        "wins": 35,
+        "wr_pct": 44.3,
+        "net_pnl_usd": 1594.26,
+        "fees_usd": 42.15,
+        "sl_count": 10
+      },
+      "AVAXUSDT": {
+        "trades": 82,
+        "wins": 39,
+        "wr_pct": 47.6,
+        "net_pnl_usd": 1084.85,
+        "fees_usd": 53.1,
+        "sl_count": 15
+      },
+      "DOGEUSDT": {
+        "trades": 96,
+        "wins": 39,
+        "wr_pct": 40.6,
+        "net_pnl_usd": 2399.05,
+        "fees_usd": 71.2,
+        "sl_count": 3
+      },
+      "1000SHIBUSDT": {
+        "trades": 78,
+        "wins": 37,
+        "wr_pct": 47.4,
+        "net_pnl_usd": 1886.15,
+        "fees_usd": 61.79,
+        "sl_count": 7
+      },
+      "HBARUSDT": {
+        "trades": 79,
+        "wins": 38,
+        "wr_pct": 48.1,
+        "net_pnl_usd": 1636.96,
+        "fees_usd": 54.43,
+        "sl_count": 6
+      },
+      "SUIUSDT": {
+        "trades": 50,
+        "wins": 19,
+        "wr_pct": 38.0,
+        "net_pnl_usd": 1793.99,
+        "fees_usd": 30.26,
+        "sl_count": 6
+      },
+      "UNIUSDT": {
+        "trades": 86,
+        "wins": 31,
+        "wr_pct": 36.0,
+        "net_pnl_usd": 981.92,
+        "fees_usd": 35.5,
+        "sl_count": 14
+      },
+      "XRPUSDT": {
+        "trades": 79,
+        "wins": 29,
+        "wr_pct": 36.7,
+        "net_pnl_usd": -290.32,
+        "fees_usd": 68.06,
+        "sl_count": 8
+      },
+      "BCHUSDT": {
+        "trades": 94,
+        "wins": 30,
+        "wr_pct": 31.9,
+        "net_pnl_usd": -1052.16,
+        "fees_usd": 68.53,
+        "sl_count": 9
+      },
+      "BNBUSDT": {
+        "trades": 82,
+        "wins": 32,
+        "wr_pct": 39.0,
+        "net_pnl_usd": 292.69,
+        "fees_usd": 112.18,
+        "sl_count": 12
+      },
+      "ETHUSDT": {
+        "trades": 80,
+        "wins": 33,
+        "wr_pct": 41.2,
+        "net_pnl_usd": 398.56,
+        "fees_usd": 78.72,
+        "sl_count": 7
+      },
+      "LINKUSDT": {
+        "trades": 97,
+        "wins": 36,
+        "wr_pct": 37.1,
+        "net_pnl_usd": 938.81,
+        "fees_usd": 57.79,
+        "sl_count": 6
+      },
+      "XLMUSDT": {
+        "trades": 83,
+        "wins": 32,
+        "wr_pct": 38.6,
+        "net_pnl_usd": 760.49,
+        "fees_usd": 60.8,
+        "sl_count": 3
+      }
+    }
+  },
+  "6m_1k": {
+    "label": "Alpha14_6M_1k",
+    "start_balance_usd": 1000.0,
+    "end_equity_usd": 2590.15,
+    "net_pnl_usd": 1590.15,
+    "roi_pct": 159.01,
+    "max_dd_pct": 21.23,
+    "max_dd_usd": 450.93,
+    "min_equity_usd": 981.53,
+    "trades": 99,
+    "trades_per_month": 16.5,
+    "wr_pct": 55.6,
+    "pf": 4.58,
+    "fees_usd": 29.51,
+    "funding_usd": -15.73,
+    "avg_trade_pnl_usd": 16.22,
+    "avg_trade_roi_pct": 4.55,
+    "hold_min_h": 13.4,
+    "hold_avg_h": 243.3,
+    "hold_max_h": 908.0,
+    "best_trade_usd": 280.09,
+    "best_trade_sym": "SOLUSDT",
+    "worst_trade_usd": -55.1,
+    "worst_trade_sym": "XRPUSDT",
+    "max_tp_move_pct": 48.88,
+    "max_tp_move_sym": "BCHUSDT",
+    "max_sl_exec_pct": 17.0,
+    "avg_sl_exec_pct": 11.75,
+    "worst_move_pct": -17.0,
+    "positive_months": "7/7",
+    "median_monthly_roi_pct": 3.1,
+    "geom_monthly_roi_pct": 17.16,
+    "exit_reasons": {
+      "SIGNAL_EXIT": 81,
+      "STOP_LOSS": 9,
+      "OPPOSITE_SIGNAL": 1,
+      "END_OF_SIM": 8
+    },
+    "by_yr": {
+      "2026": 1606.0
+    },
+    "per_coin": {
+      "ADAUSDT": {
+        "trades": 6,
+        "wins": 4,
+        "wr_pct": 66.7,
+        "net_pnl_usd": 184.98,
+        "fees_usd": 1.05,
+        "sl_count": 0
+      },
+      "SOLUSDT": {
+        "trades": 4,
+        "wins": 3,
+        "wr_pct": 75.0,
+        "net_pnl_usd": 415.83,
+        "fees_usd": 2.04,
+        "sl_count": 0
+      },
+      "AVAXUSDT": {
+        "trades": 6,
+        "wins": 4,
+        "wr_pct": 66.7,
+        "net_pnl_usd": 171.34,
+        "fees_usd": 1.43,
+        "sl_count": 1
+      },
+      "DOGEUSDT": {
+        "trades": 9,
+        "wins": 5,
+        "wr_pct": 55.6,
+        "net_pnl_usd": 233.4,
+        "fees_usd": 3.55,
+        "sl_count": 0
+      },
+      "1000SHIBUSDT": {
+        "trades": 8,
+        "wins": 4,
+        "wr_pct": 50.0,
+        "net_pnl_usd": 151.67,
+        "fees_usd": 2.2,
+        "sl_count": 1
+      },
+      "HBARUSDT": {
+        "trades": 11,
+        "wins": 8,
+        "wr_pct": 72.7,
+        "net_pnl_usd": 77.99,
+        "fees_usd": 3.69,
+        "sl_count": 0
+      },
+      "SUIUSDT": {
+        "trades": 5,
+        "wins": 3,
+        "wr_pct": 60.0,
+        "net_pnl_usd": 174.0,
+        "fees_usd": 1.1,
+        "sl_count": 1
+      },
+      "UNIUSDT": {
+        "trades": 10,
+        "wins": 4,
+        "wr_pct": 40.0,
+        "net_pnl_usd": -43.06,
+        "fees_usd": 1.34,
+        "sl_count": 3
+      },
+      "XRPUSDT": {
+        "trades": 5,
+        "wins": 3,
+        "wr_pct": 60.0,
+        "net_pnl_usd": -49.24,
+        "fees_usd": 2.76,
+        "sl_count": 1
+      },
+      "BCHUSDT": {
+        "trades": 5,
+        "wins": 2,
+        "wr_pct": 40.0,
+        "net_pnl_usd": 32.52,
+        "fees_usd": 1.02,
+        "sl_count": 1
+      },
+      "BNBUSDT": {
+        "trades": 7,
+        "wins": 4,
+        "wr_pct": 57.1,
+        "net_pnl_usd": 112.97,
+        "fees_usd": 3.43,
+        "sl_count": 0
+      },
+      "ETHUSDT": {
+        "trades": 5,
+        "wins": 3,
+        "wr_pct": 60.0,
+        "net_pnl_usd": 18.56,
+        "fees_usd": 1.86,
+        "sl_count": 0
+      },
+      "LINKUSDT": {
+        "trades": 8,
+        "wins": 3,
+        "wr_pct": 37.5,
+        "net_pnl_usd": 48.95,
+        "fees_usd": 1.99,
+        "sl_count": 0
+      },
+      "XLMUSDT": {
+        "trades": 10,
+        "wins": 5,
+        "wr_pct": 50.0,
+        "net_pnl_usd": 75.97,
+        "fees_usd": 2.03,
+        "sl_count": 1
+      }
+    }
+  },
+  "elapsed_sec": 901.2
+}

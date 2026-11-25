@@ -180,18 +180,24 @@
 
 ---
 
-## 5. Верификация всех 5 векторов развития с реальным Funding Rate и апгрейд Паспорта №3 (v2)
+## 5. Финальная стратегия «Альфа» (`Top-14`, реальный 8h Funding Rate) и закрытие этапа оптимизации
 
-Паспорт №3 прошёл полную 5-летнюю (`2021-11 .. 2026-11`) и полугодовую (`2026-05 .. 2026-11`) проверку с учётом **`100,779` реальных исторических 8h Funding Rates Binance Futures** ([`passport3_5vectors_study.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBacktest/REPORTS/passport3_5vectors_study.json), [`passport3_v2_candidates.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBacktest/REPORTS/passport3_v2_candidates.json)). Подробный разбор всех 5 векторов — в [`STRATEGY_MARKOV_TOP15_R15.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/STRATEGY_MARKOV_TOP15_R15.md#L168-L215).
+По итогам 5-векторной верификации (`ADR-017`) и финальной чистки пула (`DOTUSDT` исключён, в `ClavaBot/CFG/strategies/` оставлен единственный боевой паспорт [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json)) зафиксированы итоговые детерминированные метрики с учётом **`100,779` реальных исторических 8h Funding Rates Binance Futures** ([`alpha14_final_metrics.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBacktest/REPORTS/alpha14_final_metrics.json)).
 
-* **Реальный Funding Rate (Вектор 1):** суммарно списал `-$6,342` за 5 лет на базе v1 (`$168,806 → $141,300`, `CAGR 68.9%`, `PF 1.64`), полностью сохранив устойчивый плюс.
-* **Доказанные апгрейды, внедрённые в боевой [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json):**
-  1. `portfolio_risk.max_same_side_positions = 5` + `max_portfolio_risk_ratio = 0.10` (убрал корреляционные каскады в 2022–2023).
-  2. `portfolio_risk.funding_guard_enabled = true` (`max_adverse_funding_rate = 0.0005`, множитель `0.50`).
-  3. `recalibrate_interval_days = 3` (быстрее адаптирует GMM к смене волатильности).
-* **Итог обновлённого Паспорта №3 v2 (с реальным Funding `-$7,309`):**
-  * **5 лет:** **`$224,496.18`** (`+$214,496`, **`CAGR +85.12%`**), **`MaxDD 53.78%`** (было `66.6%`), **`MinEq $8,281`** (`2022` сжат до **`-$879`**!), **`PF 1.95`**, **геом. Calmar `1.58`** (линейный `7.89`), `1,165` сделок (`19.2` сд./мес).
-  * **Полгода `2026`:** **`$27,166.49 (+171.7%)`**, **`MaxDD 19.91%`**, **`PF 4.90`**, `99` сделок (`16.4` сд./мес).
-* **Каузальный Walk-Forward OOS (Вектор 3, без ручного отбора монет):** на полной корзине Top-19 с реальным фандингом дал **`$122,722` (`CAGR 64.3%`, `MinEq $6,512`, `PF 1.63`)** против `$83,813` на статическом Top-19 — автоматически исключая молодые/вялые активы (`HYPE`, `TON`, `TRX`, `LTC`) без заглядывания в будущее.
-* **Ансамбль двух режимов (Вектор 4, `60%` Паспорт №3 v2 + `40%` Паспорт №1 `atr_btc_sl5` на `risk 1.5%`):** **`$254,818.58` (`CAGR 89.8%`)**, **`MaxDD 46.7%`**, **`MinEq $8,599`**, **геом. Calmar `1.92`** (`6M +123.1%`, `DD 16.1%`).
-* **Запуск в боевом/сухом режиме Binance Futures:** `from ClavaBot.main import build_live_runtime; runner = build_live_runtime("markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json")` (`dry_run: true` в [`app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/app.json)).
+### Единая сводная таблица финалиста «Альфа» (`Top-14`, `risk 1.5%`, `2x`, `same_side=5`, `open_risk=10%`, `recal=3d`)
+
+| Метрика | **5Y (`$1,000` дефолт)** | **6M (`$1,000` дефолт)** | **5Y (`$10,000` эталон)** | **6M (`$10,000` эталон)** |
+| :--- | :---: | :---: | :---: | :---: |
+| **Итог (`$`) / Чистый PnL (`$`)** | **`$15,744.21`** (`+$14,744`) | **`$2,590.15`** (`+$1,590`) | **`$149,732.92`** (`+$139,733`) | **`$24,031.86`** (`+$14,032`) |
+| **Чистый ROI (`%`) / `CAGR`** | **`+1,474.42%`** / `+72.6%` | **`+159.01%`** | **`+1,397.33%`** / `+70.9%` | **`+140.32%`** |
+| **`MaxDD` (`%` / `$`) / `MinEq`** | **`50.97%`** (`$4,999`) / `$797` | **`21.23%`** (`$451`) / `$982` | **`50.13%`** (`$45,926`) / `$8,093` | **`21.19%`** (`$4,505`) / `$9,814` |
+| **Геом. `Calmar` / `PF` / `WR%`** | **`1.42`** / **`1.72`** / `40.5%` | — / **`4.58`** / `55.6%` | **`1.41`** / **`1.74`** / `40.4%` | — / **`3.80`** / `54.5%` |
+| **Сделок (`сд./мес`) / Плюс. мес.** | `1,146` (`18.9/м`) / `34/61` | `99` (`16.5/м`) / `7/7` | `1,154` (`19.0/м`) / `33/61` | `99` (`16.5/м`) / `7/7` |
+| **Комиссии / Funding (`$`)** | `$844.13` / `-$629.98` | `$29.51` / `-$15.73` | `$7,866.69` / `-$5,886.70` | `$294.78` / `-$157.32` |
+| **Удержание `min / avg / max`** | `4.4h / 192.1h / 1,464h` | `13.4h / 243.3h / 908h` | `4.4h / 191.8h / 1,464h` | `13.4h / 241.0h / 908h` |
+| **Средн. сделка (`$` / `ROI%`)** | `+$13.42` / `+1.49%` | `+$16.22` / `+4.55%` | `+$126.19` / `+1.47%` | `+$143.33` / `+4.27%` |
+| **Лучшая / Худшая сделка (`$`)** | `+$1,129` (`ADA`) / `-$368` (`AVAX`) | `+$280` (`SOL`) / `-$55` (`XRP`) | `+$10,549` (`ADA`) / `-$3,505` (`AVAX`) | `+$2,806` (`SOL`) / `-$561` (`AVAX`) |
+| **Макс. ход `+TP%` / Макс. `SL%`** | `+199.11%` (`DOGE`) / `-34.38%` | `+48.88%` (`BCH`) / `-17.00%` | `+199.11%` (`DOGE`) / `-34.38%` | `+48.88%` (`BCH`) / `-17.00%` |
+
+* **Полная разбивка по 14 монетам, оценка готовности к проду и пошаговая инструкция запуска `ClavaPaper` + `ClavaBot` + Master/Slave IPC `HRON_3`:** см. [`STRATEGY_MARKOV_TOP15_R15.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/STRATEGY_MARKOV_TOP15_R15.md).
+* **Этап бэктест-оптимизации официально закрыт (`ADR-018` в [`tech_debt.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/tech_debt.md)):** дальнейшие подкрутки параметров или довырезание отдельных монет по 5Y-истории несут риск *overfitting*; следующая фаза — живой форвард в [`ClavaPaper`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaPaper/main.py) и последующий перевод [`ClavaBot`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/main.py) в реальный HEDGE-торг (`dry_run: false`).
