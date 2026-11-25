@@ -37,6 +37,7 @@ class SimExecutionBroker(ExecutionBroker):
         self.pending_scale_ins: Dict[str, OrderPlan] = {}
         self.last_close_prices: Dict[str, float] = {}
         self.closed_trades: List[ClosedTrade] = []
+        self.total_funding_usd: float = 0.0
 
     def has_open_position(self, symbol: str) -> bool:
         if symbol in self.pending_orders:
@@ -58,6 +59,28 @@ class SimExecutionBroker(ExecutionBroker):
     def open_positions_count(self) -> int:
         active = (set(self.positions.keys()) - set(self.pending_closes.keys())) | set(self.pending_orders.keys())
         return len(active)
+
+    def get_all_open_positions(self) -> Dict[str, OpenPosition]:
+        return {
+            sym: pos for sym, pos in self.positions.items() if sym not in self.pending_closes
+        }
+
+    def apply_funding(self, symbol: str, ts_ms: int, funding_rate: float, mark_price: float) -> float:
+        """
+        Применяет 8-часовой фандинг Binance Futures к открытой позиции:
+        - funding_rate > 0: LONG платит, SHORT получает;
+        - funding_rate < 0: SHORT платит, LONG получает.
+        """
+        pos = self.positions.get(symbol)
+        if pos is None or mark_price <= 0.0 or funding_rate == 0.0:
+            return 0.0
+        if pos.entry_ts_ms > ts_ms:
+            return 0.0
+        notional = pos.qty * mark_price
+        cashflow = (-notional * funding_rate) if pos.side == "LONG" else (notional * funding_rate)
+        self.balance_usd += cashflow
+        self.total_funding_usd += cashflow
+        return cashflow
 
     def get_equity_usd(self) -> float:
         unrealized = 0.0

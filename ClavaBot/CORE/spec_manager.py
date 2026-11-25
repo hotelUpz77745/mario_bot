@@ -40,6 +40,25 @@ class SpecManager:
             raise KeyError(f"Symbol spec not found for '{sym_u}' in CFG/app.json")
         return self._specs[sym_u]
 
+    def upsert_spec(
+        self,
+        symbol: str,
+        tick_size: str | float,
+        step_size: str | float,
+        min_qty: str | float,
+        min_notional_usd: float,
+    ) -> SymbolSpec:
+        sym_u = str(symbol).upper().strip()
+        spec = SymbolSpec(
+            symbol=sym_u,
+            tick_size=Decimal(str(tick_size)),
+            step_size=Decimal(str(step_size)),
+            min_qty=Decimal(str(min_qty)),
+            min_notional_usd=float(min_notional_usd),
+        )
+        self._specs[sym_u] = spec
+        return spec
+
     def round_price(self, symbol: str, price: float) -> float:
         spec = self.get_spec(symbol)
         d_price = Decimal(str(price))

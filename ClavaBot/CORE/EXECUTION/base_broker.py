@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Dict, Optional
 from ClavaBot.CORE.models import OpenPosition, OrderPlan, SideType
 
 
@@ -46,3 +46,7 @@ class ExecutionBroker(ABC):
     def submit_scale_in_market(self, plan: OrderPlan) -> bool:
         """Опциональный добор активной позиции по тренду (по умолчанию отключён для простых моков)."""
         return False
+
+    def get_all_open_positions(self) -> Dict[str, OpenPosition]:
+        """Возвращает снимок всех активных открытых позиций для портфельного риск-контроля."""
+        return {}

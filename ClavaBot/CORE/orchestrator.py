@@ -13,6 +13,7 @@ from ClavaBot.CORE.STRATEGY.ema_trend_filter import EmaTrendFilter
 from ClavaBot.CORE.STRATEGY.grid_remora_gate import GridRemoraGate, GridStateProvider
 from ClavaBot.CORE.STRATEGY.markov_regime_filter import MarkovRegimeFilter
 from ClavaBot.CORE.STRATEGY.market_sentinel import MarketSentinel
+from ClavaBot.CORE.STRATEGY.portfolio_risk_guard import PortfolioRiskGuard
 from ClavaBot.CORE.STRATEGY.position_sizer import PositionSizer
 from ClavaBot.CORE.STRATEGY.remora_dynamic_sizer import RemoraDynamicSizer
 from ClavaBot.CORE.STRATEGY.risk_sl_tp_calculator import RiskStopTargetCalculator
@@ -50,6 +51,7 @@ class TradeEngineOrchestrator:
         self.ema_trend_filter = EmaTrendFilter(passport.ema_trend_filter)
         self.markov_filter = MarkovRegimeFilter(passport.markov_regime)
         self.market_sentinel = MarketSentinel(passport.market_sentinel, passport.symbols)
+        self.portfolio_risk = PortfolioRiskGuard(passport.portfolio_risk, passport.capital.start_balance_usd)
         self.risk_calculator = RiskStopTargetCalculator(passport.risk_management, spec_manager)
         self.position_sizer = PositionSizer(passport.capital, spec_manager)
         self.remora_gate = GridRemoraGate(passport.remora_gate, grid_state_provider)
@@ -79,6 +81,9 @@ class TradeEngineOrchestrator:
     def on_benchmark_candle(self, candle: Candle) -> None:
         self.market_sentinel.update_benchmark(candle)
 
+    def on_funding_rate(self, symbol: str, funding_rate: float) -> None:
+        self.portfolio_risk.update_funding_rate(symbol, funding_rate)
+
     def on_candle_close(self, symbol: str, candle: Candle) -> Optional[OrderPlan]:
         signal = self.signal_plugin.update_and_evaluate(symbol, candle)
         self.fatigue_filter.update(symbol, candle)
@@ -93,6 +98,8 @@ class TradeEngineOrchestrator:
 
         if not self.trading_enabled:
             return None
+
+        self.portfolio_risk.update_equity(self.broker.get_equity_usd())
 
         open_pos = self.broker.get_open_position(symbol)
         if open_pos is not None:
@@ -138,6 +145,16 @@ class TradeEngineOrchestrator:
         if not sentinel_decision.allowed:
             return None
 
+        pr_decision = self.portfolio_risk.evaluate(
+            symbol=symbol,
+            side=signal.side,
+            equity_usd=self.broker.get_equity_usd(),
+            open_positions=self.broker.get_all_open_positions(),
+            exclude_symbol=symbol if is_reversal else None,
+        )
+        if not pr_decision.allowed:
+            return None
+
         if self.remora_gate.cfg.enabled:
             if is_reversal and not self.remora_gate.cfg.allow_reversal_outside_pool:
                 if not self.remora_gate.is_in_active_pool(symbol, candle.close_ts_ms):
@@ -153,6 +170,7 @@ class TradeEngineOrchestrator:
             signal.size_multiplier
             * markov_decision.size_multiplier
             * sentinel_decision.size_multiplier
+            * pr_decision.size_multiplier
         )
         if self.remora_gate.cfg.enabled and self.remora_gate.cfg.dynamic_sizing.enabled:
             qty = self.remora_sizer.calculate_qty(

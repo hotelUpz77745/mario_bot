@@ -32,6 +32,9 @@ class MockLiveExecutionBroker(ExecutionBroker):
     def open_positions_count(self) -> int:
         return len(self.positions)
 
+    def get_all_open_positions(self) -> Dict[str, OpenPosition]:
+        return dict(self.positions)
+
     def get_equity_usd(self) -> float:
         return self.balance_usd
 

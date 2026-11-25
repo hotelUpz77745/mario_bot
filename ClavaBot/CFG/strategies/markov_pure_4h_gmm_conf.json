@@ -166,5 +166,29 @@
             "equity_utilization": 1.0,
             "margin_safety_ratio": 0.9
         }
+    },
+    "portfolio_risk": {
+        "enabled": false,
+        "_desc_enabled": "Включить портфельный риск-контроль (лимит однонаправленных позиций, кап открытого риска, DD-throttle, funding-guard)",
+        "max_same_side_positions": null,
+        "_desc_max_same_side_positions": "Максимум одновременных позиций в одном направлении LONG/SHORT (или null = без лимита)",
+        "max_portfolio_risk_ratio": null,
+        "_desc_max_portfolio_risk_ratio": "Максимальный суммарный открытый стоп-риск как доля от equity (например 0.10 = 10%, или null)",
+        "dd_throttle_enabled": false,
+        "_desc_dd_throttle_enabled": "Включить ступенчатое сжатие сайза при просадке от High-Water Mark капитала",
+        "dd_tier1_ratio": 0.2,
+        "_desc_dd_tier1_ratio": "Порог просадки 1-го уровня как доля от HWM (0.20 = 20%)",
+        "dd_tier1_multiplier": 0.6,
+        "_desc_dd_tier1_multiplier": "Множитель сайза на 1-м уровне просадки (0.60 = 60% от базового риска)",
+        "dd_tier2_ratio": 0.35,
+        "_desc_dd_tier2_ratio": "Порог просадки 2-го уровня как доля от HWM (0.35 = 35%)",
+        "dd_tier2_multiplier": 0.35,
+        "_desc_dd_tier2_multiplier": "Множитель сайза на 2-м уровне просадки (0.35 = 35% от базового риска)",
+        "funding_guard_enabled": false,
+        "_desc_funding_guard_enabled": "Сжимать объём входа при перегретом 8h funding rate против направления сделки",
+        "max_adverse_funding_rate": 0.0005,
+        "_desc_max_adverse_funding_rate": "Порог перегретого 8h funding rate как доля (0.0005 = 0.05% за 8 часов)",
+        "adverse_funding_multiplier": 0.5,
+        "_desc_adverse_funding_multiplier": "Множитель сайза при превышении порога funding rate (0.50 = 50%)"
     }
 }

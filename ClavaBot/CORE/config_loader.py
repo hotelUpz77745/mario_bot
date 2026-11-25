@@ -136,6 +136,21 @@ class MarkovRegimeConfig:
 
 
 @dataclass(frozen=True, slots=True)
+class PortfolioRiskConfig:
+    enabled: bool
+    max_same_side_positions: Optional[int]
+    max_portfolio_risk_ratio: Optional[float]
+    dd_throttle_enabled: bool
+    dd_tier1_ratio: float
+    dd_tier1_multiplier: float
+    dd_tier2_ratio: float
+    dd_tier2_multiplier: float
+    funding_guard_enabled: bool
+    max_adverse_funding_rate: float
+    adverse_funding_multiplier: float
+
+
+@dataclass(frozen=True, slots=True)
 class StrategyPassport:
     """Типизированный и провалидированный паспорт универсальной стратегии."""
     strategy_id: str
@@ -151,6 +166,7 @@ class StrategyPassport:
     markov_regime: MarkovRegimeConfig
     market_sentinel: MarketSentinelConfig
     remora_gate: RemoraGateConfig
+    portfolio_risk: PortfolioRiskConfig
 
 
 class StrictConfigLoader:
@@ -183,6 +199,7 @@ class StrictConfigLoader:
         ms_raw = raw["market_sentinel"]
         rg_raw = raw["remora_gate"]
         rg_ds_raw = rg_raw["dynamic_sizing"]
+        pr_raw = raw["portfolio_risk"]
 
         risk_ratio = cap_raw["risk_per_trade_ratio"]
         fixed_notional = cap_raw["fixed_notional_usd"]
@@ -302,6 +319,27 @@ class StrictConfigLoader:
                     margin_safety_ratio=float(rg_ds_raw["margin_safety_ratio"]),
                 ),
             ),
+            portfolio_risk=PortfolioRiskConfig(
+                enabled=bool(pr_raw["enabled"]),
+                max_same_side_positions=(
+                    int(pr_raw["max_same_side_positions"])
+                    if pr_raw["max_same_side_positions"] is not None
+                    else None
+                ),
+                max_portfolio_risk_ratio=(
+                    float(pr_raw["max_portfolio_risk_ratio"])
+                    if pr_raw["max_portfolio_risk_ratio"] is not None
+                    else None
+                ),
+                dd_throttle_enabled=bool(pr_raw["dd_throttle_enabled"]),
+                dd_tier1_ratio=float(pr_raw["dd_tier1_ratio"]),
+                dd_tier1_multiplier=float(pr_raw["dd_tier1_multiplier"]),
+                dd_tier2_ratio=float(pr_raw["dd_tier2_ratio"]),
+                dd_tier2_multiplier=float(pr_raw["dd_tier2_multiplier"]),
+                funding_guard_enabled=bool(pr_raw["funding_guard_enabled"]),
+                max_adverse_funding_rate=float(pr_raw["max_adverse_funding_rate"]),
+                adverse_funding_multiplier=float(pr_raw["adverse_funding_multiplier"]),
+            ),
         )
         StrictConfigLoader._validate_passport(passport)
         return passport
@@ -338,3 +376,16 @@ class StrictConfigLoader:
             raise ValueError("remora_gate.dynamic_sizing.equity_utilization must be positive")
         if not (0.0 < ds.margin_safety_ratio <= 1.0):
             raise ValueError("remora_gate.dynamic_sizing.margin_safety_ratio must be in (0, 1]")
+        pr = p.portfolio_risk
+        if pr.max_same_side_positions is not None and pr.max_same_side_positions < 1:
+            raise ValueError("portfolio_risk.max_same_side_positions must be >= 1 or null")
+        if pr.max_portfolio_risk_ratio is not None and pr.max_portfolio_risk_ratio <= 0.0:
+            raise ValueError("portfolio_risk.max_portfolio_risk_ratio must be > 0 or null")
+        if not (0.0 < pr.dd_tier1_ratio <= pr.dd_tier2_ratio < 1.0):
+            raise ValueError("portfolio_risk dd_tier ratios must satisfy 0 < tier1 <= tier2 < 1")
+        if not (0.0 < pr.dd_tier2_multiplier <= pr.dd_tier1_multiplier <= 1.0):
+            raise ValueError("portfolio_risk dd_tier multipliers must satisfy 0 < tier2 <= tier1 <= 1")
+        if pr.max_adverse_funding_rate <= 0.0:
+            raise ValueError("portfolio_risk.max_adverse_funding_rate must be positive")
+        if not (0.0 < pr.adverse_funding_multiplier <= 1.0):
+            raise ValueError("portfolio_risk.adverse_funding_multiplier must be in (0, 1]")
