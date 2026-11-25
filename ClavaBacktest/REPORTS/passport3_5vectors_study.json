@@ -1,0 +1,2574 @@
+{
+  "vector1_funding": [
+    {
+      "5y": {
+        "label": "T15_r15_NO_FUNDING",
+        "end_eq": 168806.05,
+        "net_pnl": 158806.05,
+        "roi_pct": 1588.06,
+        "cagr_pct": 74.96,
+        "dd_pct": 65.2,
+        "min_eq": 5633.72,
+        "geom_calmar": 1.15,
+        "lin_calmar": 4.82,
+        "trades": 1530,
+        "tr_mo": 25.2,
+        "wr_pct": 39.3,
+        "pf": 1.65,
+        "fees_usd": 8890.41,
+        "funding_usd": 0.0,
+        "by_yr": {
+          "2021": -179.0,
+          "2022": -3726.0,
+          "2023": 12102.0,
+          "2024": 30758.0,
+          "2025": 15051.0,
+          "2026": 104799.0
+        }
+      },
+      "6m": {
+        "label": "T15_r15_NO_FUNDING_6M",
+        "end_eq": 26874.68,
+        "net_pnl": 16874.68,
+        "roi_pct": 168.75,
+        "cagr_pct": 156.55,
+        "dd_pct": 23.1,
+        "min_eq": 9869.27,
+        "geom_calmar": 6.78,
+        "lin_calmar": 6.96,
+        "trades": 138,
+        "tr_mo": 11.0,
+        "wr_pct": 52.9,
+        "pf": 3.86,
+        "fees_usd": 389.02,
+        "funding_usd": 0.0,
+        "by_yr": {
+          "2026": 16875.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "T15_r15_REAL_FUNDING",
+        "end_eq": 141300.05,
+        "net_pnl": 131300.05,
+        "roi_pct": 1313.0,
+        "cagr_pct": 68.91,
+        "dd_pct": 66.57,
+        "min_eq": 5531.73,
+        "geom_calmar": 1.04,
+        "lin_calmar": 3.9,
+        "trades": 1527,
+        "tr_mo": 25.2,
+        "wr_pct": 39.3,
+        "pf": 1.64,
+        "fees_usd": 7782.64,
+        "funding_usd": -6342.46,
+        "by_yr": {
+          "2021": -166.0,
+          "2022": -3664.0,
+          "2023": 11771.0,
+          "2024": 28744.0,
+          "2025": 13208.0,
+          "2026": 87749.0
+        }
+      },
+      "6m": {
+        "label": "T15_r15_REAL_FUNDING_6M",
+        "end_eq": 26905.75,
+        "net_pnl": 16905.75,
+        "roi_pct": 169.06,
+        "cagr_pct": 156.83,
+        "dd_pct": 23.16,
+        "min_eq": 9864.4,
+        "geom_calmar": 6.77,
+        "lin_calmar": 6.96,
+        "trades": 138,
+        "tr_mo": 11.0,
+        "wr_pct": 52.9,
+        "pf": 3.96,
+        "fees_usd": 386.45,
+        "funding_usd": -162.19,
+        "by_yr": {
+          "2026": 17068.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "T19_r15_REAL_FUNDING",
+        "end_eq": 83812.83,
+        "net_pnl": 73812.83,
+        "roi_pct": 738.13,
+        "cagr_pct": 52.32,
+        "dd_pct": 72.52,
+        "min_eq": 5172.25,
+        "geom_calmar": 0.72,
+        "lin_calmar": 2.01,
+        "trades": 1696,
+        "tr_mo": 28.0,
+        "wr_pct": 38.4,
+        "pf": 1.5,
+        "fees_usd": 6395.3,
+        "funding_usd": -5179.31,
+        "by_yr": {
+          "2021": 61.0,
+          "2022": -4194.0,
+          "2023": 8729.0,
+          "2024": 18483.0,
+          "2025": 4777.0,
+          "2026": 51137.0
+        }
+      },
+      "6m": {
+        "label": "T19_r15_REAL_FUNDING_6M",
+        "end_eq": 29055.64,
+        "net_pnl": 19055.64,
+        "roi_pct": 190.56,
+        "cagr_pct": 176.35,
+        "dd_pct": 22.36,
+        "min_eq": 9896.25,
+        "geom_calmar": 7.89,
+        "lin_calmar": 8.12,
+        "trades": 148,
+        "tr_mo": 11.8,
+        "wr_pct": 50.0,
+        "pf": 3.96,
+        "fees_usd": 407.89,
+        "funding_usd": -174.94,
+        "by_yr": {
+          "2026": 19231.0
+        }
+      }
+    }
+  ],
+  "vector2_dd_compression": [
+    {
+      "5y": {
+        "label": "V2_same_side_5",
+        "end_eq": 209168.78,
+        "net_pnl": 199168.78,
+        "roi_pct": 1991.69,
+        "cagr_pct": 82.55,
+        "dd_pct": 53.99,
+        "min_eq": 8016.78,
+        "geom_calmar": 1.53,
+        "lin_calmar": 7.3,
+        "trades": 1190,
+        "tr_mo": 19.6,
+        "wr_pct": 39.8,
+        "pf": 1.89,
+        "fees_usd": 8746.54,
+        "funding_usd": -7217.45,
+        "by_yr": {
+          "2021": 404.0,
+          "2022": -2094.0,
+          "2023": 23217.0,
+          "2024": 28635.0,
+          "2025": 25196.0,
+          "2026": 131028.0
+        }
+      },
+      "6m": {
+        "label": "V2_same_side_5_6M",
+        "end_eq": 25264.34,
+        "net_pnl": 15264.34,
+        "roi_pct": 152.64,
+        "cagr_pct": 141.88,
+        "dd_pct": 20.81,
+        "min_eq": 9921.53,
+        "geom_calmar": 6.82,
+        "lin_calmar": 6.99,
+        "trades": 108,
+        "tr_mo": 8.6,
+        "wr_pct": 51.9,
+        "pf": 4.73,
+        "fees_usd": 286.85,
+        "funding_usd": -127.79,
+        "by_yr": {
+          "2026": 15392.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V2_same_side_6",
+        "end_eq": 185432.81,
+        "net_pnl": 175432.81,
+        "roi_pct": 1754.33,
+        "cagr_pct": 78.25,
+        "dd_pct": 59.11,
+        "min_eq": 7715.48,
+        "geom_calmar": 1.32,
+        "lin_calmar": 5.88,
+        "trades": 1294,
+        "tr_mo": 21.3,
+        "wr_pct": 39.6,
+        "pf": 1.73,
+        "fees_usd": 9337.35,
+        "funding_usd": -7280.27,
+        "by_yr": {
+          "2021": 217.0,
+          "2022": -1925.0,
+          "2023": 18404.0,
+          "2024": 38877.0,
+          "2025": 20724.0,
+          "2026": 106416.0
+        }
+      },
+      "6m": {
+        "label": "V2_same_side_6_6M",
+        "end_eq": 24253.08,
+        "net_pnl": 14253.08,
+        "roi_pct": 142.53,
+        "cagr_pct": 132.64,
+        "dd_pct": 20.82,
+        "min_eq": 9864.4,
+        "geom_calmar": 6.37,
+        "lin_calmar": 6.52,
+        "trades": 114,
+        "tr_mo": 9.1,
+        "wr_pct": 50.9,
+        "pf": 4.21,
+        "fees_usd": 295.49,
+        "funding_usd": -113.55,
+        "by_yr": {
+          "2026": 14367.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V2_same_side_7",
+        "end_eq": 157051.42,
+        "net_pnl": 147051.42,
+        "roi_pct": 1470.51,
+        "cagr_pct": 72.48,
+        "dd_pct": 60.15,
+        "min_eq": 7112.68,
+        "geom_calmar": 1.2,
+        "lin_calmar": 4.84,
+        "trades": 1364,
+        "tr_mo": 22.5,
+        "wr_pct": 39.3,
+        "pf": 1.6,
+        "fees_usd": 9405.25,
+        "funding_usd": -7568.04,
+        "by_yr": {
+          "2021": 183.0,
+          "2022": -2432.0,
+          "2023": 18228.0,
+          "2024": 37821.0,
+          "2025": 21281.0,
+          "2026": 79538.0
+        }
+      },
+      "6m": {
+        "label": "V2_same_side_7_6M",
+        "end_eq": 24465.32,
+        "net_pnl": 14465.32,
+        "roi_pct": 144.65,
+        "cagr_pct": 134.58,
+        "dd_pct": 23.67,
+        "min_eq": 9864.4,
+        "geom_calmar": 5.69,
+        "lin_calmar": 5.82,
+        "trades": 127,
+        "tr_mo": 10.1,
+        "wr_pct": 51.2,
+        "pf": 3.5,
+        "fees_usd": 345.44,
+        "funding_usd": -146.84,
+        "by_yr": {
+          "2026": 14612.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V2_open_risk_8pct",
+        "end_eq": 138054.61,
+        "net_pnl": 128054.61,
+        "roi_pct": 1280.55,
+        "cagr_pct": 68.14,
+        "dd_pct": 57.4,
+        "min_eq": 6645.69,
+        "geom_calmar": 1.19,
+        "lin_calmar": 4.42,
+        "trades": 1215,
+        "tr_mo": 20.0,
+        "wr_pct": 39.8,
+        "pf": 1.75,
+        "fees_usd": 6706.33,
+        "funding_usd": -5206.66,
+        "by_yr": {
+          "2021": -115.0,
+          "2022": -2719.0,
+          "2023": 15399.0,
+          "2024": 23758.0,
+          "2025": 21391.0,
+          "2026": 75548.0
+        }
+      },
+      "6m": {
+        "label": "V2_open_risk_8pct_6M",
+        "end_eq": 24525.09,
+        "net_pnl": 14525.09,
+        "roi_pct": 145.25,
+        "cagr_pct": 135.13,
+        "dd_pct": 20.71,
+        "min_eq": 9864.4,
+        "geom_calmar": 6.53,
+        "lin_calmar": 6.69,
+        "trades": 108,
+        "tr_mo": 8.6,
+        "wr_pct": 50.9,
+        "pf": 4.79,
+        "fees_usd": 300.75,
+        "funding_usd": -127.78,
+        "by_yr": {
+          "2026": 14653.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V2_open_risk_10pct",
+        "end_eq": 199658.65,
+        "net_pnl": 189658.65,
+        "roi_pct": 1896.59,
+        "cagr_pct": 80.87,
+        "dd_pct": 57.49,
+        "min_eq": 6284.75,
+        "geom_calmar": 1.41,
+        "lin_calmar": 6.53,
+        "trades": 1359,
+        "tr_mo": 22.4,
+        "wr_pct": 39.2,
+        "pf": 1.73,
+        "fees_usd": 10167.72,
+        "funding_usd": -7891.29,
+        "by_yr": {
+          "2021": -166.0,
+          "2022": -2947.0,
+          "2023": 13064.0,
+          "2024": 52952.0,
+          "2025": 27673.0,
+          "2026": 106975.0
+        }
+      },
+      "6m": {
+        "label": "V2_open_risk_10pct_6M",
+        "end_eq": 21102.55,
+        "net_pnl": 11102.55,
+        "roi_pct": 111.03,
+        "cagr_pct": 103.75,
+        "dd_pct": 23.41,
+        "min_eq": 9864.4,
+        "geom_calmar": 4.43,
+        "lin_calmar": 4.52,
+        "trades": 125,
+        "tr_mo": 9.9,
+        "wr_pct": 47.2,
+        "pf": 2.9,
+        "fees_usd": 305.73,
+        "funding_usd": -172.35,
+        "by_yr": {
+          "2026": 11275.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V2_open_risk_12pct",
+        "end_eq": 126973.27,
+        "net_pnl": 116973.27,
+        "roi_pct": 1169.73,
+        "cagr_pct": 65.37,
+        "dd_pct": 61.72,
+        "min_eq": 6097.33,
+        "geom_calmar": 1.06,
+        "lin_calmar": 3.75,
+        "trades": 1426,
+        "tr_mo": 23.5,
+        "wr_pct": 39.1,
+        "pf": 1.56,
+        "fees_usd": 7888.03,
+        "funding_usd": -6511.05,
+        "by_yr": {
+          "2021": -166.0,
+          "2022": -3061.0,
+          "2023": 12145.0,
+          "2024": 31830.0,
+          "2025": 20041.0,
+          "2026": 62695.0
+        }
+      },
+      "6m": {
+        "label": "V2_open_risk_12pct_6M",
+        "end_eq": 23771.7,
+        "net_pnl": 13771.7,
+        "roi_pct": 137.72,
+        "cagr_pct": 128.24,
+        "dd_pct": 23.22,
+        "min_eq": 9864.4,
+        "geom_calmar": 5.52,
+        "lin_calmar": 5.65,
+        "trades": 132,
+        "tr_mo": 10.5,
+        "wr_pct": 51.5,
+        "pf": 3.24,
+        "fees_usd": 364.42,
+        "funding_usd": -170.24,
+        "by_yr": {
+          "2026": 13942.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V2_dd_throttle_20_35",
+        "end_eq": 56665.25,
+        "net_pnl": 46665.25,
+        "roi_pct": 466.65,
+        "cagr_pct": 40.96,
+        "dd_pct": 50.25,
+        "min_eq": 7174.38,
+        "geom_calmar": 0.82,
+        "lin_calmar": 1.84,
+        "trades": 1570,
+        "tr_mo": 25.9,
+        "wr_pct": 39.2,
+        "pf": 1.58,
+        "fees_usd": 3058.91,
+        "funding_usd": -3237.98,
+        "by_yr": {
+          "2021": -166.0,
+          "2022": -2361.0,
+          "2023": 4735.0,
+          "2024": 18065.0,
+          "2025": 4153.0,
+          "2026": 25476.0
+        }
+      },
+      "6m": {
+        "label": "V2_dd_throttle_20_35_6M",
+        "end_eq": 25674.85,
+        "net_pnl": 15674.85,
+        "roi_pct": 156.75,
+        "cagr_pct": 145.62,
+        "dd_pct": 24.05,
+        "min_eq": 9864.4,
+        "geom_calmar": 6.06,
+        "lin_calmar": 6.21,
+        "trades": 138,
+        "tr_mo": 11.0,
+        "wr_pct": 52.9,
+        "pf": 3.8,
+        "fees_usd": 351.91,
+        "funding_usd": -133.98,
+        "by_yr": {
+          "2026": 15809.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V2_dd_throttle_15_30",
+        "end_eq": 56804.01,
+        "net_pnl": 46804.01,
+        "roi_pct": 468.04,
+        "cagr_pct": 41.03,
+        "dd_pct": 49.68,
+        "min_eq": 7274.23,
+        "geom_calmar": 0.83,
+        "lin_calmar": 1.86,
+        "trades": 1569,
+        "tr_mo": 25.9,
+        "wr_pct": 39.2,
+        "pf": 1.71,
+        "fees_usd": 2624.37,
+        "funding_usd": -2850.21,
+        "by_yr": {
+          "2021": -166.0,
+          "2022": -2272.0,
+          "2023": 4624.0,
+          "2024": 17048.0,
+          "2025": 884.0,
+          "2026": 29535.0
+        }
+      },
+      "6m": {
+        "label": "V2_dd_throttle_15_30_6M",
+        "end_eq": 25814.25,
+        "net_pnl": 15814.25,
+        "roi_pct": 158.14,
+        "cagr_pct": 146.89,
+        "dd_pct": 21.56,
+        "min_eq": 9864.4,
+        "geom_calmar": 6.81,
+        "lin_calmar": 6.99,
+        "trades": 138,
+        "tr_mo": 11.0,
+        "wr_pct": 52.9,
+        "pf": 4.02,
+        "fees_usd": 348.86,
+        "funding_usd": -134.15,
+        "by_yr": {
+          "2026": 15948.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V2_breadth_5of15",
+        "end_eq": 126368.82,
+        "net_pnl": 116368.82,
+        "roi_pct": 1163.69,
+        "cagr_pct": 65.22,
+        "dd_pct": 65.65,
+        "min_eq": 5671.48,
+        "geom_calmar": 0.99,
+        "lin_calmar": 3.51,
+        "trades": 1539,
+        "tr_mo": 25.4,
+        "wr_pct": 39.3,
+        "pf": 1.65,
+        "fees_usd": 6925.12,
+        "funding_usd": -5966.65,
+        "by_yr": {
+          "2021": -166.0,
+          "2022": -3512.0,
+          "2023": 11205.0,
+          "2024": 27925.0,
+          "2025": 7754.0,
+          "2026": 79130.0
+        }
+      },
+      "6m": {
+        "label": "V2_breadth_5of15_6M",
+        "end_eq": 25231.47,
+        "net_pnl": 15231.47,
+        "roi_pct": 152.31,
+        "cagr_pct": 141.58,
+        "dd_pct": 23.26,
+        "min_eq": 9864.4,
+        "geom_calmar": 6.09,
+        "lin_calmar": 6.24,
+        "trades": 136,
+        "tr_mo": 10.8,
+        "wr_pct": 52.2,
+        "pf": 3.83,
+        "fees_usd": 336.72,
+        "funding_usd": -140.25,
+        "by_yr": {
+          "2026": 15372.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V2_breadth_6of15",
+        "end_eq": 108191.82,
+        "net_pnl": 98191.82,
+        "roi_pct": 981.92,
+        "cagr_pct": 60.22,
+        "dd_pct": 65.46,
+        "min_eq": 5551.41,
+        "geom_calmar": 0.92,
+        "lin_calmar": 2.97,
+        "trades": 1552,
+        "tr_mo": 25.6,
+        "wr_pct": 39.2,
+        "pf": 1.64,
+        "fees_usd": 5822.33,
+        "funding_usd": -4942.56,
+        "by_yr": {
+          "2021": -184.0,
+          "2022": -3626.0,
+          "2023": 9233.0,
+          "2024": 21772.0,
+          "2025": 8213.0,
+          "2026": 67725.0
+        }
+      },
+      "6m": {
+        "label": "V2_breadth_6of15_6M",
+        "end_eq": 25424.11,
+        "net_pnl": 15424.11,
+        "roi_pct": 154.24,
+        "cagr_pct": 143.33,
+        "dd_pct": 23.03,
+        "min_eq": 9864.4,
+        "geom_calmar": 6.22,
+        "lin_calmar": 6.38,
+        "trades": 137,
+        "tr_mo": 10.9,
+        "wr_pct": 52.6,
+        "pf": 3.9,
+        "fees_usd": 347.67,
+        "funding_usd": -143.42,
+        "by_yr": {
+          "2026": 15568.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V2_breadth_7of15",
+        "end_eq": 125741.66,
+        "net_pnl": 115741.66,
+        "roi_pct": 1157.42,
+        "cagr_pct": 65.06,
+        "dd_pct": 59.28,
+        "min_eq": 5880.76,
+        "geom_calmar": 1.1,
+        "lin_calmar": 3.86,
+        "trades": 1545,
+        "tr_mo": 25.5,
+        "wr_pct": 39.4,
+        "pf": 1.75,
+        "fees_usd": 6115.94,
+        "funding_usd": -5128.79,
+        "by_yr": {
+          "2021": -140.0,
+          "2022": -3385.0,
+          "2023": 8588.0,
+          "2024": 26412.0,
+          "2025": 12329.0,
+          "2026": 77068.0
+        }
+      },
+      "6m": {
+        "label": "V2_breadth_7of15_6M",
+        "end_eq": 22633.22,
+        "net_pnl": 12633.22,
+        "roi_pct": 126.33,
+        "cagr_pct": 117.81,
+        "dd_pct": 24.47,
+        "min_eq": 9864.4,
+        "geom_calmar": 4.82,
+        "lin_calmar": 4.92,
+        "trades": 139,
+        "tr_mo": 11.0,
+        "wr_pct": 52.5,
+        "pf": 3.48,
+        "fees_usd": 318.09,
+        "funding_usd": -128.51,
+        "by_yr": {
+          "2026": 12762.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V2_combo_ss6_or10_dd20",
+        "end_eq": 58828.82,
+        "net_pnl": 48828.82,
+        "roi_pct": 488.29,
+        "cagr_pct": 42.01,
+        "dd_pct": 45.7,
+        "min_eq": 7537.29,
+        "geom_calmar": 0.92,
+        "lin_calmar": 2.11,
+        "trades": 1307,
+        "tr_mo": 21.6,
+        "wr_pct": 40.1,
+        "pf": 1.69,
+        "fees_usd": 2759.2,
+        "funding_usd": -2833.57,
+        "by_yr": {
+          "2021": 217.0,
+          "2022": -2023.0,
+          "2023": 5296.0,
+          "2024": 15430.0,
+          "2025": 3828.0,
+          "2026": 28915.0
+        }
+      },
+      "6m": {
+        "label": "V2_combo_ss6_or10_dd20_6M",
+        "end_eq": 23772.01,
+        "net_pnl": 13772.01,
+        "roi_pct": 137.72,
+        "cagr_pct": 128.24,
+        "dd_pct": 20.23,
+        "min_eq": 9864.4,
+        "geom_calmar": 6.34,
+        "lin_calmar": 6.49,
+        "trades": 106,
+        "tr_mo": 8.4,
+        "wr_pct": 51.9,
+        "pf": 4.3,
+        "fees_usd": 264.82,
+        "funding_usd": -137.7,
+        "by_yr": {
+          "2026": 13910.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V2_combo_ss6_dd20_br6",
+        "end_eq": 64827.34,
+        "net_pnl": 54827.34,
+        "roi_pct": 548.27,
+        "cagr_pct": 44.77,
+        "dd_pct": 42.67,
+        "min_eq": 7571.29,
+        "geom_calmar": 1.05,
+        "lin_calmar": 2.54,
+        "trades": 1321,
+        "tr_mo": 21.8,
+        "wr_pct": 39.9,
+        "pf": 1.79,
+        "fees_usd": 2731.29,
+        "funding_usd": -2580.73,
+        "by_yr": {
+          "2021": 198.0,
+          "2022": -2039.0,
+          "2023": 3887.0,
+          "2024": 15541.0,
+          "2025": 3111.0,
+          "2026": 36709.0
+        }
+      },
+      "6m": {
+        "label": "V2_combo_ss6_dd20_br6_6M",
+        "end_eq": 21713.3,
+        "net_pnl": 11713.3,
+        "roi_pct": 117.13,
+        "cagr_pct": 109.36,
+        "dd_pct": 21.48,
+        "min_eq": 9864.4,
+        "geom_calmar": 5.09,
+        "lin_calmar": 5.2,
+        "trades": 115,
+        "tr_mo": 9.1,
+        "wr_pct": 50.4,
+        "pf": 3.78,
+        "fees_usd": 255.38,
+        "funding_usd": -77.67,
+        "by_yr": {
+          "2026": 11791.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V2_combo_ss5_or8_dd15",
+        "end_eq": 72329.2,
+        "net_pnl": 62329.2,
+        "roi_pct": 623.29,
+        "cagr_pct": 47.94,
+        "dd_pct": 41.58,
+        "min_eq": 8314.73,
+        "geom_calmar": 1.15,
+        "lin_calmar": 2.97,
+        "trades": 1199,
+        "tr_mo": 19.8,
+        "wr_pct": 40.4,
+        "pf": 1.79,
+        "fees_usd": 3141.08,
+        "funding_usd": -3058.54,
+        "by_yr": {
+          "2021": 404.0,
+          "2022": -1871.0,
+          "2023": 9470.0,
+          "2024": 13918.0,
+          "2025": 9482.0,
+          "2026": 33985.0
+        }
+      },
+      "6m": {
+        "label": "V2_combo_ss5_or8_dd15_6M",
+        "end_eq": 24185.44,
+        "net_pnl": 14185.44,
+        "roi_pct": 141.85,
+        "cagr_pct": 132.02,
+        "dd_pct": 19.77,
+        "min_eq": 9921.53,
+        "geom_calmar": 6.68,
+        "lin_calmar": 6.84,
+        "trades": 97,
+        "tr_mo": 7.7,
+        "wr_pct": 53.6,
+        "pf": 4.99,
+        "fees_usd": 261.28,
+        "funding_usd": -90.45,
+        "by_yr": {
+          "2026": 14276.0
+        }
+      }
+    }
+  ],
+  "vector3_walkforward_oos": [
+    {
+      "5y": {
+        "label": "V3_wf_90d_top15_atr3.5%",
+        "end_eq": 117049.28,
+        "net_pnl": 107049.28,
+        "roi_pct": 1070.49,
+        "cagr_pct": 62.73,
+        "dd_pct": 65.44,
+        "min_eq": 5955.56,
+        "geom_calmar": 0.96,
+        "lin_calmar": 3.24,
+        "trades": 1363,
+        "tr_mo": 22.5,
+        "wr_pct": 39.8,
+        "pf": 1.65,
+        "fees_usd": 6178.2,
+        "funding_usd": -5309.4,
+        "by_yr": {
+          "2022": -3335.0,
+          "2023": 11944.0,
+          "2024": 18732.0,
+          "2025": 11061.0,
+          "2026": 73957.0
+        },
+        "rebalances": [
+          {
+            "date": "2022-03-30",
+            "count": 10,
+            "pool": [
+              "AVAXUSDT",
+              "1000SHIBUSDT",
+              "ETHUSDT",
+              "LINKUSDT",
+              "ADAUSDT",
+              "DOTUSDT",
+              "UNIUSDT",
+              "DOGEUSDT",
+              "BCHUSDT",
+              "BNBUSDT"
+            ]
+          },
+          {
+            "date": "2022-06-28",
+            "count": 15,
+            "pool": [
+              "AVAXUSDT",
+              "SOLUSDT",
+              "ETHUSDT",
+              "ADAUSDT",
+              "LINKUSDT",
+              "1000SHIBUSDT",
+              "DOTUSDT",
+              "BCHUSDT",
+              "UNIUSDT",
+              "XRPUSDT",
+              "DOGEUSDT",
+              "BNBUSDT",
+              "TRXUSDT",
+              "LTCUSDT",
+              "HBARUSDT"
+            ]
+          },
+          {
+            "date": "2022-09-26",
+            "count": 15,
+            "pool": [
+              "ETHUSDT",
+              "AVAXUSDT",
+              "SOLUSDT",
+              "BNBUSDT",
+              "UNIUSDT",
+              "DOTUSDT",
+              "LINKUSDT",
+              "BCHUSDT",
+              "XRPUSDT",
+              "1000SHIBUSDT",
+              "LTCUSDT",
+              "ADAUSDT",
+              "DOGEUSDT",
+              "XLMUSDT",
+              "HBARUSDT"
+            ]
+          },
+          {
+            "date": "2022-12-25",
+            "count": 15,
+            "pool": [
+              "DOGEUSDT",
+              "ETHUSDT",
+              "LINKUSDT",
+              "LTCUSDT",
+              "BNBUSDT",
+              "SOLUSDT",
+              "ADAUSDT",
+              "XRPUSDT",
+              "1000SHIBUSDT",
+              "AVAXUSDT",
+              "UNIUSDT",
+              "DOTUSDT",
+              "BCHUSDT",
+              "XLMUSDT",
+              "HBARUSDT"
+            ]
+          },
+          {
+            "date": "2023-03-25",
+            "count": 15,
+            "pool": [
+              "SOLUSDT",
+              "DOGEUSDT",
+              "1000SHIBUSDT",
+              "LTCUSDT",
+              "AVAXUSDT",
+              "ETHUSDT",
+              "ADAUSDT",
+              "DOTUSDT",
+              "BNBUSDT",
+              "LINKUSDT",
+              "HBARUSDT",
+              "XRPUSDT",
+              "BCHUSDT",
+              "UNIUSDT",
+              "XLMUSDT"
+            ]
+          },
+          {
+            "date": "2023-06-23",
+            "count": 13,
+            "pool": [
+              "SOLUSDT",
+              "XRPUSDT",
+              "ADAUSDT",
+              "ETHUSDT",
+              "LTCUSDT",
+              "DOGEUSDT",
+              "1000SHIBUSDT",
+              "AVAXUSDT",
+              "LINKUSDT",
+              "DOTUSDT",
+              "HBARUSDT",
+              "UNIUSDT",
+              "BCHUSDT"
+            ]
+          },
+          {
+            "date": "2023-09-21",
+            "count": 13,
+            "pool": [
+              "SOLUSDT",
+              "BCHUSDT",
+              "XRPUSDT",
+              "LTCUSDT",
+              "1000SHIBUSDT",
+              "LINKUSDT",
+              "AVAXUSDT",
+              "XLMUSDT",
+              "ADAUSDT",
+              "HBARUSDT",
+              "DOGEUSDT",
+              "DOTUSDT",
+              "UNIUSDT"
+            ]
+          },
+          {
+            "date": "2023-12-20",
+            "count": 14,
+            "pool": [
+              "SOLUSDT",
+              "AVAXUSDT",
+              "LINKUSDT",
+              "SUIUSDT",
+              "ADAUSDT",
+              "DOTUSDT",
+              "DOGEUSDT",
+              "XRPUSDT",
+              "1000SHIBUSDT",
+              "HBARUSDT",
+              "BCHUSDT",
+              "UNIUSDT",
+              "LTCUSDT",
+              "XLMUSDT"
+            ]
+          },
+          {
+            "date": "2024-03-19",
+            "count": 15,
+            "pool": [
+              "SOLUSDT",
+              "AVAXUSDT",
+              "ETHUSDT",
+              "DOTUSDT",
+              "1000SHIBUSDT",
+              "SUIUSDT",
+              "UNIUSDT",
+              "DOGEUSDT",
+              "ADAUSDT",
+              "HBARUSDT",
+              "BNBUSDT",
+              "LINKUSDT",
+              "BCHUSDT",
+              "XRPUSDT",
+              "LTCUSDT"
+            ]
+          },
+          {
+            "date": "2024-06-17",
+            "count": 15,
+            "pool": [
+              "SOLUSDT",
+              "DOGEUSDT",
+              "UNIUSDT",
+              "1000SHIBUSDT",
+              "ETHUSDT",
+              "BCHUSDT",
+              "SUIUSDT",
+              "AVAXUSDT",
+              "LINKUSDT",
+              "DOTUSDT",
+              "HBARUSDT",
+              "ADAUSDT",
+              "BNBUSDT",
+              "LTCUSDT",
+              "XRPUSDT"
+            ]
+          },
+          {
+            "date": "2024-09-15",
+            "count": 15,
+            "pool": [
+              "SUIUSDT",
+              "SOLUSDT",
+              "ETHUSDT",
+              "AVAXUSDT",
+              "DOGEUSDT",
+              "1000SHIBUSDT",
+              "LINKUSDT",
+              "BNBUSDT",
+              "ADAUSDT",
+              "UNIUSDT",
+              "BCHUSDT",
+              "XRPUSDT",
+              "DOTUSDT",
+              "HBARUSDT",
+              "LTCUSDT"
+            ]
+          },
+          {
+            "date": "2024-12-14",
+            "count": 15,
+            "pool": [
+              "SUIUSDT",
+              "DOGEUSDT",
+              "XRPUSDT",
+              "HBARUSDT",
+              "SOLUSDT",
+              "ETHUSDT",
+              "ADAUSDT",
+              "AVAXUSDT",
+              "1000SHIBUSDT",
+              "LINKUSDT",
+              "DOTUSDT",
+              "UNIUSDT",
+              "XLMUSDT",
+              "BCHUSDT",
+              "TONUSDT"
+            ]
+          },
+          {
+            "date": "2025-03-14",
+            "count": 15,
+            "pool": [
+              "XRPUSDT",
+              "ADAUSDT",
+              "SOLUSDT",
+              "DOGEUSDT",
+              "HBARUSDT",
+              "LINKUSDT",
+              "SUIUSDT",
+              "ETHUSDT",
+              "LTCUSDT",
+              "AVAXUSDT",
+              "XLMUSDT",
+              "UNIUSDT",
+              "DOTUSDT",
+              "1000SHIBUSDT",
+              "BCHUSDT"
+            ]
+          },
+          {
+            "date": "2025-06-12",
+            "count": 15,
+            "pool": [
+              "ETHUSDT",
+              "SUIUSDT",
+              "SOLUSDT",
+              "DOGEUSDT",
+              "LTCUSDT",
+              "UNIUSDT",
+              "ADAUSDT",
+              "LINKUSDT",
+              "XRPUSDT",
+              "AVAXUSDT",
+              "DOTUSDT",
+              "HBARUSDT",
+              "1000SHIBUSDT",
+              "TONUSDT",
+              "XLMUSDT"
+            ]
+          },
+          {
+            "date": "2025-09-10",
+            "count": 15,
+            "pool": [
+              "ETHUSDT",
+              "ADAUSDT",
+              "DOGEUSDT",
+              "LINKUSDT",
+              "SOLUSDT",
+              "SUIUSDT",
+              "AVAXUSDT",
+              "XRPUSDT",
+              "UNIUSDT",
+              "HBARUSDT",
+              "DOTUSDT",
+              "XLMUSDT",
+              "LTCUSDT",
+              "1000SHIBUSDT",
+              "BCHUSDT"
+            ]
+          },
+          {
+            "date": "2025-12-09",
+            "count": 15,
+            "pool": [
+              "SOLUSDT",
+              "AVAXUSDT",
+              "SUIUSDT",
+              "ETHUSDT",
+              "DOGEUSDT",
+              "UNIUSDT",
+              "ADAUSDT",
+              "BNBUSDT",
+              "LINKUSDT",
+              "XRPUSDT",
+              "DOTUSDT",
+              "HBARUSDT",
+              "LTCUSDT",
+              "TONUSDT",
+              "XLMUSDT"
+            ]
+          },
+          {
+            "date": "2026-03-09",
+            "count": 15,
+            "pool": [
+              "ETHUSDT",
+              "SOLUSDT",
+              "SUIUSDT",
+              "HYPEUSDT",
+              "UNIUSDT",
+              "XRPUSDT",
+              "DOTUSDT",
+              "DOGEUSDT",
+              "ADAUSDT",
+              "AVAXUSDT",
+              "LINKUSDT",
+              "1000SHIBUSDT",
+              "BCHUSDT",
+              "BNBUSDT",
+              "HBARUSDT"
+            ]
+          },
+          {
+            "date": "2026-06-07",
+            "count": 15,
+            "pool": [
+              "HYPEUSDT",
+              "SUIUSDT",
+              "ETHUSDT",
+              "TONUSDT",
+              "SOLUSDT",
+              "DOGEUSDT",
+              "UNIUSDT",
+              "XLMUSDT",
+              "XRPUSDT",
+              "ADAUSDT",
+              "DOTUSDT",
+              "BCHUSDT",
+              "LINKUSDT",
+              "AVAXUSDT",
+              "1000SHIBUSDT"
+            ]
+          },
+          {
+            "date": "2026-09-05",
+            "count": 15,
+            "pool": [
+              "HYPEUSDT",
+              "UNIUSDT",
+              "ETHUSDT",
+              "SOLUSDT",
+              "ADAUSDT",
+              "BCHUSDT",
+              "XRPUSDT",
+              "SUIUSDT",
+              "DOGEUSDT",
+              "LINKUSDT",
+              "XLMUSDT",
+              "AVAXUSDT",
+              "1000SHIBUSDT",
+              "DOTUSDT",
+              "HBARUSDT"
+            ]
+          }
+        ]
+      },
+      "6m": {
+        "label": "V3_wf_90d_top15_atr3.5%_6M",
+        "end_eq": 24366.86,
+        "net_pnl": 14366.86,
+        "roi_pct": 143.67,
+        "cagr_pct": 133.68,
+        "dd_pct": 23.4,
+        "min_eq": 9885.48,
+        "geom_calmar": 5.71,
+        "lin_calmar": 5.85,
+        "trades": 134,
+        "tr_mo": 10.6,
+        "wr_pct": 46.3,
+        "pf": 3.08,
+        "fees_usd": 313.5,
+        "funding_usd": -145.56,
+        "by_yr": {
+          "2026": 14512.0
+        },
+        "rebalances": [
+          {
+            "date": "2026-05-19",
+            "count": 15,
+            "pool": [
+              "ETHUSDT",
+              "SUIUSDT",
+              "HYPEUSDT",
+              "SOLUSDT",
+              "TONUSDT",
+              "DOGEUSDT",
+              "DOTUSDT",
+              "XRPUSDT",
+              "UNIUSDT",
+              "AVAXUSDT",
+              "ADAUSDT",
+              "LINKUSDT",
+              "XLMUSDT",
+              "1000SHIBUSDT",
+              "BCHUSDT"
+            ]
+          },
+          {
+            "date": "2026-08-17",
+            "count": 13,
+            "pool": [
+              "UNIUSDT",
+              "ETHUSDT",
+              "HYPEUSDT",
+              "ADAUSDT",
+              "SOLUSDT",
+              "DOGEUSDT",
+              "SUIUSDT",
+              "BCHUSDT",
+              "1000SHIBUSDT",
+              "LINKUSDT",
+              "XLMUSDT",
+              "DOTUSDT",
+              "AVAXUSDT"
+            ]
+          },
+          {
+            "date": "2026-11-15",
+            "count": 15,
+            "pool": [
+              "UNIUSDT",
+              "SOLUSDT",
+              "HYPEUSDT",
+              "SUIUSDT",
+              "XRPUSDT",
+              "ADAUSDT",
+              "AVAXUSDT",
+              "DOGEUSDT",
+              "LINKUSDT",
+              "BCHUSDT",
+              "XLMUSDT",
+              "DOTUSDT",
+              "LTCUSDT",
+              "HBARUSDT",
+              "1000SHIBUSDT"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "5y": {
+        "label": "V3_wf_180d_top15_atr3.5%",
+        "end_eq": 122722.1,
+        "net_pnl": 112722.1,
+        "roi_pct": 1127.22,
+        "cagr_pct": 64.26,
+        "dd_pct": 66.55,
+        "min_eq": 6511.61,
+        "geom_calmar": 0.97,
+        "lin_calmar": 3.35,
+        "trades": 1362,
+        "tr_mo": 22.5,
+        "wr_pct": 40.0,
+        "pf": 1.63,
+        "fees_usd": 6854.33,
+        "funding_usd": -5662.03,
+        "by_yr": {
+          "2022": -2770.0,
+          "2023": 12434.0,
+          "2024": 21763.0,
+          "2025": 11499.0,
+          "2026": 75458.0
+        },
+        "rebalances": [
+          {
+            "date": "2022-03-30",
+            "count": 10,
+            "pool": [
+              "AVAXUSDT",
+              "1000SHIBUSDT",
+              "ETHUSDT",
+              "DOTUSDT",
+              "LINKUSDT",
+              "ADAUSDT",
+              "DOGEUSDT",
+              "UNIUSDT",
+              "BNBUSDT",
+              "BCHUSDT"
+            ]
+          },
+          {
+            "date": "2022-09-26",
+            "count": 15,
+            "pool": [
+              "ETHUSDT",
+              "AVAXUSDT",
+              "SOLUSDT",
+              "LINKUSDT",
+              "XRPUSDT",
+              "1000SHIBUSDT",
+              "UNIUSDT",
+              "DOTUSDT",
+              "ADAUSDT",
+              "BNBUSDT",
+              "BCHUSDT",
+              "LTCUSDT",
+              "DOGEUSDT",
+              "HBARUSDT",
+              "XLMUSDT"
+            ]
+          },
+          {
+            "date": "2023-03-25",
+            "count": 15,
+            "pool": [
+              "SOLUSDT",
+              "DOGEUSDT",
+              "1000SHIBUSDT",
+              "ETHUSDT",
+              "AVAXUSDT",
+              "ADAUSDT",
+              "LTCUSDT",
+              "LINKUSDT",
+              "BNBUSDT",
+              "DOTUSDT",
+              "XRPUSDT",
+              "HBARUSDT",
+              "UNIUSDT",
+              "BCHUSDT",
+              "XLMUSDT"
+            ]
+          },
+          {
+            "date": "2023-09-21",
+            "count": 13,
+            "pool": [
+              "SOLUSDT",
+              "XRPUSDT",
+              "BCHUSDT",
+              "LTCUSDT",
+              "1000SHIBUSDT",
+              "AVAXUSDT",
+              "LINKUSDT",
+              "DOGEUSDT",
+              "ADAUSDT",
+              "HBARUSDT",
+              "XLMUSDT",
+              "DOTUSDT",
+              "UNIUSDT"
+            ]
+          },
+          {
+            "date": "2024-03-19",
+            "count": 15,
+            "pool": [
+              "SOLUSDT",
+              "AVAXUSDT",
+              "ETHUSDT",
+              "SUIUSDT",
+              "DOTUSDT",
+              "UNIUSDT",
+              "ADAUSDT",
+              "1000SHIBUSDT",
+              "DOGEUSDT",
+              "LINKUSDT",
+              "HBARUSDT",
+              "XRPUSDT",
+              "BCHUSDT",
+              "LTCUSDT",
+              "XLMUSDT"
+            ]
+          },
+          {
+            "date": "2024-09-15",
+            "count": 15,
+            "pool": [
+              "SUIUSDT",
+              "SOLUSDT",
+              "ETHUSDT",
+              "DOGEUSDT",
+              "AVAXUSDT",
+              "LINKUSDT",
+              "1000SHIBUSDT",
+              "UNIUSDT",
+              "BCHUSDT",
+              "ADAUSDT",
+              "BNBUSDT",
+              "XRPUSDT",
+              "DOTUSDT",
+              "LTCUSDT",
+              "HBARUSDT"
+            ]
+          },
+          {
+            "date": "2025-03-14",
+            "count": 15,
+            "pool": [
+              "DOGEUSDT",
+              "SUIUSDT",
+              "XRPUSDT",
+              "ADAUSDT",
+              "SOLUSDT",
+              "HBARUSDT",
+              "ETHUSDT",
+              "LINKUSDT",
+              "AVAXUSDT",
+              "LTCUSDT",
+              "XLMUSDT",
+              "UNIUSDT",
+              "DOTUSDT",
+              "1000SHIBUSDT",
+              "BCHUSDT"
+            ]
+          },
+          {
+            "date": "2025-09-10",
+            "count": 15,
+            "pool": [
+              "ETHUSDT",
+              "DOGEUSDT",
+              "SOLUSDT",
+              "SUIUSDT",
+              "ADAUSDT",
+              "LINKUSDT",
+              "XRPUSDT",
+              "UNIUSDT",
+              "AVAXUSDT",
+              "HBARUSDT",
+              "LTCUSDT",
+              "DOTUSDT",
+              "XLMUSDT",
+              "1000SHIBUSDT",
+              "BCHUSDT"
+            ]
+          },
+          {
+            "date": "2026-03-09",
+            "count": 15,
+            "pool": [
+              "SOLUSDT",
+              "ETHUSDT",
+              "SUIUSDT",
+              "HYPEUSDT",
+              "DOGEUSDT",
+              "AVAXUSDT",
+              "UNIUSDT",
+              "XRPUSDT",
+              "ADAUSDT",
+              "DOTUSDT",
+              "LINKUSDT",
+              "BNBUSDT",
+              "1000SHIBUSDT",
+              "HBARUSDT",
+              "BCHUSDT"
+            ]
+          },
+          {
+            "date": "2026-09-05",
+            "count": 15,
+            "pool": [
+              "HYPEUSDT",
+              "ETHUSDT",
+              "UNIUSDT",
+              "SOLUSDT",
+              "SUIUSDT",
+              "ADAUSDT",
+              "DOGEUSDT",
+              "XRPUSDT",
+              "LINKUSDT",
+              "BCHUSDT",
+              "XLMUSDT",
+              "DOTUSDT",
+              "AVAXUSDT",
+              "1000SHIBUSDT",
+              "HBARUSDT"
+            ]
+          }
+        ]
+      },
+      "6m": {
+        "label": "V3_wf_180d_top15_atr3.5%_6M",
+        "end_eq": 24589.33,
+        "net_pnl": 14589.33,
+        "roi_pct": 145.89,
+        "cagr_pct": 135.71,
+        "dd_pct": 24.39,
+        "min_eq": 9885.48,
+        "geom_calmar": 5.56,
+        "lin_calmar": 5.7,
+        "trades": 137,
+        "tr_mo": 10.9,
+        "wr_pct": 46.7,
+        "pf": 2.99,
+        "fees_usd": 333.16,
+        "funding_usd": -143.24,
+        "by_yr": {
+          "2026": 14733.0
+        },
+        "rebalances": [
+          {
+            "date": "2026-05-19",
+            "count": 15,
+            "pool": [
+              "SUIUSDT",
+              "SOLUSDT",
+              "ETHUSDT",
+              "HYPEUSDT",
+              "DOGEUSDT",
+              "TONUSDT",
+              "XRPUSDT",
+              "DOTUSDT",
+              "UNIUSDT",
+              "AVAXUSDT",
+              "LINKUSDT",
+              "ADAUSDT",
+              "1000SHIBUSDT",
+              "XLMUSDT",
+              "BCHUSDT"
+            ]
+          },
+          {
+            "date": "2026-11-15",
+            "count": 15,
+            "pool": [
+              "UNIUSDT",
+              "SOLUSDT",
+              "ETHUSDT",
+              "HYPEUSDT",
+              "SUIUSDT",
+              "ADAUSDT",
+              "XRPUSDT",
+              "BCHUSDT",
+              "DOGEUSDT",
+              "AVAXUSDT",
+              "LINKUSDT",
+              "DOTUSDT",
+              "XLMUSDT",
+              "LTCUSDT",
+              "HBARUSDT"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "5y": {
+        "label": "V3_wf_90d_top12_atr3.5%",
+        "end_eq": 97559.81,
+        "net_pnl": 87559.81,
+        "roi_pct": 875.6,
+        "cagr_pct": 56.97,
+        "dd_pct": 58.68,
+        "min_eq": 6469.8,
+        "geom_calmar": 0.97,
+        "lin_calmar": 2.95,
+        "trades": 1198,
+        "tr_mo": 19.8,
+        "wr_pct": 40.6,
+        "pf": 1.58,
+        "fees_usd": 5206.82,
+        "funding_usd": -4364.18,
+        "by_yr": {
+          "2022": -2877.0,
+          "2023": 11563.0,
+          "2024": 19584.0,
+          "2025": 9560.0,
+          "2026": 54093.0
+        },
+        "rebalances": [
+          {
+            "date": "2022-03-30",
+            "count": 10,
+            "pool": [
+              "AVAXUSDT",
+              "1000SHIBUSDT",
+              "ETHUSDT",
+              "LINKUSDT",
+              "ADAUSDT",
+              "DOTUSDT",
+              "UNIUSDT",
+              "DOGEUSDT",
+              "BCHUSDT",
+              "BNBUSDT"
+            ]
+          },
+          {
+            "date": "2022-06-28",
+            "count": 12,
+            "pool": [
+              "AVAXUSDT",
+              "SOLUSDT",
+              "ETHUSDT",
+              "ADAUSDT",
+              "LINKUSDT",
+              "1000SHIBUSDT",
+              "DOTUSDT",
+              "BCHUSDT",
+              "UNIUSDT",
+              "XRPUSDT",
+              "DOGEUSDT",
+              "BNBUSDT"
+            ]
+          },
+          {
+            "date": "2022-09-26",
+            "count": 12,
+            "pool": [
+              "ETHUSDT",
+              "AVAXUSDT",
+              "SOLUSDT",
+              "BNBUSDT",
+              "UNIUSDT",
+              "DOTUSDT",
+              "LINKUSDT",
+              "BCHUSDT",
+              "XRPUSDT",
+              "1000SHIBUSDT",
+              "LTCUSDT",
+              "ADAUSDT"
+            ]
+          },
+          {
+            "date": "2022-12-25",
+            "count": 12,
+            "pool": [
+              "DOGEUSDT",
+              "ETHUSDT",
+              "LINKUSDT",
+              "LTCUSDT",
+              "BNBUSDT",
+              "SOLUSDT",
+              "ADAUSDT",
+              "XRPUSDT",
+              "1000SHIBUSDT",
+              "AVAXUSDT",
+              "UNIUSDT",
+              "DOTUSDT"
+            ]
+          },
+          {
+            "date": "2023-03-25",
+            "count": 12,
+            "pool": [
+              "SOLUSDT",
+              "DOGEUSDT",
+              "1000SHIBUSDT",
+              "LTCUSDT",
+              "AVAXUSDT",
+              "ETHUSDT",
+              "ADAUSDT",
+              "DOTUSDT",
+              "BNBUSDT",
+              "LINKUSDT",
+              "HBARUSDT",
+              "XRPUSDT"
+            ]
+          },
+          {
+            "date": "2023-06-23",
+            "count": 12,
+            "pool": [
+              "SOLUSDT",
+              "XRPUSDT",
+              "ADAUSDT",
+              "ETHUSDT",
+              "LTCUSDT",
+              "DOGEUSDT",
+              "1000SHIBUSDT",
+              "AVAXUSDT",
+              "LINKUSDT",
+              "DOTUSDT",
+              "HBARUSDT",
+              "UNIUSDT"
+            ]
+          },
+          {
+            "date": "2023-09-21",
+            "count": 12,
+            "pool": [
+              "SOLUSDT",
+              "BCHUSDT",
+              "XRPUSDT",
+              "LTCUSDT",
+              "1000SHIBUSDT",
+              "LINKUSDT",
+              "AVAXUSDT",
+              "XLMUSDT",
+              "ADAUSDT",
+              "HBARUSDT",
+              "DOGEUSDT",
+              "DOTUSDT"
+            ]
+          },
+          {
+            "date": "2023-12-20",
+            "count": 12,
+            "pool": [
+              "SOLUSDT",
+              "AVAXUSDT",
+              "LINKUSDT",
+              "SUIUSDT",
+              "ADAUSDT",
+              "DOTUSDT",
+              "DOGEUSDT",
+              "XRPUSDT",
+              "1000SHIBUSDT",
+              "HBARUSDT",
+              "BCHUSDT",
+              "UNIUSDT"
+            ]
+          },
+          {
+            "date": "2024-03-19",
+            "count": 12,
+            "pool": [
+              "SOLUSDT",
+              "AVAXUSDT",
+              "ETHUSDT",
+              "DOTUSDT",
+              "1000SHIBUSDT",
+              "SUIUSDT",
+              "UNIUSDT",
+              "DOGEUSDT",
+              "ADAUSDT",
+              "HBARUSDT",
+              "BNBUSDT",
+              "LINKUSDT"
+            ]
+          },
+          {
+            "date": "2024-06-17",
+            "count": 12,
+            "pool": [
+              "SOLUSDT",
+              "DOGEUSDT",
+              "UNIUSDT",
+              "1000SHIBUSDT",
+              "ETHUSDT",
+              "BCHUSDT",
+              "SUIUSDT",
+              "AVAXUSDT",
+              "LINKUSDT",
+              "DOTUSDT",
+              "HBARUSDT",
+              "ADAUSDT"
+            ]
+          },
+          {
+            "date": "2024-09-15",
+            "count": 12,
+            "pool": [
+              "SUIUSDT",
+              "SOLUSDT",
+              "ETHUSDT",
+              "AVAXUSDT",
+              "DOGEUSDT",
+              "1000SHIBUSDT",
+              "LINKUSDT",
+              "BNBUSDT",
+              "ADAUSDT",
+              "UNIUSDT",
+              "BCHUSDT",
+              "XRPUSDT"
+            ]
+          },
+          {
+            "date": "2024-12-14",
+            "count": 12,
+            "pool": [
+              "SUIUSDT",
+              "DOGEUSDT",
+              "XRPUSDT",
+              "HBARUSDT",
+              "SOLUSDT",
+              "ETHUSDT",
+              "ADAUSDT",
+              "AVAXUSDT",
+              "1000SHIBUSDT",
+              "LINKUSDT",
+              "DOTUSDT",
+              "UNIUSDT"
+            ]
+          },
+          {
+            "date": "2025-03-14",
+            "count": 12,
+            "pool": [
+              "XRPUSDT",
+              "ADAUSDT",
+              "SOLUSDT",
+              "DOGEUSDT",
+              "HBARUSDT",
+              "LINKUSDT",
+              "SUIUSDT",
+              "ETHUSDT",
+              "LTCUSDT",
+              "AVAXUSDT",
+              "XLMUSDT",
+              "UNIUSDT"
+            ]
+          },
+          {
+            "date": "2025-06-12",
+            "count": 12,
+            "pool": [
+              "ETHUSDT",
+              "SUIUSDT",
+              "SOLUSDT",
+              "DOGEUSDT",
+              "LTCUSDT",
+              "UNIUSDT",
+              "ADAUSDT",
+              "LINKUSDT",
+              "XRPUSDT",
+              "AVAXUSDT",
+              "DOTUSDT",
+              "HBARUSDT"
+            ]
+          },
+          {
+            "date": "2025-09-10",
+            "count": 12,
+            "pool": [
+              "ETHUSDT",
+              "ADAUSDT",
+              "DOGEUSDT",
+              "LINKUSDT",
+              "SOLUSDT",
+              "SUIUSDT",
+              "AVAXUSDT",
+              "XRPUSDT",
+              "UNIUSDT",
+              "HBARUSDT",
+              "DOTUSDT",
+              "XLMUSDT"
+            ]
+          },
+          {
+            "date": "2025-12-09",
+            "count": 12,
+            "pool": [
+              "SOLUSDT",
+              "AVAXUSDT",
+              "SUIUSDT",
+              "ETHUSDT",
+              "DOGEUSDT",
+              "UNIUSDT",
+              "ADAUSDT",
+              "BNBUSDT",
+              "LINKUSDT",
+              "XRPUSDT",
+              "DOTUSDT",
+              "HBARUSDT"
+            ]
+          },
+          {
+            "date": "2026-03-09",
+            "count": 12,
+            "pool": [
+              "ETHUSDT",
+              "SOLUSDT",
+              "SUIUSDT",
+              "HYPEUSDT",
+              "UNIUSDT",
+              "XRPUSDT",
+              "DOTUSDT",
+              "DOGEUSDT",
+              "ADAUSDT",
+              "AVAXUSDT",
+              "LINKUSDT",
+              "1000SHIBUSDT"
+            ]
+          },
+          {
+            "date": "2026-06-07",
+            "count": 12,
+            "pool": [
+              "HYPEUSDT",
+              "SUIUSDT",
+              "ETHUSDT",
+              "TONUSDT",
+              "SOLUSDT",
+              "DOGEUSDT",
+              "UNIUSDT",
+              "XLMUSDT",
+              "XRPUSDT",
+              "ADAUSDT",
+              "DOTUSDT",
+              "BCHUSDT"
+            ]
+          },
+          {
+            "date": "2026-09-05",
+            "count": 12,
+            "pool": [
+              "HYPEUSDT",
+              "UNIUSDT",
+              "ETHUSDT",
+              "SOLUSDT",
+              "ADAUSDT",
+              "BCHUSDT",
+              "XRPUSDT",
+              "SUIUSDT",
+              "DOGEUSDT",
+              "LINKUSDT",
+              "XLMUSDT",
+              "AVAXUSDT"
+            ]
+          }
+        ]
+      },
+      "6m": {
+        "label": "V3_wf_90d_top12_atr3.5%_6M",
+        "end_eq": 22227.38,
+        "net_pnl": 12227.38,
+        "roi_pct": 122.27,
+        "cagr_pct": 114.08,
+        "dd_pct": 23.52,
+        "min_eq": 9691.55,
+        "geom_calmar": 4.85,
+        "lin_calmar": 4.95,
+        "trades": 123,
+        "tr_mo": 9.8,
+        "wr_pct": 46.3,
+        "pf": 3.0,
+        "fees_usd": 281.03,
+        "funding_usd": -109.23,
+        "by_yr": {
+          "2026": 12337.0
+        },
+        "rebalances": [
+          {
+            "date": "2026-05-19",
+            "count": 12,
+            "pool": [
+              "ETHUSDT",
+              "SUIUSDT",
+              "HYPEUSDT",
+              "SOLUSDT",
+              "TONUSDT",
+              "DOGEUSDT",
+              "DOTUSDT",
+              "XRPUSDT",
+              "UNIUSDT",
+              "AVAXUSDT",
+              "ADAUSDT",
+              "LINKUSDT"
+            ]
+          },
+          {
+            "date": "2026-08-17",
+            "count": 12,
+            "pool": [
+              "UNIUSDT",
+              "ETHUSDT",
+              "HYPEUSDT",
+              "ADAUSDT",
+              "SOLUSDT",
+              "DOGEUSDT",
+              "SUIUSDT",
+              "BCHUSDT",
+              "1000SHIBUSDT",
+              "LINKUSDT",
+              "XLMUSDT",
+              "DOTUSDT"
+            ]
+          },
+          {
+            "date": "2026-11-15",
+            "count": 12,
+            "pool": [
+              "UNIUSDT",
+              "SOLUSDT",
+              "HYPEUSDT",
+              "SUIUSDT",
+              "XRPUSDT",
+              "ADAUSDT",
+              "AVAXUSDT",
+              "DOGEUSDT",
+              "LINKUSDT",
+              "BCHUSDT",
+              "XLMUSDT",
+              "DOTUSDT"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "vector4_ensemble": [
+    {
+      "label": "V4_Ens_60P3raw_40P1fix",
+      "5y": {
+        "label": "V4_Ens_60P3raw_40P1fix_5Y",
+        "end_eq": 104311.07,
+        "net_pnl": 94311.07,
+        "roi_pct": 943.11,
+        "cagr_pct": 59.06,
+        "dd_pct": 51.11,
+        "min_eq": 7529.61,
+        "geom_calmar": 1.16,
+        "lin_calmar": 3.65
+      },
+      "6m": {
+        "label": "V4_Ens_60P3raw_40P1fix_6M",
+        "end_eq": 22700.64,
+        "net_pnl": 12700.64,
+        "roi_pct": 127.01,
+        "cagr_pct": 408.48,
+        "dd_pct": 17.81,
+        "min_eq": 9948.77,
+        "geom_calmar": 22.94,
+        "lin_calmar": 14.15
+      }
+    },
+    {
+      "label": "V4_Ens_60P3raw_40P1r15",
+      "5y": {
+        "label": "V4_Ens_60P3raw_40P1r15_5Y",
+        "end_eq": 212177.94,
+        "net_pnl": 202177.94,
+        "roi_pct": 2021.78,
+        "cagr_pct": 83.07,
+        "dd_pct": 52.23,
+        "min_eq": 7388.29,
+        "geom_calmar": 1.59,
+        "lin_calmar": 7.66
+      },
+      "6m": {
+        "label": "V4_Ens_60P3raw_40P1r15_6M",
+        "end_eq": 23190.33,
+        "net_pnl": 13190.33,
+        "roi_pct": 131.9,
+        "cagr_pct": 430.47,
+        "dd_pct": 18.04,
+        "min_eq": 9947.08,
+        "geom_calmar": 23.86,
+        "lin_calmar": 14.51
+      }
+    },
+    {
+      "label": "V4_Ens_60P3v2_40P1fix",
+      "5y": {
+        "label": "V4_Ens_60P3v2_40P1fix_5Y",
+        "end_eq": 146951.71,
+        "net_pnl": 136951.71,
+        "roi_pct": 1369.52,
+        "cagr_pct": 70.23,
+        "dd_pct": 45.28,
+        "min_eq": 8340.71,
+        "geom_calmar": 1.55,
+        "lin_calmar": 5.99
+      },
+      "6m": {
+        "label": "V4_Ens_60P3v2_40P1fix_6M",
+        "end_eq": 21820.68,
+        "net_pnl": 11820.68,
+        "roi_pct": 118.21,
+        "cagr_pct": 370.12,
+        "dd_pct": 15.63,
+        "min_eq": 9951.0,
+        "geom_calmar": 23.69,
+        "lin_calmar": 15.01
+      }
+    },
+    {
+      "label": "V4_Ens_60P3v2_40P1r15",
+      "5y": {
+        "label": "V4_Ens_60P3v2_40P1r15_5Y",
+        "end_eq": 254818.58,
+        "net_pnl": 244818.58,
+        "roi_pct": 2448.19,
+        "cagr_pct": 89.82,
+        "dd_pct": 46.7,
+        "min_eq": 8598.94,
+        "geom_calmar": 1.92,
+        "lin_calmar": 10.38
+      },
+      "6m": {
+        "label": "V4_Ens_60P3v2_40P1r15_6M",
+        "end_eq": 22310.38,
+        "net_pnl": 12310.38,
+        "roi_pct": 123.1,
+        "cagr_pct": 391.28,
+        "dd_pct": 16.07,
+        "min_eq": 9952.13,
+        "geom_calmar": 24.34,
+        "lin_calmar": 15.19
+      }
+    }
+  ],
+  "vector5_core_rnd": [
+    {
+      "5y": {
+        "label": "V5_recal_1d",
+        "end_eq": 202250.84,
+        "net_pnl": 192250.84,
+        "roi_pct": 1922.51,
+        "cagr_pct": 81.34,
+        "dd_pct": 63.98,
+        "min_eq": 6232.83,
+        "geom_calmar": 1.27,
+        "lin_calmar": 5.95,
+        "trades": 1514,
+        "tr_mo": 25.0,
+        "wr_pct": 39.6,
+        "pf": 1.7,
+        "fees_usd": 11162.25,
+        "funding_usd": -8389.97,
+        "by_yr": {
+          "2021": 95.0,
+          "2022": -3169.0,
+          "2023": 13832.0,
+          "2024": 45213.0,
+          "2025": 32188.0,
+          "2026": 112482.0
+        }
+      },
+      "6m": {
+        "label": "V5_recal_1d_6M",
+        "end_eq": 26206.74,
+        "net_pnl": 16206.74,
+        "roi_pct": 162.07,
+        "cagr_pct": 150.47,
+        "dd_pct": 25.56,
+        "min_eq": 9830.98,
+        "geom_calmar": 5.89,
+        "lin_calmar": 6.04,
+        "trades": 144,
+        "tr_mo": 11.4,
+        "wr_pct": 54.9,
+        "pf": 3.58,
+        "fees_usd": 401.26,
+        "funding_usd": -163.87,
+        "by_yr": {
+          "2026": 16371.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V5_recal_3d",
+        "end_eq": 183017.23,
+        "net_pnl": 173017.23,
+        "roi_pct": 1730.17,
+        "cagr_pct": 77.79,
+        "dd_pct": 61.11,
+        "min_eq": 6030.94,
+        "geom_calmar": 1.27,
+        "lin_calmar": 5.6,
+        "trades": 1503,
+        "tr_mo": 24.8,
+        "wr_pct": 39.7,
+        "pf": 1.82,
+        "fees_usd": 8692.05,
+        "funding_usd": -6626.23,
+        "by_yr": {
+          "2021": 101.0,
+          "2022": -3400.0,
+          "2023": 8004.0,
+          "2024": 35920.0,
+          "2025": 21964.0,
+          "2026": 117054.0
+        }
+      },
+      "6m": {
+        "label": "V5_recal_3d_6M",
+        "end_eq": 29098.54,
+        "net_pnl": 19098.54,
+        "roi_pct": 190.99,
+        "cagr_pct": 176.74,
+        "dd_pct": 22.55,
+        "min_eq": 9786.78,
+        "geom_calmar": 7.84,
+        "lin_calmar": 8.07,
+        "trades": 138,
+        "tr_mo": 11.0,
+        "wr_pct": 52.2,
+        "pf": 3.93,
+        "fees_usd": 406.75,
+        "funding_usd": -176.62,
+        "by_yr": {
+          "2026": 19275.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V5_funding_guard_0.03%",
+        "end_eq": 157602.75,
+        "net_pnl": 147602.75,
+        "roi_pct": 1476.03,
+        "cagr_pct": 72.6,
+        "dd_pct": 65.31,
+        "min_eq": 5670.91,
+        "geom_calmar": 1.11,
+        "lin_calmar": 4.47,
+        "trades": 1527,
+        "tr_mo": 25.2,
+        "wr_pct": 39.3,
+        "pf": 1.67,
+        "fees_usd": 8499.98,
+        "funding_usd": -6750.5,
+        "by_yr": {
+          "2021": -155.0,
+          "2022": -3658.0,
+          "2023": 12933.0,
+          "2024": 31772.0,
+          "2025": 14608.0,
+          "2026": 98855.0
+        }
+      },
+      "6m": {
+        "label": "V5_funding_guard_0.03%_6M",
+        "end_eq": 25855.85,
+        "net_pnl": 15855.85,
+        "roi_pct": 158.56,
+        "cagr_pct": 147.27,
+        "dd_pct": 23.15,
+        "min_eq": 9827.04,
+        "geom_calmar": 6.36,
+        "lin_calmar": 6.53,
+        "trades": 137,
+        "tr_mo": 10.9,
+        "wr_pct": 52.6,
+        "pf": 3.81,
+        "fees_usd": 361.81,
+        "funding_usd": -141.92,
+        "by_yr": {
+          "2026": 15998.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V5_funding_guard_0.05%",
+        "end_eq": 155979.97,
+        "net_pnl": 145979.97,
+        "roi_pct": 1459.8,
+        "cagr_pct": 72.25,
+        "dd_pct": 65.41,
+        "min_eq": 5520.21,
+        "geom_calmar": 1.1,
+        "lin_calmar": 4.42,
+        "trades": 1527,
+        "tr_mo": 25.2,
+        "wr_pct": 39.3,
+        "pf": 1.66,
+        "fees_usd": 8461.96,
+        "funding_usd": -6708.74,
+        "by_yr": {
+          "2021": -152.0,
+          "2022": -3707.0,
+          "2023": 12489.0,
+          "2024": 32525.0,
+          "2025": 14541.0,
+          "2026": 96992.0
+        }
+      },
+      "6m": {
+        "label": "V5_funding_guard_0.05%_6M",
+        "end_eq": 26905.75,
+        "net_pnl": 16905.75,
+        "roi_pct": 169.06,
+        "cagr_pct": 156.83,
+        "dd_pct": 23.16,
+        "min_eq": 9864.4,
+        "geom_calmar": 6.77,
+        "lin_calmar": 6.96,
+        "trades": 138,
+        "tr_mo": 11.0,
+        "wr_pct": 52.9,
+        "pf": 3.96,
+        "fees_usd": 386.45,
+        "funding_usd": -162.19,
+        "by_yr": {
+          "2026": 17068.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V5_funding_guard_0.08%",
+        "end_eq": 146511.53,
+        "net_pnl": 136511.53,
+        "roi_pct": 1365.12,
+        "cagr_pct": 70.13,
+        "dd_pct": 66.37,
+        "min_eq": 5521.88,
+        "geom_calmar": 1.06,
+        "lin_calmar": 4.07,
+        "trades": 1528,
+        "tr_mo": 25.2,
+        "wr_pct": 39.2,
+        "pf": 1.65,
+        "fees_usd": 8029.79,
+        "funding_usd": -6480.22,
+        "by_yr": {
+          "2021": -166.0,
+          "2022": -3693.0,
+          "2023": 12322.0,
+          "2024": 29826.0,
+          "2025": 13678.0,
+          "2026": 91024.0
+        }
+      },
+      "6m": {
+        "label": "V5_funding_guard_0.08%_6M",
+        "end_eq": 26905.75,
+        "net_pnl": 16905.75,
+        "roi_pct": 169.06,
+        "cagr_pct": 156.83,
+        "dd_pct": 23.16,
+        "min_eq": 9864.4,
+        "geom_calmar": 6.77,
+        "lin_calmar": 6.96,
+        "trades": 138,
+        "tr_mo": 11.0,
+        "wr_pct": 52.9,
+        "pf": 3.96,
+        "fees_usd": 386.45,
+        "funding_usd": -162.19,
+        "by_yr": {
+          "2026": 17068.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V5_utc_delay_5m",
+        "end_eq": 133598.6,
+        "net_pnl": 123598.6,
+        "roi_pct": 1235.99,
+        "cagr_pct": 67.05,
+        "dd_pct": 67.5,
+        "min_eq": 5740.96,
+        "geom_calmar": 0.99,
+        "lin_calmar": 3.62,
+        "trades": 1525,
+        "tr_mo": 25.2,
+        "wr_pct": 39.2,
+        "pf": 1.57,
+        "fees_usd": 8188.91,
+        "funding_usd": -6421.98,
+        "by_yr": {
+          "2021": -163.0,
+          "2022": -3521.0,
+          "2023": 13023.0,
+          "2024": 29427.0,
+          "2025": 17759.0,
+          "2026": 73495.0
+        }
+      },
+      "6m": {
+        "label": "V5_utc_delay_5m_6M",
+        "end_eq": 26356.24,
+        "net_pnl": 16356.24,
+        "roi_pct": 163.56,
+        "cagr_pct": 151.83,
+        "dd_pct": 23.11,
+        "min_eq": 9858.17,
+        "geom_calmar": 6.57,
+        "lin_calmar": 6.75,
+        "trades": 137,
+        "tr_mo": 10.9,
+        "wr_pct": 54.0,
+        "pf": 3.81,
+        "fees_usd": 371.79,
+        "funding_usd": -154.78,
+        "by_yr": {
+          "2026": 16511.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V5_utc_delay_10m",
+        "end_eq": 176061.52,
+        "net_pnl": 166061.52,
+        "roi_pct": 1660.62,
+        "cagr_pct": 76.43,
+        "dd_pct": 64.12,
+        "min_eq": 5769.09,
+        "geom_calmar": 1.19,
+        "lin_calmar": 5.13,
+        "trades": 1524,
+        "tr_mo": 25.1,
+        "wr_pct": 39.1,
+        "pf": 1.66,
+        "fees_usd": 9443.18,
+        "funding_usd": -7456.92,
+        "by_yr": {
+          "2021": -168.0,
+          "2022": -3485.0,
+          "2023": 13495.0,
+          "2024": 36572.0,
+          "2025": 18439.0,
+          "2026": 108665.0
+        }
+      },
+      "6m": {
+        "label": "V5_utc_delay_10m_6M",
+        "end_eq": 26964.15,
+        "net_pnl": 16964.15,
+        "roi_pct": 169.64,
+        "cagr_pct": 157.36,
+        "dd_pct": 22.91,
+        "min_eq": 9859.07,
+        "geom_calmar": 6.87,
+        "lin_calmar": 7.06,
+        "trades": 137,
+        "tr_mo": 10.9,
+        "wr_pct": 53.3,
+        "pf": 3.97,
+        "fees_usd": 375.63,
+        "funding_usd": -144.58,
+        "by_yr": {
+          "2026": 17109.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V5_utc_delay_15m",
+        "end_eq": 138717.64,
+        "net_pnl": 128717.64,
+        "roi_pct": 1287.18,
+        "cagr_pct": 68.3,
+        "dd_pct": 64.87,
+        "min_eq": 5656.85,
+        "geom_calmar": 1.05,
+        "lin_calmar": 3.93,
+        "trades": 1530,
+        "tr_mo": 25.2,
+        "wr_pct": 39.5,
+        "pf": 1.59,
+        "fees_usd": 8309.32,
+        "funding_usd": -6460.83,
+        "by_yr": {
+          "2021": -200.0,
+          "2022": -3572.0,
+          "2023": 12780.0,
+          "2024": 32527.0,
+          "2025": 15268.0,
+          "2026": 78376.0
+        }
+      },
+      "6m": {
+        "label": "V5_utc_delay_15m_6M",
+        "end_eq": 25905.5,
+        "net_pnl": 15905.5,
+        "roi_pct": 159.06,
+        "cagr_pct": 147.72,
+        "dd_pct": 23.35,
+        "min_eq": 9858.83,
+        "geom_calmar": 6.33,
+        "lin_calmar": 6.49,
+        "trades": 138,
+        "tr_mo": 11.0,
+        "wr_pct": 52.9,
+        "pf": 3.81,
+        "fees_usd": 382.94,
+        "funding_usd": -154.66,
+        "by_yr": {
+          "2026": 16060.0
+        }
+      }
+    },
+    {
+      "5y": {
+        "label": "V5_limit_chase_5m",
+        "end_eq": 142649.62,
+        "net_pnl": 132649.62,
+        "roi_pct": 1326.5,
+        "cagr_pct": 69.23,
+        "dd_pct": 66.56,
+        "min_eq": 5674.63,
+        "geom_calmar": 1.04,
+        "lin_calmar": 3.94,
+        "trades": 1529,
+        "tr_mo": 25.2,
+        "wr_pct": 39.4,
+        "pf": 1.62,
+        "fees_usd": 6139.77,
+        "funding_usd": -6673.24,
+        "by_yr": {
+          "2021": -173.0,
+          "2022": -3587.0,
+          "2023": 12604.0,
+          "2024": 30313.0,
+          "2025": 13162.0,
+          "2026": 87004.0
+        }
+      },
+      "6m": {
+        "label": "V5_limit_chase_5m_6M",
+        "end_eq": 26683.95,
+        "net_pnl": 16683.95,
+        "roi_pct": 166.84,
+        "cagr_pct": 154.81,
+        "dd_pct": 23.26,
+        "min_eq": 9865.7,
+        "geom_calmar": 6.66,
+        "lin_calmar": 6.84,
+        "trades": 139,
+        "tr_mo": 11.0,
+        "wr_pct": 54.0,
+        "pf": 3.9,
+        "fees_usd": 294.33,
+        "funding_usd": -151.68,
+        "by_yr": {
+          "2026": 16836.0
+        }
+      }
+    }
+  ],
+  "elapsed_sec": 3040.8
+}

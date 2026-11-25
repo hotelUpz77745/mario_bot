@@ -1,6 +1,6 @@
 # Стратегия `markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15` (Боевой паспорт №3)
 
-> **Статус проекта на 2026-11-25:** математическое ядро, бэктест-симулятор (`1m`, без look-ahead), биржевые спецификации всех 15+1 инструментов и юнит-тесты (`33/33 OK`) **полностью готовы**. До выхода на реальные деньги на Binance Futures остаётся реализовать живой адаптер биржи (REST + WebSocket вместо `MockLiveExecutionBroker`) и процедуру прогрева/реконсиляции состояния.
+> **Статус проекта на 2026-11-25 (после внедрения всех 5 векторов развития):** математическое ядро, боевой адаптер Binance Futures (REST + WS + 220д авто-прогрев + реконсиляция + `dry_run`), единая система прекомпиляции OHLCV/Funding/Индикаторов на общей оси времени, портфельный риск-контроллер (`PortfolioRiskGuard`), каузальный `WalkForwardPoolSelector`, юнит-тесты (`39/39 OK`) и 5-летняя верификация с реальным историческим 8h Funding Rate Binance **полностью завершены**. Паспорт №3 обновлён до доказанной версии v2 (`recal=3d`, `max_same_side_positions=5`, `max_portfolio_risk_ratio=0.10`, `funding_guard=0.05%/0.50x`).
 
 * **Официальное имя стратегии (`strategy_id`):** `markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15`
 * **Файл паспорта:** [`ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json)
@@ -188,3 +188,42 @@
 1. **Проверка `recalibrate_interval_days = 1 vs 3 vs 7` на `Top-15 + risk 1.5%`:** на 6 монетах с фиксом `7` дней чуть обыграло `1` день для `exit_sw`, но при `15` монетах и сложном проценте быстрая перекалибровка GMM (`1` или `3` дня) может ускорить уход в кэш при резких сломах тренда.
 2. **Фильтр перегретого Funding Rate / Open Interest:** при экстремальном положительном фандинге (`> 0.05% / 8h`) резать `LONG` множителем `×0.5` (защита от лонг-сквизов на хаях).
 3. **Защита от проскальзывания в 00:00 UTC:** все 15 монет проверяют смену суток одновременно на закрытии свечи `00:00 UTC` — момент максимальной минутной волатильности на Binance. Проверить в бэктесте отложенный вход на `+5..15` минут после `00:00 UTC` или исполнение `limit-chase` (maker `0.02%` вместо taker `0.05%`), что способно сэкономить до `40–60%` комиссий на дистанции `1,500+` сделок.
+
+---
+
+## 6. Фактические итоги реализации всех 5 векторов (`ADR-017`, реальный 5Y Funding Rate)
+
+Источники полных прогонов: [`passport3_5vectors_study.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBacktest/REPORTS/passport3_5vectors_study.json) и [`passport3_v2_candidates.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBacktest/REPORTS/passport3_v2_candidates.json) (`100,779` реальных 8-часовых записей Binance Futures Funding Rate за `2021-11 .. 2026-11`).
+
+### 6.1. Внедрённые инженерные модули (Векторы 1–3 + Прекомпиляция)
+* **Боевой брокер и раннер:** [`binance_futures_broker.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/EXECUTION/binance_futures_broker.py) (`BinanceFuturesExecutionBroker` — REST + HMAC-SHA256, `MARKET` + `STOP_MARKET closePosition=true`, принудительный `DELETE /fapi/v1/allOpenOrders` перед закрытием, `reconcile_positions`, `sync_symbol_specs`, `dry_run=true` по умолчанию в [`app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/app.json)) + [`live_runner.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/EXECUTION/live_runner.py) (220-дневный авто-прогрев + WebSocket 4H поток с дедупликацией) + `build_live_runtime()` в [`ClavaBot/main.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/main.py).
+* **Единая система прекомпиляции к общим меткам времени:** [`time_grid_precompiler.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBacktest/ENGINE/time_grid_precompiler.py) (`PrecompiledTimeGrid` + `UnifiedTimeGridPrecompiler`) — выравнивает OHLCV, 8h Funding Rates и индикаторы ядра (`atr_14`, `er_18`, `adx_14`, `ema_50`) на общую ось `bar_open_ts_ms / bar_close_ts_ms` с `O(1)` индексацией и сохранением в `.npz`; интегрирована в [`Aligned1mDataset`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBacktest/ENGINE/vision_parser.py) и [`BacktestRunner`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBacktest/ENGINE/backtest_runner.py).
+* **Портфельный риск-контроллер и OOS-селектор:** [`portfolio_risk_guard.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/STRATEGY/portfolio_risk_guard.py) (подключён в оркестратор и все паспорта через строгую секцию `portfolio_risk`) и [`pool_selector.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/STRATEGY/pool_selector.py) (`WalkForwardPoolSelector`).
+
+### 6.2. Сводная таблица результатов (5Y и 6M с реальным Funding Rate, старт `$10,000`)
+
+| Вектор / Вариант | 5Y Итог (`$`) | 5Y CAGR | 5Y `MaxDD` | `MinEq` | Геом. `Calmar` | 5Y `PF` | Funding (`$`) | 6M `ROI%` / `DD%` / `PF` | Статус решения |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| V1: База v1 без фандинга (`T15_r15`) | `$168,806` | `75.0%` | `65.2%` | `$5,634` | `1.15` | `1.65` | `$0` | `+168.8%` / `23.1%` / `3.86` | Референс без фандинга |
+| V1: База v1 **+ реальный Funding** | `$141,300` | `68.9%` | `66.6%` | `$5,532` | `1.04` | `1.64` | `-$6,342` | `+169.1%` / `23.2%` / `3.96` | Честная база с фандингом |
+| V1: Без отбора (`T19_r15` + Funding) | `$83,813` | `52.3%` | `72.5%` | `$5,172` | `0.72` | `1.50` | `-$5,179` | `+190.6%` / `22.4%` / `3.96` | Нижняя граница без фильтра |
+| V2: `max_same_side_positions = 5` | `$209,169` | `82.5%` | `54.0%` | `$8,017` | `1.53` | `1.89` | `-$7,217` | `+152.6%` / `20.8%` / `4.73` | **ПРИНЯТО** (главный буст) |
+| V2: `max_portfolio_risk_ratio = 0.10` | `$199,659` | `80.9%` | `57.5%` | `$6,285` | `1.41` | `1.73` | `-$7,891` | `+111.0%` / `23.4%` / `2.90` | **ПРИНЯТО** (в паре с `ss=5`) |
+| V2: Консерватор (`ss=5+or=8%+dd15/30`) | `$72,329` | `47.9%` | **`41.6%`** | **`$8,315`** | `1.15` | `1.79` | `-$3,059` | `+141.8%` / **`19.8%`** / **`4.99`** | Опция для ультра-низкого DD |
+| V2: Отдельный `DD Throttle` / `Breadth 5-6` | `$56.7k–$126k` | `41–65%` | `50–66%` | `$5.6k–$7.3k` | `0.82–0.99` | `1.58–1.71` | `-$2.9k..-$6k` | — | **ОТКЛОНЕНО** (режет выход со дна) |
+| V3: **Каузальный WF OOS `180d` (Top-19)** | **`$122,722`** | **`64.3%`** | `66.5%` | `$6,512` | **`0.97`** | `1.63` | `-$5,662` | `+145.9%` / `24.4%` / `2.99` | **ПОДТВЕРЖДЕНО OOS** (+46% к `T19`) |
+| V5: `recalibrate_interval_days = 3` | `$183,017` | `77.8%` | `61.1%` | `$6,031` | `1.27` | `1.82` | `-$6,626` | **`+191.0%`** / `22.6%` / `3.93` | **ПРИНЯТО** (лучше `7d` на 5Y и 6M) |
+| V5: `Funding Guard 0.05% (×0.50)` | `$155,980` | `72.2%` | `65.4%` | `$5,520` | `1.10` | `1.66` | `-$6,709` | `+169.1%` / `23.2%` / `3.96` | **ПРИНЯТО** (+10.4% к базе без минусов) |
+| V5: Сдвиг `+5м/+15м` и `limit-chase 5м` | `$133.6k–$142.6k` | `67–69%` | `65–68%` | `$5.7k` | `0.99–1.05` | `1.57–1.62` | `-$6.4k..-$6.7k` | — | Сдвиг отклонён; `limit-chase` опционален |
+| **ФИНАЛ: Паспорт №3 v2 (`ss5+or10+fg05+recal3`)** | **`$224,496`** | **`85.1%`** | **`53.8%`** | **`$8,281`** | **`1.58`** | **`1.95`** | `-$7,309` | **`+171.7%` / `19.9%` / `4.90`** | **ВНЕДРЕНО В БОЕВОЙ ПАСПОРТ №3** |
+| **V4: Ансамбль `60% P3_v2 + 40% P1_r15`** | **`$254,819`** | **`89.8%`** | **`46.7%`** | **`$8,599`** | **`1.92`** | — | `-$9,445` | **`+123.1%` / `16.1%`** | **АБСОЛЮТНЫЙ ПОРТФЕЛЬНЫЙ ЛИДЕР** |
+
+### 6.3. Погодовая динамика обновлённого Паспорта №3 v2 (`$224,496`, с реальным Funding Rate)
+* `2021` *(нояб–дек)*: **`+$124`**
+* `2022` *(криптозима)*: **`-$879`** *(сжато с `-$3,726` / `-$5,640` почти до безубытка!)*
+* `2023`: **`+$19,345`**
+* `2024`: **`+$32,122`**
+* `2025` *(боковики)*: **`+$38,095`**
+* `2026` *(до 18 нояб.)*: **`+$132,998`**
+* Итого `1,165` сделок (`19.2` сд./мес за 5 лет; `99` сделок = `16.4` сд./мес за последние полгода), `WR 40.6%`, `PF 1.95` (`6M PF 4.90`, `MaxDD 19.9%`).
+

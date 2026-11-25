@@ -177,3 +177,21 @@
        "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json"
    )
    ```
+
+---
+
+## 5. Верификация всех 5 векторов развития с реальным Funding Rate и апгрейд Паспорта №3 (v2)
+
+Паспорт №3 прошёл полную 5-летнюю (`2021-11 .. 2026-11`) и полугодовую (`2026-05 .. 2026-11`) проверку с учётом **`100,779` реальных исторических 8h Funding Rates Binance Futures** ([`passport3_5vectors_study.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBacktest/REPORTS/passport3_5vectors_study.json), [`passport3_v2_candidates.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBacktest/REPORTS/passport3_v2_candidates.json)). Подробный разбор всех 5 векторов — в [`STRATEGY_MARKOV_TOP15_R15.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/STRATEGY_MARKOV_TOP15_R15.md#L168-L215).
+
+* **Реальный Funding Rate (Вектор 1):** суммарно списал `-$6,342` за 5 лет на базе v1 (`$168,806 → $141,300`, `CAGR 68.9%`, `PF 1.64`), полностью сохранив устойчивый плюс.
+* **Доказанные апгрейды, внедрённые в боевой [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json):**
+  1. `portfolio_risk.max_same_side_positions = 5` + `max_portfolio_risk_ratio = 0.10` (убрал корреляционные каскады в 2022–2023).
+  2. `portfolio_risk.funding_guard_enabled = true` (`max_adverse_funding_rate = 0.0005`, множитель `0.50`).
+  3. `recalibrate_interval_days = 3` (быстрее адаптирует GMM к смене волатильности).
+* **Итог обновлённого Паспорта №3 v2 (с реальным Funding `-$7,309`):**
+  * **5 лет:** **`$224,496.18`** (`+$214,496`, **`CAGR +85.12%`**), **`MaxDD 53.78%`** (было `66.6%`), **`MinEq $8,281`** (`2022` сжат до **`-$879`**!), **`PF 1.95`**, **геом. Calmar `1.58`** (линейный `7.89`), `1,165` сделок (`19.2` сд./мес).
+  * **Полгода `2026`:** **`$27,166.49 (+171.7%)`**, **`MaxDD 19.91%`**, **`PF 4.90`**, `99` сделок (`16.4` сд./мес).
+* **Каузальный Walk-Forward OOS (Вектор 3, без ручного отбора монет):** на полной корзине Top-19 с реальным фандингом дал **`$122,722` (`CAGR 64.3%`, `MinEq $6,512`, `PF 1.63`)** против `$83,813` на статическом Top-19 — автоматически исключая молодые/вялые активы (`HYPE`, `TON`, `TRX`, `LTC`) без заглядывания в будущее.
+* **Ансамбль двух режимов (Вектор 4, `60%` Паспорт №3 v2 + `40%` Паспорт №1 `atr_btc_sl5` на `risk 1.5%`):** **`$254,818.58` (`CAGR 89.8%`)**, **`MaxDD 46.7%`**, **`MinEq $8,599`**, **геом. Calmar `1.92`** (`6M +123.1%`, `DD 16.1%`).
+* **Запуск в боевом/сухом режиме Binance Futures:** `from ClavaBot.main import build_live_runtime; runner = build_live_runtime("markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json")` (`dry_run: true` в [`app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/app.json)).

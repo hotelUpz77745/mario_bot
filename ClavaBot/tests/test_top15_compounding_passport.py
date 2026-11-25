@@ -43,7 +43,7 @@ EXPECTED_TOP15 = [
 
 
 class _AllBurstSignalPlugin(BaseSignalPlugin):
-    """Тестовый плагин: генерирует LONG-сигнал со стопом на первом баре каждой монеты."""
+    """Тестовый плагин: первые 8 монет дают LONG, остальные 7 — SHORT (проверка same_side=5 и max_pos=10)."""
 
     def __init__(self) -> None:
         self._fired: Dict[str, bool] = {}
@@ -51,11 +51,14 @@ class _AllBurstSignalPlugin(BaseSignalPlugin):
     def update_and_evaluate(self, symbol: str, candle: Candle) -> SignalEvent | None:
         if self._fired.get(symbol):
             return None
+        idx = len(self._fired)
         self._fired[symbol] = True
-        sl = candle.close * 0.90  # 10% SL дистанция для предсказуемого risk_per_trade_ratio
+        is_long = idx < 8
+        side = "LONG" if is_long else "SHORT"
+        sl = candle.close * (0.90 if is_long else 1.10)  # 10% SL дистанция -> риск ~1.5% на сделку
         return SignalEvent(
             symbol=symbol,
-            side="LONG",
+            side=side,
             signal_ts_ms=candle.close_ts_ms,
             entry_ref_price=candle.close,
             broken_level_price=candle.close,
@@ -77,8 +80,13 @@ class TestTop15CompoundingPassport(unittest.TestCase):
         self.assertAlmostEqual(passport.capital.risk_per_trade_ratio or 0.0, 0.015)
         self.assertIsNone(passport.capital.fixed_notional_usd)
         self.assertTrue(bool(passport.signal.params["exit_on_sideways"]))
+        self.assertEqual(int(passport.signal.params["recalibrate_interval_days"]), 3)
         self.assertAlmostEqual(float(passport.signal.params["atr_sl_mult"]), 5.0)
         self.assertEqual(passport.market_sentinel.benchmark_symbol, "BTCUSDT")
+        self.assertTrue(passport.portfolio_risk.enabled)
+        self.assertEqual(passport.portfolio_risk.max_same_side_positions, 5)
+        self.assertAlmostEqual(passport.portfolio_risk.max_portfolio_risk_ratio or 0.0, 0.10)
+        self.assertTrue(passport.portfolio_risk.funding_guard_enabled)
 
         # Сборка полного прод-рантайма (проверка, что все 15 монет + BTCUSDT есть в app.json/symbol_specs)
         orch, _agg = build_prod_runtime(PASSPORT_FILENAME)
@@ -157,8 +165,14 @@ class TestTop15CompoundingPassport(unittest.TestCase):
             if plan is not None:
                 opened += 1
 
-        self.assertEqual(opened, 10)
-        self.assertEqual(broker.open_positions_count(), 10)
+        # При max_same_side_positions=5 и max_portfolio_risk_ratio=0.10 (по 1.5% на сделку -> макс. 7 слотов по риску):
+        # первые 5 LONG проходят, 6-8 LONG блокируются по same_side=5, затем 2 SHORT проходят до порога open_risk=10%
+        self.assertEqual(opened, 7)
+        self.assertEqual(broker.open_positions_count(), 7)
+        longs = sum(1 for p in broker.positions.values() if p.side == "LONG")
+        shorts = sum(1 for p in broker.positions.values() if p.side == "SHORT")
+        self.assertEqual(longs, 5)
+        self.assertEqual(shorts, 2)
 
 
 if __name__ == "__main__":

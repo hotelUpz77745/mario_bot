@@ -1,0 +1,143 @@
+[
+  {
+    "5y": {
+      "label": "V2_ss5_fg05_recal7",
+      "end_eq": 207765.66,
+      "net_pnl": 197765.66,
+      "roi_pct": 1977.66,
+      "cagr_pct": 82.31,
+      "dd_pct": 55.82,
+      "min_eq": 7983.97,
+      "geom_calmar": 1.47,
+      "lin_calmar": 7.01,
+      "trades": 1181,
+      "tr_mo": 19.5,
+      "wr_pct": 40.2,
+      "pf": 1.92,
+      "fees_usd": 8594.05,
+      "funding_usd": -6878.16,
+      "by_yr": {
+        "2021": 404.0,
+        "2022": -2147.0,
+        "2023": 22436.0,
+        "2024": 26307.0,
+        "2025": 28163.0,
+        "2026": 129480.0
+      }
+    },
+    "6m": {
+      "label": "V2_ss5_fg05_recal7_6M",
+      "end_eq": 25115.5,
+      "net_pnl": 15115.5,
+      "roi_pct": 151.15,
+      "cagr_pct": 140.52,
+      "dd_pct": 20.06,
+      "min_eq": 9921.53,
+      "geom_calmar": 7.0,
+      "lin_calmar": 7.18,
+      "trades": 109,
+      "tr_mo": 8.7,
+      "wr_pct": 51.4,
+      "pf": 4.68,
+      "fees_usd": 289.8,
+      "funding_usd": -106.73,
+      "by_yr": {
+        "2026": 15222.0
+      }
+    }
+  },
+  {
+    "5y": {
+      "label": "V2_ss5_fg05_recal3",
+      "end_eq": 227593.14,
+      "net_pnl": 217593.14,
+      "roi_pct": 2175.93,
+      "cagr_pct": 85.62,
+      "dd_pct": 54.49,
+      "min_eq": 8280.95,
+      "geom_calmar": 1.57,
+      "lin_calmar": 7.9,
+      "trades": 1183,
+      "tr_mo": 19.5,
+      "wr_pct": 40.4,
+      "pf": 1.91,
+      "fees_usd": 9855.72,
+      "funding_usd": -7612.39,
+      "by_yr": {
+        "2021": 124.0,
+        "2022": -792.0,
+        "2023": 20816.0,
+        "2024": 32681.0,
+        "2025": 35050.0,
+        "2026": 137327.0
+      }
+    },
+    "6m": {
+      "label": "V2_ss5_fg05_recal3_6M",
+      "end_eq": 27443.13,
+      "net_pnl": 17443.13,
+      "roi_pct": 174.43,
+      "cagr_pct": 161.71,
+      "dd_pct": 20.42,
+      "min_eq": 9786.78,
+      "geom_calmar": 7.92,
+      "lin_calmar": 8.14,
+      "trades": 105,
+      "tr_mo": 8.3,
+      "wr_pct": 51.4,
+      "pf": 4.76,
+      "fees_usd": 305.63,
+      "funding_usd": -124.08,
+      "by_yr": {
+        "2026": 17567.0
+      }
+    }
+  },
+  {
+    "5y": {
+      "label": "V2_ss5_or10_fg05_recal3",
+      "end_eq": 224496.18,
+      "net_pnl": 214496.18,
+      "roi_pct": 2144.96,
+      "cagr_pct": 85.12,
+      "dd_pct": 53.78,
+      "min_eq": 8280.95,
+      "geom_calmar": 1.58,
+      "lin_calmar": 7.89,
+      "trades": 1165,
+      "tr_mo": 19.2,
+      "wr_pct": 40.6,
+      "pf": 1.95,
+      "fees_usd": 9503.81,
+      "funding_usd": -7308.56,
+      "by_yr": {
+        "2021": 124.0,
+        "2022": -879.0,
+        "2023": 19345.0,
+        "2024": 32122.0,
+        "2025": 38095.0,
+        "2026": 132998.0
+      }
+    },
+    "6m": {
+      "label": "V2_ss5_or10_fg05_recal3_6M",
+      "end_eq": 27166.49,
+      "net_pnl": 17166.49,
+      "roi_pct": 171.66,
+      "cagr_pct": 159.2,
+      "dd_pct": 19.91,
+      "min_eq": 9786.78,
+      "geom_calmar": 8.0,
+      "lin_calmar": 8.22,
+      "trades": 99,
+      "tr_mo": 7.9,
+      "wr_pct": 51.5,
+      "pf": 4.9,
+      "fees_usd": 286.56,
+      "funding_usd": -135.44,
+      "by_yr": {
+        "2026": 17302.0
+      }
+    }
+  }
+]
