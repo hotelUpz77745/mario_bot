@@ -92,9 +92,9 @@ def _remora_passport(raw_base: dict, min_level: int = 3, leverage: int = 4, util
 class TestRemoraHybrid(unittest.TestCase):
     def setUp(self) -> None:
         app_cfg = StrictConfigLoader.read_json(ROOT_DIR / "ClavaBot" / "CFG" / "app.json")
-        self.spec_manager = SpecManager(app_cfg["symbol_specs"])
+        self.spec_manager = SpecManager.from_app_config(ROOT_DIR / "ClavaBot", app_cfg)
         self.raw_base = StrictConfigLoader.read_json(
-            ROOT_DIR / "ClavaBot" / "CFG" / "strategies" / "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5.json"
+            ROOT_DIR / "ClavaBot" / "CFG" / "artifacts" / "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5.json"
         )
 
     def test_gate_counter_hedge_and_staleness_fail_closed(self) -> None:

@@ -58,8 +58,8 @@ def _daily_series(prices: list[float], sym: str = "ADAUSDT") -> list[Candle]:
 class TestMarkovUpgrades(unittest.TestCase):
     def setUp(self) -> None:
         self.app_cfg = StrictConfigLoader.read_json(ROOT_DIR / "ClavaBot" / "CFG" / "app.json")
-        self.spec_mgr = SpecManager(self.app_cfg["symbol_specs"])
-        self.strat_dir = ROOT_DIR / "ClavaBot" / "CFG" / "strategies"
+        self.spec_mgr = SpecManager.from_app_config(ROOT_DIR / "ClavaBot", self.app_cfg)
+        self.strat_dir = ROOT_DIR / "ClavaBot" / "CFG" / "artifacts"
         self.base_passport = StrictConfigLoader.load_strategy_passport(self.strat_dir / "markov_pure_4h_gmm_conf.json")
 
     def test_adaptive_gmm_and_quantile_thresholds(self) -> None:

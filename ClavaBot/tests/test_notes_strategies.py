@@ -27,7 +27,7 @@ def _c(idx: int, o: float, h: float, l: float, c: float, sym: str = "ETHUSDT") -
 class TestNotesStrategies(unittest.TestCase):
     def setUp(self) -> None:
         self.app_cfg = StrictConfigLoader.read_json(ROOT_DIR / "ClavaBot" / "CFG" / "app.json")
-        self.spec_mgr = SpecManager(self.app_cfg["symbol_specs"])
+        self.spec_mgr = SpecManager.from_app_config(ROOT_DIR / "ClavaBot", self.app_cfg)
         self.art_dir = ROOT_DIR / "ClavaBot" / "CFG" / "artifacts"
 
     def test_bollinger_breakout_plugin_triggers_with_swing_sl(self) -> None:

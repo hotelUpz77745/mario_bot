@@ -74,9 +74,9 @@ class TestEmaCrossAndInjection(unittest.TestCase):
     def test_reversal_on_opposite_signal_with_injected_plugin(self) -> None:
         app_cfg = StrictConfigLoader.read_json(ROOT_DIR / "ClavaBot" / "CFG" / "app.json")
         passport = StrictConfigLoader.load_strategy_passport(
-            ROOT_DIR / "ClavaBot" / "CFG" / "strategies" / "ema_cross_7_25_4h_markov.json"
+            ROOT_DIR / "ClavaBot" / "CFG" / "artifacts" / "ema_cross_7_25_4h_markov.json"
         )
-        spec_mgr = SpecManager(app_cfg["symbol_specs"])
+        spec_mgr = SpecManager.from_app_config(ROOT_DIR / "ClavaBot", app_cfg)
         broker = SimExecutionBroker(
             start_balance_usd=1000.0,
             leverage=5,
@@ -130,7 +130,7 @@ class TestEmaCrossAndInjection(unittest.TestCase):
         import dataclasses
         passport = dataclasses.replace(passport, ema_trend_filter=EmaTrendFilterConfig(enabled=True, period=5))
         broker = SimExecutionBroker(1000.0, 5, 0.0005, 0.0002, 0.0001, 0.0)
-        orch = TradeEngineOrchestrator(passport, SpecManager(app_cfg["symbol_specs"]), broker, signal_plugin=_StubTogglePlugin())
+        orch = TradeEngineOrchestrator(passport, SpecManager.from_app_config(ROOT_DIR / "ClavaBot", app_cfg), broker, signal_plugin=_StubTogglePlugin())
         orch.set_trading_enabled(False)
         for i in range(5):
             orch.on_candle_close("ADAUSDT", Candle("ADAUSDT", t0 + i * 1000, t0 + (i + 1) * 1000, 100.0, 100.0, 100.0, 100.0, 10.0))

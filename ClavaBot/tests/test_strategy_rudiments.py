@@ -49,7 +49,7 @@ def _make_candle(idx: int, o: float, h: float, l: float, c: float, symbol: str =
 class TestStrategyRudiments(unittest.TestCase):
     def setUp(self) -> None:
         app_cfg = StrictConfigLoader.read_json(ROOT_DIR / "ClavaBot" / "CFG" / "app.json")
-        self.spec_manager = SpecManager(app_cfg["symbol_specs"])
+        self.spec_manager = SpecManager.from_app_config(ROOT_DIR / "ClavaBot", app_cfg)
 
     def test_strict_config_loader_all_passports_and_missing_key(self) -> None:
         strat_dir = ROOT_DIR / "ClavaBot" / "CFG" / "strategies"
@@ -58,19 +58,7 @@ class TestStrategyRudiments(unittest.TestCase):
         self.assertEqual(
             [f.name for f in files],
             [
-                "ema_cross_7_25_4h.json",
-                "ema_cross_7_25_4h_markov.json",
-                "ema_cross_7_25_4h_markov_adx20.json",
-                "ema_cross_7_25_4h_markov_hybrid_sl5.json",
-                "ema_cross_7_25_4h_markov_probe20.json",
-                "ema_cross_7_25_4h_markov_probe20_atr_sl5.json",
-                "markov_pure_4h_gmm_conf.json",
-                "markov_pure_4h_gmm_conf_antichop.json",
-                "markov_pure_4h_gmm_conf_antichop_atr_btc_sl5.json",
-                "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5.json",
-                "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_remora.json",
-                "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json",
-                "markov_pure_4h_gmm_conf_antichop_shield.json",
+                "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json",
             ],
         )
         for p_file in files + sorted(art_dir.glob("*.json")):

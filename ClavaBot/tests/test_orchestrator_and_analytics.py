@@ -28,7 +28,7 @@ class TestOrchestratorAndAnalytics(unittest.TestCase):
         passport = StrictConfigLoader.load_strategy_passport(
             ROOT_DIR / "ClavaBot" / "CFG" / "artifacts" / "choch_4h_weekdays_ny_markov_gate.json"
         )
-        spec_mgr = SpecManager(app_cfg["symbol_specs"])
+        spec_mgr = SpecManager.from_app_config(ROOT_DIR / "ClavaBot", app_cfg)
         broker = MockLiveExecutionBroker(start_balance_usd=1000.0, leverage=5, taker_fee_rate=0.0005)
         orch = TradeEngineOrchestrator(passport=passport, spec_manager=spec_mgr, broker=broker)
 

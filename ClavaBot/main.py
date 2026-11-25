@@ -1,10 +1,12 @@
 # Path: ClavaBot/main.py
-# Role: Точка входа боевого каркаса ClavaBot (с мок-исполнением ордеров)
+# Role: Точка входа боевого бота ClavaBot (мультиаккаунтный HEDGE рантайм + сухой/мок-сборщик)
 
 from __future__ import annotations
 
+import asyncio
 import sys
 from pathlib import Path
+from typing import Any, Optional
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(ROOT_DIR) not in sys.path:
@@ -13,17 +15,14 @@ if str(ROOT_DIR) not in sys.path:
 from ClavaBot.c_log import UnifiedLogger
 from ClavaBot.CORE.candle_aggregator import CandleAggregator
 from ClavaBot.CORE.config_loader import StrictConfigLoader
-from ClavaBot.CORE.EXECUTION.binance_futures_broker import (
-    BinanceFuturesConfig,
-    BinanceFuturesExecutionBroker,
-)
-from ClavaBot.CORE.EXECUTION.live_runner import BinanceFuturesLiveRunner
+from ClavaBot.CORE.EXECUTION.cluster_runtime import ClavaClusterRuntime
 from ClavaBot.CORE.EXECUTION.mock_live_broker import MockLiveExecutionBroker
 from ClavaBot.CORE.orchestrator import TradeEngineOrchestrator
 from ClavaBot.CORE.spec_manager import SpecManager
 
 
 def build_prod_runtime(passport_filename: str | None = None) -> tuple[TradeEngineOrchestrator, CandleAggregator]:
+    """Лёгкая сборка одного оркестратора (мок-брокер + суточный кэш specifications.json)."""
     bot_dir = Path(__file__).resolve().parent
     app_cfg = StrictConfigLoader.read_json(bot_dir / "CFG" / "app.json")
 
@@ -31,7 +30,13 @@ def build_prod_runtime(passport_filename: str | None = None) -> tuple[TradeEngin
     chosen = passport_filename if passport_filename is not None else str(app_cfg["default_passport"])
     passport = StrictConfigLoader.load_strategy_passport(strategies_dir / chosen)
 
-    spec_manager = SpecManager(app_cfg["symbol_specs"])
+    sc = app_cfg["specs_cache"]
+    spec_manager = SpecManager.from_cache_file(
+        cache_path=(bot_dir / str(sc["path"])).resolve(),
+        ttl_sec=float(sc["ttl_sec"]),
+        auto_refresh=False,
+        exchange_info_url=str(sc["exchange_info_url"]),
+    )
     mock_cfg = app_cfg["mock_execution"]
     broker = MockLiveExecutionBroker(
         start_balance_usd=float(mock_cfg["start_balance_usd"]),
@@ -47,37 +52,34 @@ def build_prod_runtime(passport_filename: str | None = None) -> tuple[TradeEngin
     return orchestrator, aggregator
 
 
-def build_live_runtime(passport_filename: str | None = None) -> BinanceFuturesLiveRunner:
-    """Собирает боевой раннер Binance Futures (dry_run по умолчанию из CFG/app.json)."""
+def build_live_cluster(
+    rest_transport: Optional[Any] = None,
+    upstream_runner: Optional[Any] = None,
+) -> ClavaClusterRuntime:
+    """Собирает боевой мультиаккаунтный HEDGE-рантайм ClavaBot с общим IPC-стримом HRON_3."""
     bot_dir = Path(__file__).resolve().parent
-    app_cfg = StrictConfigLoader.read_json(bot_dir / "CFG" / "app.json")
-
-    strategies_dir = bot_dir / str(app_cfg["paths"]["strategies_dir"])
-    chosen = passport_filename if passport_filename is not None else str(app_cfg["default_passport"])
-    passport = StrictConfigLoader.load_strategy_passport(strategies_dir / chosen)
-
-    spec_manager = SpecManager(app_cfg["symbol_specs"])
-    bf_cfg = BinanceFuturesConfig.from_dict(app_cfg["binance_futures"])
-    broker = BinanceFuturesExecutionBroker(
-        cfg=bf_cfg,
-        spec_manager=spec_manager,
-        dry_run_balance_usd=passport.capital.start_balance_usd,
+    return ClavaClusterRuntime.from_app_config(
+        app_cfg_path=bot_dir / "CFG" / "app.json",
+        bot_root_dir=bot_dir,
+        mode="PROD",
+        rest_transport=rest_transport,
+        upstream_runner=upstream_runner,
     )
-    orchestrator = TradeEngineOrchestrator(
-        passport=passport,
-        spec_manager=spec_manager,
-        broker=broker,
-    )
-    return BinanceFuturesLiveRunner(orchestrator=orchestrator, broker=broker, cfg=bf_cfg)
 
 
 def main() -> None:
     logger = UnifiedLogger("ClavaBotMain")
-    orchestrator, _aggregator = build_prod_runtime()
+    cluster = build_live_cluster()
     logger.info(
-        f"ClavaBot initialized | strategy={orchestrator.passport.strategy_id} | "
-        f"tf={orchestrator.passport.timeframe} | symbols={orchestrator.passport.symbols}"
+        f"ClavaBot initialized | slots={[s.slot_id for s in cluster.slots]} | "
+        f"dry_run={cluster.app_cfg['binance_futures']['dry_run']} | "
+        f"cluster_symbols={len(cluster.price_hub.cluster_symbols)}"
     )
+    if "--run" in sys.argv:
+        try:
+            asyncio.run(cluster.run_forever())
+        except KeyboardInterrupt:
+            logger.info("ClavaBot stopped by Ctrl+C")
 
 
 if __name__ == "__main__":

@@ -9,8 +9,13 @@ __pycache__/
 ClavaBacktest/DATA/cache_1m/
 ClavaBacktest/DATA/cache_funding/
 
-# Runtime logs & local secrets
+# Runtime logs, live/paper state & local secrets
 ClavaBot/logs/
+ClavaPaper/logs/
+ClavaBot/ANALYTICS/STATS/
+ClavaBot/ANALYTICS/LEDGERS/
+ClavaPaper/ANALYTICS/STATS/
+ClavaPaper/ANALYTICS/LEDGERS/
 *.log
 .env
 .env.local

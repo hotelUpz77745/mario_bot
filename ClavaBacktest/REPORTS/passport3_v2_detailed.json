@@ -1,0 +1,297 @@
+{
+  "5y": {
+    "label": "Passport3_v2_5Y",
+    "start_balance_usd": 10000.0,
+    "end_equity_usd": 176250.67,
+    "net_pnl_usd": 166250.67,
+    "roi_pct": 1662.51,
+    "max_dd_pct": 52.56,
+    "max_dd_usd": 42910.8,
+    "min_equity_usd": 8280.95,
+    "trades": 1173,
+    "trades_per_month": 19.4,
+    "wr_pct": 40.7,
+    "pf": 1.93,
+    "fees_usd": 7445.76,
+    "funding_usd": -6019.7,
+    "exit_reasons": {
+      "SIGNAL_EXIT": 1055,
+      "STOP_LOSS": 99,
+      "OPPOSITE_SIGNAL": 13,
+      "END_OF_SIM": 6
+    },
+    "positive_months": "37/61",
+    "median_monthly_roi_pct": 2.65,
+    "mean_monthly_roi_pct": 6.18,
+    "geom_monthly_roi_pct": 4.85,
+    "per_coin": {
+      "ADAUSDT": {
+        "trades": 87,
+        "wins": 36,
+        "wr_pct": 41.4,
+        "net_pnl_usd": 27273.33,
+        "fees_usd": 441.01,
+        "sl_count": 4
+      },
+      "SOLUSDT": {
+        "trades": 80,
+        "wins": 39,
+        "wr_pct": 48.8,
+        "net_pnl_usd": 8827.15,
+        "fees_usd": 390.07,
+        "sl_count": 8
+      },
+      "AVAXUSDT": {
+        "trades": 87,
+        "wins": 41,
+        "wr_pct": 47.1,
+        "net_pnl_usd": 3900.51,
+        "fees_usd": 344.93,
+        "sl_count": 11
+      },
+      "DOGEUSDT": {
+        "trades": 85,
+        "wins": 37,
+        "wr_pct": 43.5,
+        "net_pnl_usd": 8922.53,
+        "fees_usd": 507.65,
+        "sl_count": 3
+      },
+      "1000SHIBUSDT": {
+        "trades": 74,
+        "wins": 31,
+        "wr_pct": 41.9,
+        "net_pnl_usd": 14475.61,
+        "fees_usd": 516.92,
+        "sl_count": 7
+      },
+      "HBARUSDT": {
+        "trades": 79,
+        "wins": 36,
+        "wr_pct": 45.6,
+        "net_pnl_usd": 18121.08,
+        "fees_usd": 503.82,
+        "sl_count": 6
+      },
+      "SUIUSDT": {
+        "trades": 45,
+        "wins": 17,
+        "wr_pct": 37.8,
+        "net_pnl_usd": 13436.83,
+        "fees_usd": 212.11,
+        "sl_count": 5
+      },
+      "UNIUSDT": {
+        "trades": 77,
+        "wins": 31,
+        "wr_pct": 40.3,
+        "net_pnl_usd": 9051.23,
+        "fees_usd": 275.79,
+        "sl_count": 8
+      },
+      "XRPUSDT": {
+        "trades": 74,
+        "wins": 27,
+        "wr_pct": 36.5,
+        "net_pnl_usd": 7774.61,
+        "fees_usd": 631.58,
+        "sl_count": 7
+      },
+      "BCHUSDT": {
+        "trades": 90,
+        "wins": 30,
+        "wr_pct": 33.3,
+        "net_pnl_usd": 8513.13,
+        "fees_usd": 588.28,
+        "sl_count": 6
+      },
+      "DOTUSDT": {
+        "trades": 64,
+        "wins": 23,
+        "wr_pct": 35.9,
+        "net_pnl_usd": -1687.82,
+        "fees_usd": 311.84,
+        "sl_count": 7
+      },
+      "BNBUSDT": {
+        "trades": 75,
+        "wins": 31,
+        "wr_pct": 41.3,
+        "net_pnl_usd": 30408.69,
+        "fees_usd": 969.18,
+        "sl_count": 12
+      },
+      "ETHUSDT": {
+        "trades": 79,
+        "wins": 32,
+        "wr_pct": 40.5,
+        "net_pnl_usd": 4961.78,
+        "fees_usd": 722.9,
+        "sl_count": 6
+      },
+      "LINKUSDT": {
+        "trades": 96,
+        "wins": 34,
+        "wr_pct": 35.4,
+        "net_pnl_usd": 9519.71,
+        "fees_usd": 512.61,
+        "sl_count": 6
+      },
+      "XLMUSDT": {
+        "trades": 81,
+        "wins": 32,
+        "wr_pct": 39.5,
+        "net_pnl_usd": 8771.99,
+        "fees_usd": 517.07,
+        "sl_count": 3
+      }
+    }
+  },
+  "6m": {
+    "label": "Passport3_v2_6M",
+    "start_balance_usd": 10000.0,
+    "end_equity_usd": 27166.49,
+    "net_pnl_usd": 17166.49,
+    "roi_pct": 171.66,
+    "max_dd_pct": 19.91,
+    "max_dd_usd": 4348.49,
+    "min_equity_usd": 9786.78,
+    "trades": 99,
+    "trades_per_month": 16.5,
+    "wr_pct": 51.5,
+    "pf": 4.9,
+    "fees_usd": 286.56,
+    "funding_usd": -135.44,
+    "exit_reasons": {
+      "SIGNAL_EXIT": 85,
+      "STOP_LOSS": 8,
+      "END_OF_SIM": 6
+    },
+    "positive_months": "7/7",
+    "median_monthly_roi_pct": 5.6,
+    "mean_monthly_roi_pct": 16.49,
+    "geom_monthly_roi_pct": 18.09,
+    "per_coin": {
+      "ADAUSDT": {
+        "trades": 6,
+        "wins": 4,
+        "wr_pct": 66.7,
+        "net_pnl_usd": 1891.97,
+        "fees_usd": 10.78,
+        "sl_count": 0
+      },
+      "SOLUSDT": {
+        "trades": 4,
+        "wins": 3,
+        "wr_pct": 75.0,
+        "net_pnl_usd": 3273.61,
+        "fees_usd": 15.76,
+        "sl_count": 0
+      },
+      "AVAXUSDT": {
+        "trades": 6,
+        "wins": 3,
+        "wr_pct": 50.0,
+        "net_pnl_usd": 1303.73,
+        "fees_usd": 14.17,
+        "sl_count": 1
+      },
+      "DOGEUSDT": {
+        "trades": 7,
+        "wins": 3,
+        "wr_pct": 42.9,
+        "net_pnl_usd": 189.24,
+        "fees_usd": 22.02,
+        "sl_count": 0
+      },
+      "1000SHIBUSDT": {
+        "trades": 8,
+        "wins": 4,
+        "wr_pct": 50.0,
+        "net_pnl_usd": 1513.35,
+        "fees_usd": 22.09,
+        "sl_count": 1
+      },
+      "HBARUSDT": {
+        "trades": 11,
+        "wins": 7,
+        "wr_pct": 63.6,
+        "net_pnl_usd": 1712.52,
+        "fees_usd": 42.03,
+        "sl_count": 0
+      },
+      "SUIUSDT": {
+        "trades": 4,
+        "wins": 2,
+        "wr_pct": 50.0,
+        "net_pnl_usd": 1067.0,
+        "fees_usd": 6.97,
+        "sl_count": 1
+      },
+      "UNIUSDT": {
+        "trades": 11,
+        "wins": 4,
+        "wr_pct": 36.4,
+        "net_pnl_usd": -291.04,
+        "fees_usd": 12.09,
+        "sl_count": 3
+      },
+      "XRPUSDT": {
+        "trades": 4,
+        "wins": 2,
+        "wr_pct": 50.0,
+        "net_pnl_usd": 811.45,
+        "fees_usd": 22.41,
+        "sl_count": 1
+      },
+      "BCHUSDT": {
+        "trades": 4,
+        "wins": 2,
+        "wr_pct": 50.0,
+        "net_pnl_usd": 609.72,
+        "fees_usd": 7.12,
+        "sl_count": 0
+      },
+      "DOTUSDT": {
+        "trades": 7,
+        "wins": 2,
+        "wr_pct": 28.6,
+        "net_pnl_usd": 71.21,
+        "fees_usd": 8.34,
+        "sl_count": 0
+      },
+      "BNBUSDT": {
+        "trades": 7,
+        "wins": 4,
+        "wr_pct": 57.1,
+        "net_pnl_usd": 3171.99,
+        "fees_usd": 47.13,
+        "sl_count": 0
+      },
+      "ETHUSDT": {
+        "trades": 5,
+        "wins": 4,
+        "wr_pct": 80.0,
+        "net_pnl_usd": 638.69,
+        "fees_usd": 19.4,
+        "sl_count": 0
+      },
+      "LINKUSDT": {
+        "trades": 6,
+        "wins": 3,
+        "wr_pct": 50.0,
+        "net_pnl_usd": 549.36,
+        "fees_usd": 15.76,
+        "sl_count": 0
+      },
+      "XLMUSDT": {
+        "trades": 9,
+        "wins": 4,
+        "wr_pct": 44.4,
+        "net_pnl_usd": 789.13,
+        "fees_usd": 20.49,
+        "sl_count": 1
+      }
+    }
+  }
+}

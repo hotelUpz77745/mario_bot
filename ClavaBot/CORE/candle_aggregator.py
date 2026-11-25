@@ -106,3 +106,16 @@ class CandleAggregator:
             existing.low = l
         existing.close = c
         existing.volume += v
+
+    def push_tick(self, symbol: str, price: float, event_time_ms: int, qty: float = 0.0) -> Optional[Candle]:
+        """
+        Принимает живой ценовой тик (HotPriceTick из общего IPC стрима).
+        Если тик перешёл границу текущего UTC-бакета (4H), закрывает и возвращает завершённую свечу,
+        одновременно открывая новый бакет.
+        """
+        if price <= 0.0:
+            return None
+        sym_u = symbol.upper().strip()
+        closed = self.flush_if_closed(sym_u, int(event_time_ms))
+        self.push_1m(sym_u, int(event_time_ms), price, price, price, price, qty)
+        return closed

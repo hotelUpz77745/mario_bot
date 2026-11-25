@@ -104,7 +104,7 @@ class TestBacktestEngine(unittest.TestCase):
             sim_valid=np.ones((s_mins, n_syms), dtype=bool),
         )
 
-        runner = BacktestRunner(SpecManager(app_cfg["symbol_specs"]), bt_cfg["execution"])
+        runner = BacktestRunner(SpecManager.from_app_config(ROOT_DIR / "ClavaBot", app_cfg), bt_cfg["execution"])
         res = runner.run_passport(passport, dataset)
         self.assertEqual(res["strategy_id"], "choch_4h_weekdays_ny_markov_gate")
         self.assertIn("calmar_ratio", res)

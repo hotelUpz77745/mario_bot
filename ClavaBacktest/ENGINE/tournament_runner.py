@@ -33,7 +33,7 @@ class TournamentRunner:
         self.reports_dir = (self.backtest_dir / str(paths["reports_dir"])).resolve()
 
         self.app_cfg = StrictConfigLoader.read_json(self.bot_dir / "CFG" / "app.json")
-        self.spec_manager = SpecManager(self.app_cfg["symbol_specs"])
+        self.spec_manager = SpecManager.from_app_config(self.bot_dir, self.app_cfg)
         self.exec_cfg = self.bt_cfg["execution"]
 
         self.parser = BinanceVision1mParser(

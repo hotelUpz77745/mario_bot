@@ -50,7 +50,7 @@ class TestAllNotesPlugins(unittest.TestCase):
         self.assertEqual(sig.side, "LONG")
 
     def test_macd_anti_and_markov_pure_registry_smoke(self) -> None:
-        for path in (self.art_dir / "macd_anti_4h.json", self.strat_dir / "markov_pure_4h_gmm_conf.json"):
+        for path in (self.art_dir / "macd_anti_4h.json", self.art_dir / "markov_pure_4h_gmm_conf.json"):
             p = StrictConfigLoader.load_strategy_passport(path)
             pl = SignalPluginRegistry.create(p)
             for i in range(210):
