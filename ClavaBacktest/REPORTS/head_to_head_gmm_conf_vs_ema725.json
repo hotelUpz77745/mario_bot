@@ -1,0 +1,3186 @@
+{
+  "half_year": [
+    {
+      "strategy_id": "ema_cross_7_25_4h_markov",
+      "start_balance_usd": 1000.0,
+      "end_equity_usd": 1306.77,
+      "net_pnl_usd": 306.77,
+      "roi_pct": 30.68,
+      "winrate_pct": 40.78,
+      "total_trades": 103,
+      "wins": 42,
+      "losses": 61,
+      "max_drawdown_usd": 131.48,
+      "max_drawdown_pct": 10.35,
+      "peak_equity_usd": 1329.42,
+      "min_equity_usd": 985.79,
+      "calmar_ratio": 5.878,
+      "sharpe_ratio": 2.344,
+      "profit_factor": 1.972,
+      "expectancy_usd": 2.98,
+      "total_fees_usd": 15.52,
+      "long_short": {
+        "LONG": {
+          "trades": 39,
+          "wins": 15,
+          "losses": 24,
+          "winrate_pct": 38.46,
+          "net_pnl_usd": 124.77
+        },
+        "SHORT": {
+          "trades": 64,
+          "wins": 27,
+          "losses": 37,
+          "winrate_pct": 42.19,
+          "net_pnl_usd": 181.99
+        }
+      },
+      "monthly_pnl_usd": {
+        "2026-05": -8.4,
+        "2026-06": 128.23,
+        "2026-07": 56.91,
+        "2026-08": 47.76,
+        "2026-09": 43.59,
+        "2026-10": -20.12,
+        "2026-11": 58.8
+      },
+      "trade_diagnostics": {
+        "max_win_streak": 6,
+        "max_loss_streak": 13,
+        "avg_hold_hours": 199.07,
+        "avg_sl_dist_pct": 0.0,
+        "avg_win_usd": 14.82,
+        "avg_loss_usd": -5.17
+      },
+      "per_coin": {
+        "ADAUSDT": {
+          "trades": 13,
+          "wins": 9,
+          "losses": 4,
+          "winrate_pct": 69.23,
+          "net_pnl_usd": 115.32,
+          "fees_usd": 1.9
+        },
+        "DOGEUSDT": {
+          "trades": 19,
+          "wins": 6,
+          "losses": 13,
+          "winrate_pct": 31.58,
+          "net_pnl_usd": 68.53,
+          "fees_usd": 2.96
+        },
+        "ETHUSDT": {
+          "trades": 20,
+          "wins": 5,
+          "losses": 15,
+          "winrate_pct": 25.0,
+          "net_pnl_usd": -45.01,
+          "fees_usd": 3.01
+        },
+        "LTCUSDT": {
+          "trades": 21,
+          "wins": 12,
+          "losses": 9,
+          "winrate_pct": 57.14,
+          "net_pnl_usd": 114.35,
+          "fees_usd": 3.15
+        },
+        "SOLUSDT": {
+          "trades": 14,
+          "wins": 5,
+          "losses": 9,
+          "winrate_pct": 35.71,
+          "net_pnl_usd": 30.68,
+          "fees_usd": 2.15
+        },
+        "XRPUSDT": {
+          "trades": 16,
+          "wins": 5,
+          "losses": 11,
+          "winrate_pct": 31.25,
+          "net_pnl_usd": 22.88,
+          "fees_usd": 2.36
+        }
+      },
+      "exit_reasons": {
+        "OPPOSITE_SIGNAL": 101,
+        "END_OF_SIM": 2
+      }
+    },
+    {
+      "strategy_id": "markov_pure_4h_gmm_conf",
+      "start_balance_usd": 1000.0,
+      "end_equity_usd": 1687.11,
+      "net_pnl_usd": 687.11,
+      "roi_pct": 68.71,
+      "winrate_pct": 66.67,
+      "total_trades": 33,
+      "wins": 22,
+      "losses": 11,
+      "max_drawdown_usd": 317.53,
+      "max_drawdown_pct": 21.05,
+      "peak_equity_usd": 1706.58,
+      "min_equity_usd": 991.52,
+      "calmar_ratio": 6.475,
+      "sharpe_ratio": 2.809,
+      "profit_factor": 3.528,
+      "expectancy_usd": 20.82,
+      "total_fees_usd": 7.22,
+      "long_short": {
+        "LONG": {
+          "trades": 13,
+          "wins": 8,
+          "losses": 5,
+          "winrate_pct": 61.54,
+          "net_pnl_usd": 276.21
+        },
+        "SHORT": {
+          "trades": 20,
+          "wins": 14,
+          "losses": 6,
+          "winrate_pct": 70.0,
+          "net_pnl_usd": 410.9
+        }
+      },
+      "monthly_pnl_usd": {
+        "2026-05": -1.59,
+        "2026-06": 43.0,
+        "2026-07": 73.29,
+        "2026-08": -31.05,
+        "2026-09": 67.69,
+        "2026-10": 73.76,
+        "2026-11": 462.01
+      },
+      "trade_diagnostics": {
+        "max_win_streak": 8,
+        "max_loss_streak": 3,
+        "avg_hold_hours": 793.45,
+        "avg_sl_dist_pct": 0.0,
+        "avg_win_usd": 43.59,
+        "avg_loss_usd": -24.71
+      },
+      "per_coin": {
+        "ADAUSDT": {
+          "trades": 5,
+          "wins": 3,
+          "losses": 2,
+          "winrate_pct": 60.0,
+          "net_pnl_usd": 115.02,
+          "fees_usd": 0.93
+        },
+        "DOGEUSDT": {
+          "trades": 5,
+          "wins": 3,
+          "losses": 2,
+          "winrate_pct": 60.0,
+          "net_pnl_usd": 39.32,
+          "fees_usd": 1.22
+        },
+        "ETHUSDT": {
+          "trades": 3,
+          "wins": 3,
+          "losses": 0,
+          "winrate_pct": 100.0,
+          "net_pnl_usd": 203.52,
+          "fees_usd": 0.66
+        },
+        "LTCUSDT": {
+          "trades": 6,
+          "wins": 5,
+          "losses": 1,
+          "winrate_pct": 83.33,
+          "net_pnl_usd": 133.61,
+          "fees_usd": 1.45
+        },
+        "SOLUSDT": {
+          "trades": 8,
+          "wins": 4,
+          "losses": 4,
+          "winrate_pct": 50.0,
+          "net_pnl_usd": 119.68,
+          "fees_usd": 1.64
+        },
+        "XRPUSDT": {
+          "trades": 6,
+          "wins": 4,
+          "losses": 2,
+          "winrate_pct": 66.67,
+          "net_pnl_usd": 75.96,
+          "fees_usd": 1.31
+        }
+      },
+      "exit_reasons": {
+        "OPPOSITE_SIGNAL": 27,
+        "END_OF_SIM": 6
+      }
+    }
+  ],
+  "is_3y": [
+    {
+      "strategy_id": "ema_cross_7_25_4h_markov_IS3Y",
+      "start_balance_usd": 1000.0,
+      "end_equity_usd": 1353.43,
+      "net_pnl_usd": 353.43,
+      "roi_pct": 35.34,
+      "winrate_pct": 33.33,
+      "total_trades": 714,
+      "wins": 238,
+      "losses": 476,
+      "max_drawdown_usd": 533.91,
+      "max_drawdown_pct": 37.46,
+      "peak_equity_usd": 1628.41,
+      "min_equity_usd": 891.31,
+      "calmar_ratio": 0.314,
+      "sharpe_ratio": 0.491,
+      "profit_factor": 1.105,
+      "expectancy_usd": 0.49,
+      "total_fees_usd": 108.91,
+      "long_short": {
+        "LONG": {
+          "trades": 257,
+          "wins": 72,
+          "losses": 185,
+          "winrate_pct": 28.02,
+          "net_pnl_usd": 314.74
+        },
+        "SHORT": {
+          "trades": 457,
+          "wins": 166,
+          "losses": 291,
+          "winrate_pct": 36.32,
+          "net_pnl_usd": 38.69
+        }
+      },
+      "monthly_pnl_usd": {
+        "2021-11": 33.1,
+        "2021-12": 27.32,
+        "2022-01": 174.11,
+        "2022-02": -99.96,
+        "2022-03": 42.53,
+        "2022-04": -37.21,
+        "2022-05": 48.25,
+        "2022-06": 106.05,
+        "2022-07": 46.91,
+        "2022-08": -114.48,
+        "2022-09": -102.46,
+        "2022-10": -50.51,
+        "2022-11": 173.29,
+        "2022-12": 9.65,
+        "2023-01": -49.86,
+        "2023-02": -23.77,
+        "2023-03": -157.53,
+        "2023-04": 21.92,
+        "2023-05": -37.65,
+        "2023-06": -46.76,
+        "2023-07": 29.64,
+        "2023-08": 84.81,
+        "2023-09": -16.4,
+        "2023-10": -0.13,
+        "2023-11": 378.69,
+        "2023-12": 12.91,
+        "2024-01": -118.9,
+        "2024-02": -26.8,
+        "2024-03": 69.68,
+        "2024-04": 59.73,
+        "2024-05": 6.24,
+        "2024-06": -90.84,
+        "2024-07": -41.1,
+        "2024-08": 12.04,
+        "2024-09": 22.52,
+        "2024-10": -36.61,
+        "2024-11": 44.98
+      },
+      "trade_diagnostics": {
+        "max_win_streak": 8,
+        "max_loss_streak": 18,
+        "avg_hold_hours": 170.02,
+        "avg_sl_dist_pct": 0.0,
+        "avg_win_usd": 15.69,
+        "avg_loss_usd": -7.1
+      },
+      "per_coin": {
+        "ADAUSDT": {
+          "trades": 119,
+          "wins": 48,
+          "losses": 71,
+          "winrate_pct": 40.34,
+          "net_pnl_usd": 207.79,
+          "fees_usd": 18.59
+        },
+        "DOGEUSDT": {
+          "trades": 125,
+          "wins": 39,
+          "losses": 86,
+          "winrate_pct": 31.2,
+          "net_pnl_usd": 198.22,
+          "fees_usd": 20.03
+        },
+        "ETHUSDT": {
+          "trades": 117,
+          "wins": 39,
+          "losses": 78,
+          "winrate_pct": 33.33,
+          "net_pnl_usd": -34.21,
+          "fees_usd": 16.94
+        },
+        "LTCUSDT": {
+          "trades": 119,
+          "wins": 36,
+          "losses": 83,
+          "winrate_pct": 30.25,
+          "net_pnl_usd": -233.46,
+          "fees_usd": 18.22
+        },
+        "SOLUSDT": {
+          "trades": 102,
+          "wins": 38,
+          "losses": 64,
+          "winrate_pct": 37.25,
+          "net_pnl_usd": 239.77,
+          "fees_usd": 15.76
+        },
+        "XRPUSDT": {
+          "trades": 132,
+          "wins": 38,
+          "losses": 94,
+          "winrate_pct": 28.79,
+          "net_pnl_usd": -24.69,
+          "fees_usd": 19.38
+        }
+      },
+      "exit_reasons": {
+        "OPPOSITE_SIGNAL": 708,
+        "END_OF_SIM": 6
+      }
+    },
+    {
+      "strategy_id": "markov_pure_4h_gmm_conf_IS3Y",
+      "start_balance_usd": 1000.0,
+      "end_equity_usd": 1609.44,
+      "net_pnl_usd": 609.44,
+      "roi_pct": 60.94,
+      "winrate_pct": 37.44,
+      "total_trades": 219,
+      "wins": 82,
+      "losses": 137,
+      "max_drawdown_usd": 1219.38,
+      "max_drawdown_pct": 73.8,
+      "peak_equity_usd": 2339.07,
+      "min_equity_usd": 432.92,
+      "calmar_ratio": 0.275,
+      "sharpe_ratio": 0.612,
+      "profit_factor": 1.153,
+      "expectancy_usd": 2.78,
+      "total_fees_usd": 56.35,
+      "long_short": {
+        "LONG": {
+          "trades": 111,
+          "wins": 37,
+          "losses": 74,
+          "winrate_pct": 33.33,
+          "net_pnl_usd": 556.8
+        },
+        "SHORT": {
+          "trades": 108,
+          "wins": 45,
+          "losses": 63,
+          "winrate_pct": 41.67,
+          "net_pnl_usd": 52.64
+        }
+      },
+      "monthly_pnl_usd": {
+        "2021-11": -136.15,
+        "2021-12": 159.5,
+        "2022-01": -153.48,
+        "2022-02": -237.1,
+        "2022-03": -67.87,
+        "2022-04": -25.37,
+        "2022-05": 19.2,
+        "2022-06": 249.89,
+        "2022-07": 283.1,
+        "2022-08": -96.83,
+        "2022-09": 26.59,
+        "2022-10": -23.92,
+        "2022-11": -16.37,
+        "2022-12": 62.28,
+        "2023-01": -99.42,
+        "2023-02": 26.32,
+        "2023-03": -35.01,
+        "2023-04": -81.32,
+        "2023-05": -8.59,
+        "2023-06": -34.83,
+        "2023-07": -323.67,
+        "2023-08": -71.47,
+        "2023-09": -21.09,
+        "2023-10": 132.29,
+        "2023-11": 68.96,
+        "2023-12": 993.1,
+        "2024-01": -46.4,
+        "2024-02": 53.3,
+        "2024-03": 304.5,
+        "2024-04": -88.7,
+        "2024-05": -119.53,
+        "2024-06": -72.37,
+        "2024-07": 206.37,
+        "2024-08": -213.57,
+        "2024-09": -113.9,
+        "2024-10": -69.3,
+        "2024-11": 180.27
+      },
+      "trade_diagnostics": {
+        "max_win_streak": 6,
+        "max_loss_streak": 11,
+        "avg_hold_hours": 719.23,
+        "avg_sl_dist_pct": 0.0,
+        "avg_win_usd": 56.1,
+        "avg_loss_usd": -29.13
+      },
+      "per_coin": {
+        "ADAUSDT": {
+          "trades": 38,
+          "wins": 14,
+          "losses": 24,
+          "winrate_pct": 36.84,
+          "net_pnl_usd": 267.91,
+          "fees_usd": 9.04
+        },
+        "DOGEUSDT": {
+          "trades": 40,
+          "wins": 13,
+          "losses": 27,
+          "winrate_pct": 32.5,
+          "net_pnl_usd": 292.39,
+          "fees_usd": 10.21
+        },
+        "ETHUSDT": {
+          "trades": 33,
+          "wins": 15,
+          "losses": 18,
+          "winrate_pct": 45.45,
+          "net_pnl_usd": 201.81,
+          "fees_usd": 8.28
+        },
+        "LTCUSDT": {
+          "trades": 33,
+          "wins": 12,
+          "losses": 21,
+          "winrate_pct": 36.36,
+          "net_pnl_usd": -73.66,
+          "fees_usd": 9.37
+        },
+        "SOLUSDT": {
+          "trades": 41,
+          "wins": 17,
+          "losses": 24,
+          "winrate_pct": 41.46,
+          "net_pnl_usd": 449.51,
+          "fees_usd": 9.8
+        },
+        "XRPUSDT": {
+          "trades": 34,
+          "wins": 11,
+          "losses": 23,
+          "winrate_pct": 32.35,
+          "net_pnl_usd": -528.54,
+          "fees_usd": 9.65
+        }
+      },
+      "exit_reasons": {
+        "OPPOSITE_SIGNAL": 213,
+        "END_OF_SIM": 6
+      }
+    }
+  ],
+  "oos_2y": [
+    {
+      "strategy_id": "ema_cross_7_25_4h_markov_OOS2Y",
+      "start_balance_usd": 1000.0,
+      "end_equity_usd": 1508.83,
+      "net_pnl_usd": 508.83,
+      "roi_pct": 50.88,
+      "winrate_pct": 33.4,
+      "total_trades": 479,
+      "wins": 160,
+      "losses": 319,
+      "max_drawdown_usd": 710.82,
+      "max_drawdown_pct": 41.93,
+      "peak_equity_usd": 1695.33,
+      "min_equity_usd": 984.52,
+      "calmar_ratio": 0.592,
+      "sharpe_ratio": 0.808,
+      "profit_factor": 1.217,
+      "expectancy_usd": 1.06,
+      "total_fees_usd": 73.26,
+      "long_short": {
+        "LONG": {
+          "trades": 175,
+          "wins": 51,
+          "losses": 124,
+          "winrate_pct": 29.14,
+          "net_pnl_usd": 233.91
+        },
+        "SHORT": {
+          "trades": 304,
+          "wins": 109,
+          "losses": 195,
+          "winrate_pct": 35.86,
+          "net_pnl_usd": 274.92
+        }
+      },
+      "monthly_pnl_usd": {
+        "2024-11": 316.16,
+        "2024-12": 152.85,
+        "2025-01": -104.65,
+        "2025-02": -156.83,
+        "2025-03": 17.59,
+        "2025-04": 36.82,
+        "2025-05": -55.89,
+        "2025-06": 27.9,
+        "2025-07": 34.55,
+        "2025-08": 22.02,
+        "2025-09": -100.24,
+        "2025-10": -78.3,
+        "2025-11": 172.83,
+        "2025-12": -92.33,
+        "2026-01": -37.71,
+        "2026-02": 240.4,
+        "2026-03": -55.82,
+        "2026-04": -72.32,
+        "2026-05": -15.57,
+        "2026-06": 70.41,
+        "2026-07": 56.91,
+        "2026-08": 47.76,
+        "2026-09": 43.59,
+        "2026-10": -20.12,
+        "2026-11": 58.8
+      },
+      "trade_diagnostics": {
+        "max_win_streak": 6,
+        "max_loss_streak": 15,
+        "avg_hold_hours": 173.36,
+        "avg_sl_dist_pct": 0.0,
+        "avg_win_usd": 17.81,
+        "avg_loss_usd": -7.34
+      },
+      "per_coin": {
+        "ADAUSDT": {
+          "trades": 73,
+          "wins": 28,
+          "losses": 45,
+          "winrate_pct": 38.36,
+          "net_pnl_usd": 67.0,
+          "fees_usd": 11.16
+        },
+        "DOGEUSDT": {
+          "trades": 78,
+          "wins": 23,
+          "losses": 55,
+          "winrate_pct": 29.49,
+          "net_pnl_usd": 277.82,
+          "fees_usd": 12.61
+        },
+        "ETHUSDT": {
+          "trades": 83,
+          "wins": 26,
+          "losses": 57,
+          "winrate_pct": 31.33,
+          "net_pnl_usd": 2.85,
+          "fees_usd": 12.61
+        },
+        "LTCUSDT": {
+          "trades": 85,
+          "wins": 29,
+          "losses": 56,
+          "winrate_pct": 34.12,
+          "net_pnl_usd": 25.58,
+          "fees_usd": 12.6
+        },
+        "SOLUSDT": {
+          "trades": 78,
+          "wins": 29,
+          "losses": 49,
+          "winrate_pct": 37.18,
+          "net_pnl_usd": 20.1,
+          "fees_usd": 11.92
+        },
+        "XRPUSDT": {
+          "trades": 82,
+          "wins": 25,
+          "losses": 57,
+          "winrate_pct": 30.49,
+          "net_pnl_usd": 115.48,
+          "fees_usd": 12.37
+        }
+      },
+      "exit_reasons": {
+        "OPPOSITE_SIGNAL": 477,
+        "END_OF_SIM": 2
+      }
+    },
+    {
+      "strategy_id": "markov_pure_4h_gmm_conf_OOS2Y",
+      "start_balance_usd": 1000.0,
+      "end_equity_usd": 3598.63,
+      "net_pnl_usd": 2598.63,
+      "roi_pct": 259.86,
+      "winrate_pct": 44.27,
+      "total_trades": 131,
+      "wins": 58,
+      "losses": 73,
+      "max_drawdown_usd": 715.55,
+      "max_drawdown_pct": 24.43,
+      "peak_equity_usd": 3620.43,
+      "min_equity_usd": 956.48,
+      "calmar_ratio": 5.192,
+      "sharpe_ratio": 1.786,
+      "profit_factor": 2.259,
+      "expectancy_usd": 19.84,
+      "total_fees_usd": 34.32,
+      "long_short": {
+        "LONG": {
+          "trades": 64,
+          "wins": 23,
+          "losses": 41,
+          "winrate_pct": 35.94,
+          "net_pnl_usd": 1475.54
+        },
+        "SHORT": {
+          "trades": 67,
+          "wins": 35,
+          "losses": 32,
+          "winrate_pct": 52.24,
+          "net_pnl_usd": 1123.09
+        }
+      },
+      "monthly_pnl_usd": {
+        "2024-11": -67.97,
+        "2024-12": 1551.26,
+        "2025-01": -230.4,
+        "2025-02": -116.85,
+        "2025-03": -128.22,
+        "2025-04": 324.41,
+        "2025-05": -13.44,
+        "2025-06": 88.49,
+        "2025-07": -65.12,
+        "2025-08": 284.25,
+        "2025-09": -26.7,
+        "2025-10": -151.92,
+        "2025-11": -24.49,
+        "2025-12": 40.46,
+        "2026-01": 71.98,
+        "2026-02": 354.87,
+        "2026-03": -58.08,
+        "2026-04": -32.39,
+        "2026-05": -82.46,
+        "2026-06": -116.31,
+        "2026-07": 220.07,
+        "2026-08": -78.62,
+        "2026-09": 145.77,
+        "2026-10": 218.1,
+        "2026-11": 491.92
+      },
+      "trade_diagnostics": {
+        "max_win_streak": 8,
+        "max_loss_streak": 15,
+        "avg_hold_hours": 818.93,
+        "avg_sl_dist_pct": 0.0,
+        "avg_win_usd": 80.4,
+        "avg_loss_usd": -28.28
+      },
+      "per_coin": {
+        "ADAUSDT": {
+          "trades": 23,
+          "wins": 10,
+          "losses": 13,
+          "winrate_pct": 43.48,
+          "net_pnl_usd": 507.14,
+          "fees_usd": 5.44
+        },
+        "DOGEUSDT": {
+          "trades": 22,
+          "wins": 12,
+          "losses": 10,
+          "winrate_pct": 54.55,
+          "net_pnl_usd": 806.4,
+          "fees_usd": 6.46
+        },
+        "ETHUSDT": {
+          "trades": 15,
+          "wins": 9,
+          "losses": 6,
+          "winrate_pct": 60.0,
+          "net_pnl_usd": 510.88,
+          "fees_usd": 4.07
+        },
+        "LTCUSDT": {
+          "trades": 29,
+          "wins": 10,
+          "losses": 19,
+          "winrate_pct": 34.48,
+          "net_pnl_usd": -88.12,
+          "fees_usd": 7.65
+        },
+        "SOLUSDT": {
+          "trades": 18,
+          "wins": 9,
+          "losses": 9,
+          "winrate_pct": 50.0,
+          "net_pnl_usd": 372.53,
+          "fees_usd": 4.86
+        },
+        "XRPUSDT": {
+          "trades": 24,
+          "wins": 8,
+          "losses": 16,
+          "winrate_pct": 33.33,
+          "net_pnl_usd": 489.8,
+          "fees_usd": 5.84
+        }
+      },
+      "exit_reasons": {
+        "OPPOSITE_SIGNAL": 125,
+        "END_OF_SIM": 6
+      }
+    }
+  ],
+  "rolling_6m_5y": {
+    "windows": [
+      "2021-11-01..2022-04-30",
+      "2022-05-01..2022-10-31",
+      "2022-11-01..2023-04-30",
+      "2023-05-01..2023-10-31",
+      "2023-11-01..2024-04-30",
+      "2024-05-01..2024-10-31",
+      "2024-11-01..2025-04-30",
+      "2025-05-01..2025-10-31",
+      "2025-11-01..2026-04-30",
+      "2026-05-01..2026-10-31",
+      "2026-11-01..2026-11-18"
+    ],
+    "aggregate": [
+      {
+        "strategy_id": "ema_cross_7_25_4h_markov",
+        "windows_count": 11,
+        "positive_windows": 8,
+        "window_survival_pct": 72.73,
+        "total_net_pnl_usd": 696.72,
+        "total_roi_on_start_pct": 69.67,
+        "winrate_pct": 33.67,
+        "total_trades": 1203,
+        "avg_window_max_dd_pct": 22.37,
+        "per_window_pnl_usd": [
+          244.82,
+          26.75,
+          -198.22,
+          220.62,
+          80.31,
+          -131.48,
+          264.05,
+          -122.33,
+          66.06,
+          195.05,
+          51.09
+        ]
+      },
+      {
+        "strategy_id": "markov_pure_4h_gmm_conf",
+        "windows_count": 11,
+        "positive_windows": 8,
+        "window_survival_pct": 72.73,
+        "total_net_pnl_usd": 2630.98,
+        "total_roi_on_start_pct": 263.1,
+        "winrate_pct": 42.76,
+        "total_trades": 442,
+        "avg_window_max_dd_pct": 39.47,
+        "per_window_pnl_usd": [
+          -246.97,
+          838.01,
+          -493.08,
+          318.43,
+          691.6,
+          -756.35,
+          1384.83,
+          213.67,
+          30.39,
+          299.26,
+          351.19
+        ]
+      }
+    ],
+    "per_strategy": {
+      "ema_cross_7_25_4h_markov": [
+        {
+          "strategy_id": "ema_cross_7_25_4h_markov_W1",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1244.82,
+          "net_pnl_usd": 244.82,
+          "roi_pct": 24.48,
+          "winrate_pct": 46.24,
+          "total_trades": 93,
+          "wins": 43,
+          "losses": 50,
+          "max_drawdown_usd": 205.87,
+          "max_drawdown_pct": 16.65,
+          "peak_equity_usd": 1307.41,
+          "min_equity_usd": 983.96,
+          "calmar_ratio": 2.965,
+          "sharpe_ratio": 1.536,
+          "profit_factor": 1.531,
+          "expectancy_usd": 2.63,
+          "total_fees_usd": 14.54,
+          "long_short": {
+            "LONG": {
+              "trades": 22,
+              "wins": 5,
+              "losses": 17,
+              "winrate_pct": 22.73,
+              "net_pnl_usd": -80.1
+            },
+            "SHORT": {
+              "trades": 71,
+              "wins": 38,
+              "losses": 33,
+              "winrate_pct": 53.52,
+              "net_pnl_usd": 324.91
+            }
+          },
+          "monthly_pnl_usd": {
+            "2021-11": 33.1,
+            "2021-12": 27.32,
+            "2022-01": 174.11,
+            "2022-02": -99.96,
+            "2022-03": 42.53,
+            "2022-04": -37.21,
+            "2022-05": 104.92
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 8,
+            "max_loss_streak": 16,
+            "avg_hold_hours": 184.39,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 16.41,
+            "avg_loss_usd": -9.22
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 18,
+              "wins": 9,
+              "losses": 9,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": 82.23,
+              "fees_usd": 2.77
+            },
+            "DOGEUSDT": {
+              "trades": 16,
+              "wins": 5,
+              "losses": 11,
+              "winrate_pct": 31.25,
+              "net_pnl_usd": 18.94,
+              "fees_usd": 2.51
+            },
+            "ETHUSDT": {
+              "trades": 18,
+              "wins": 11,
+              "losses": 7,
+              "winrate_pct": 61.11,
+              "net_pnl_usd": 82.24,
+              "fees_usd": 2.62
+            },
+            "LTCUSDT": {
+              "trades": 12,
+              "wins": 6,
+              "losses": 6,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": 45.32,
+              "fees_usd": 2.06
+            },
+            "SOLUSDT": {
+              "trades": 13,
+              "wins": 6,
+              "losses": 7,
+              "winrate_pct": 46.15,
+              "net_pnl_usd": -6.68,
+              "fees_usd": 2.13
+            },
+            "XRPUSDT": {
+              "trades": 16,
+              "wins": 6,
+              "losses": 10,
+              "winrate_pct": 37.5,
+              "net_pnl_usd": 22.77,
+              "fees_usd": 2.46
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 87,
+            "END_OF_SIM": 6
+          },
+          "window": 1,
+          "period": "2021-11-01..2022-04-30"
+        },
+        {
+          "strategy_id": "ema_cross_7_25_4h_markov_W2",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1026.75,
+          "net_pnl_usd": 26.75,
+          "roi_pct": 2.68,
+          "winrate_pct": 29.82,
+          "total_trades": 114,
+          "wins": 34,
+          "losses": 80,
+          "max_drawdown_usd": 341.76,
+          "max_drawdown_pct": 28.49,
+          "peak_equity_usd": 1199.39,
+          "min_equity_usd": 857.63,
+          "calmar_ratio": 0.186,
+          "sharpe_ratio": 0.326,
+          "profit_factor": 1.043,
+          "expectancy_usd": 0.23,
+          "total_fees_usd": 18.54,
+          "long_short": {
+            "LONG": {
+              "trades": 39,
+              "wins": 10,
+              "losses": 29,
+              "winrate_pct": 25.64,
+              "net_pnl_usd": 36.39
+            },
+            "SHORT": {
+              "trades": 75,
+              "wins": 24,
+              "losses": 51,
+              "winrate_pct": 32.0,
+              "net_pnl_usd": -9.64
+            }
+          },
+          "monthly_pnl_usd": {
+            "2022-05": -37.68,
+            "2022-06": 106.05,
+            "2022-07": 46.91,
+            "2022-08": -114.48,
+            "2022-09": -102.46,
+            "2022-10": -50.51,
+            "2022-11": 178.93
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 5,
+            "max_loss_streak": 17,
+            "avg_hold_hours": 152.95,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 19.08,
+            "avg_loss_usd": -7.77
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 18,
+              "wins": 6,
+              "losses": 12,
+              "winrate_pct": 33.33,
+              "net_pnl_usd": -13.4,
+              "fees_usd": 2.99
+            },
+            "DOGEUSDT": {
+              "trades": 20,
+              "wins": 5,
+              "losses": 15,
+              "winrate_pct": 25.0,
+              "net_pnl_usd": 163.05,
+              "fees_usd": 3.26
+            },
+            "ETHUSDT": {
+              "trades": 17,
+              "wins": 6,
+              "losses": 11,
+              "winrate_pct": 35.29,
+              "net_pnl_usd": 24.79,
+              "fees_usd": 2.78
+            },
+            "LTCUSDT": {
+              "trades": 24,
+              "wins": 5,
+              "losses": 19,
+              "winrate_pct": 20.83,
+              "net_pnl_usd": -154.17,
+              "fees_usd": 4.21
+            },
+            "SOLUSDT": {
+              "trades": 16,
+              "wins": 7,
+              "losses": 9,
+              "winrate_pct": 43.75,
+              "net_pnl_usd": 11.1,
+              "fees_usd": 2.49
+            },
+            "XRPUSDT": {
+              "trades": 19,
+              "wins": 5,
+              "losses": 14,
+              "winrate_pct": 26.32,
+              "net_pnl_usd": -4.62,
+              "fees_usd": 2.8
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 110,
+            "END_OF_SIM": 4
+          },
+          "window": 2,
+          "period": "2022-05-01..2022-10-31"
+        },
+        {
+          "strategy_id": "ema_cross_7_25_4h_markov_W3",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 801.78,
+          "net_pnl_usd": -198.22,
+          "roi_pct": -19.82,
+          "winrate_pct": 27.42,
+          "total_trades": 124,
+          "wins": 34,
+          "losses": 90,
+          "max_drawdown_usd": 396.1,
+          "max_drawdown_pct": 34.15,
+          "peak_equity_usd": 1159.81,
+          "min_equity_usd": 763.72,
+          "calmar_ratio": -1.17,
+          "sharpe_ratio": -1.126,
+          "profit_factor": 0.688,
+          "expectancy_usd": -1.6,
+          "total_fees_usd": 18.16,
+          "long_short": {
+            "LONG": {
+              "trades": 54,
+              "wins": 13,
+              "losses": 41,
+              "winrate_pct": 24.07,
+              "net_pnl_usd": -155.95
+            },
+            "SHORT": {
+              "trades": 70,
+              "wins": 21,
+              "losses": 49,
+              "winrate_pct": 30.0,
+              "net_pnl_usd": -42.27
+            }
+          },
+          "monthly_pnl_usd": {
+            "2022-11": 9.26,
+            "2022-12": 9.65,
+            "2023-01": -49.86,
+            "2023-02": -23.77,
+            "2023-03": -157.53,
+            "2023-04": 21.92,
+            "2023-05": -7.9
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 4,
+            "max_loss_streak": 18,
+            "avg_hold_hours": 169.39,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 12.88,
+            "avg_loss_usd": -7.07
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 18,
+              "wins": 6,
+              "losses": 12,
+              "winrate_pct": 33.33,
+              "net_pnl_usd": -20.76,
+              "fees_usd": 2.62
+            },
+            "DOGEUSDT": {
+              "trades": 14,
+              "wins": 5,
+              "losses": 9,
+              "winrate_pct": 35.71,
+              "net_pnl_usd": -87.27,
+              "fees_usd": 2.22
+            },
+            "ETHUSDT": {
+              "trades": 23,
+              "wins": 6,
+              "losses": 17,
+              "winrate_pct": 26.09,
+              "net_pnl_usd": -36.91,
+              "fees_usd": 3.13
+            },
+            "LTCUSDT": {
+              "trades": 22,
+              "wins": 3,
+              "losses": 19,
+              "winrate_pct": 13.64,
+              "net_pnl_usd": -95.9,
+              "fees_usd": 3.45
+            },
+            "SOLUSDT": {
+              "trades": 19,
+              "wins": 7,
+              "losses": 12,
+              "winrate_pct": 36.84,
+              "net_pnl_usd": 34.67,
+              "fees_usd": 2.62
+            },
+            "XRPUSDT": {
+              "trades": 28,
+              "wins": 7,
+              "losses": 21,
+              "winrate_pct": 25.0,
+              "net_pnl_usd": 7.94,
+              "fees_usd": 4.13
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 119,
+            "END_OF_SIM": 5
+          },
+          "window": 3,
+          "period": "2022-11-01..2023-04-30"
+        },
+        {
+          "strategy_id": "ema_cross_7_25_4h_markov_W4",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1220.62,
+          "net_pnl_usd": 220.62,
+          "roi_pct": 22.06,
+          "winrate_pct": 35.09,
+          "total_trades": 114,
+          "wins": 40,
+          "losses": 74,
+          "max_drawdown_usd": 191.17,
+          "max_drawdown_pct": 18.41,
+          "peak_equity_usd": 1221.17,
+          "min_equity_usd": 847.38,
+          "calmar_ratio": 2.378,
+          "sharpe_ratio": 1.564,
+          "profit_factor": 1.555,
+          "expectancy_usd": 1.94,
+          "total_fees_usd": 17.46,
+          "long_short": {
+            "LONG": {
+              "trades": 37,
+              "wins": 13,
+              "losses": 24,
+              "winrate_pct": 35.14,
+              "net_pnl_usd": 227.73
+            },
+            "SHORT": {
+              "trades": 77,
+              "wins": 27,
+              "losses": 50,
+              "winrate_pct": 35.06,
+              "net_pnl_usd": -7.11
+            }
+          },
+          "monthly_pnl_usd": {
+            "2023-05": -34.22,
+            "2023-06": -46.76,
+            "2023-07": 29.64,
+            "2023-08": 84.81,
+            "2023-09": -16.4,
+            "2023-10": -0.13,
+            "2023-11": 203.68
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 4,
+            "max_loss_streak": 12,
+            "avg_hold_hours": 183.3,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 15.46,
+            "avg_loss_usd": -5.38
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 20,
+              "wins": 8,
+              "losses": 12,
+              "winrate_pct": 40.0,
+              "net_pnl_usd": 46.32,
+              "fees_usd": 3.23
+            },
+            "DOGEUSDT": {
+              "trades": 23,
+              "wins": 8,
+              "losses": 15,
+              "winrate_pct": 34.78,
+              "net_pnl_usd": -19.86,
+              "fees_usd": 3.71
+            },
+            "ETHUSDT": {
+              "trades": 19,
+              "wins": 3,
+              "losses": 16,
+              "winrate_pct": 15.79,
+              "net_pnl_usd": -52.08,
+              "fees_usd": 2.47
+            },
+            "LTCUSDT": {
+              "trades": 14,
+              "wins": 6,
+              "losses": 8,
+              "winrate_pct": 42.86,
+              "net_pnl_usd": 16.46,
+              "fees_usd": 2.02
+            },
+            "SOLUSDT": {
+              "trades": 17,
+              "wins": 8,
+              "losses": 9,
+              "winrate_pct": 47.06,
+              "net_pnl_usd": 234.71,
+              "fees_usd": 2.91
+            },
+            "XRPUSDT": {
+              "trades": 21,
+              "wins": 7,
+              "losses": 14,
+              "winrate_pct": 33.33,
+              "net_pnl_usd": -4.93,
+              "fees_usd": 3.12
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 110,
+            "END_OF_SIM": 4
+          },
+          "window": 4,
+          "period": "2023-05-01..2023-10-31"
+        },
+        {
+          "strategy_id": "ema_cross_7_25_4h_markov_W5",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1080.31,
+          "net_pnl_usd": 80.31,
+          "roi_pct": 8.03,
+          "winrate_pct": 30.5,
+          "total_trades": 141,
+          "wins": 43,
+          "losses": 98,
+          "max_drawdown_usd": 321.12,
+          "max_drawdown_pct": 27.19,
+          "peak_equity_usd": 1180.84,
+          "min_equity_usd": 814.42,
+          "calmar_ratio": 0.592,
+          "sharpe_ratio": 0.565,
+          "profit_factor": 1.111,
+          "expectancy_usd": 0.57,
+          "total_fees_usd": 21.19,
+          "long_short": {
+            "LONG": {
+              "trades": 56,
+              "wins": 19,
+              "losses": 37,
+              "winrate_pct": 33.93,
+              "net_pnl_usd": 238.38
+            },
+            "SHORT": {
+              "trades": 85,
+              "wins": 24,
+              "losses": 61,
+              "winrate_pct": 28.24,
+              "net_pnl_usd": -158.07
+            }
+          },
+          "monthly_pnl_usd": {
+            "2023-11": -8.91,
+            "2023-12": 15.53,
+            "2024-01": -122.52,
+            "2024-02": -24.88,
+            "2024-03": 69.68,
+            "2024-04": 59.73,
+            "2024-05": 91.69
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 4,
+            "max_loss_streak": 18,
+            "avg_hold_hours": 152.11,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 18.65,
+            "avg_loss_usd": -7.36
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 23,
+              "wins": 10,
+              "losses": 13,
+              "winrate_pct": 43.48,
+              "net_pnl_usd": 143.55,
+              "fees_usd": 3.69
+            },
+            "DOGEUSDT": {
+              "trades": 28,
+              "wins": 8,
+              "losses": 20,
+              "winrate_pct": 28.57,
+              "net_pnl_usd": 191.64,
+              "fees_usd": 4.49
+            },
+            "ETHUSDT": {
+              "trades": 25,
+              "wins": 8,
+              "losses": 17,
+              "winrate_pct": 32.0,
+              "net_pnl_usd": -16.13,
+              "fees_usd": 3.57
+            },
+            "LTCUSDT": {
+              "trades": 25,
+              "wins": 10,
+              "losses": 15,
+              "winrate_pct": 40.0,
+              "net_pnl_usd": -33.32,
+              "fees_usd": 3.48
+            },
+            "SOLUSDT": {
+              "trades": 20,
+              "wins": 3,
+              "losses": 17,
+              "winrate_pct": 15.0,
+              "net_pnl_usd": -131.66,
+              "fees_usd": 3.05
+            },
+            "XRPUSDT": {
+              "trades": 20,
+              "wins": 4,
+              "losses": 16,
+              "winrate_pct": 20.0,
+              "net_pnl_usd": -73.77,
+              "fees_usd": 2.92
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 136,
+            "END_OF_SIM": 5
+          },
+          "window": 5,
+          "period": "2023-11-01..2024-04-30"
+        },
+        {
+          "strategy_id": "ema_cross_7_25_4h_markov_W6",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 868.52,
+          "net_pnl_usd": -131.48,
+          "roi_pct": -13.15,
+          "winrate_pct": 34.81,
+          "total_trades": 135,
+          "wins": 47,
+          "losses": 88,
+          "max_drawdown_usd": 212.71,
+          "max_drawdown_pct": 21.27,
+          "peak_equity_usd": 1000.0,
+          "min_equity_usd": 787.29,
+          "calmar_ratio": -1.226,
+          "sharpe_ratio": -0.92,
+          "profit_factor": 0.731,
+          "expectancy_usd": -0.97,
+          "total_fees_usd": 19.59,
+          "long_short": {
+            "LONG": {
+              "trades": 51,
+              "wins": 15,
+              "losses": 36,
+              "winrate_pct": 29.41,
+              "net_pnl_usd": -84.06
+            },
+            "SHORT": {
+              "trades": 84,
+              "wins": 32,
+              "losses": 52,
+              "winrate_pct": 38.1,
+              "net_pnl_usd": -47.41
+            }
+          },
+          "monthly_pnl_usd": {
+            "2024-05": -42.35,
+            "2024-06": -90.84,
+            "2024-07": -41.22,
+            "2024-08": 12.04,
+            "2024-09": 22.52,
+            "2024-10": -36.61,
+            "2024-11": 44.98
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 3,
+            "max_loss_streak": 8,
+            "avg_hold_hours": 152.83,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 7.59,
+            "avg_loss_usd": -5.55
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 25,
+              "wins": 10,
+              "losses": 15,
+              "winrate_pct": 40.0,
+              "net_pnl_usd": -14.42,
+              "fees_usd": 3.67
+            },
+            "DOGEUSDT": {
+              "trades": 24,
+              "wins": 8,
+              "losses": 16,
+              "winrate_pct": 33.33,
+              "net_pnl_usd": -46.83,
+              "fees_usd": 3.76
+            },
+            "ETHUSDT": {
+              "trades": 16,
+              "wins": 5,
+              "losses": 11,
+              "winrate_pct": 31.25,
+              "net_pnl_usd": -22.19,
+              "fees_usd": 2.5
+            },
+            "LTCUSDT": {
+              "trades": 24,
+              "wins": 7,
+              "losses": 17,
+              "winrate_pct": 29.17,
+              "net_pnl_usd": -12.19,
+              "fees_usd": 3.19
+            },
+            "SOLUSDT": {
+              "trades": 18,
+              "wins": 8,
+              "losses": 10,
+              "winrate_pct": 44.44,
+              "net_pnl_usd": -8.32,
+              "fees_usd": 2.54
+            },
+            "XRPUSDT": {
+              "trades": 28,
+              "wins": 9,
+              "losses": 19,
+              "winrate_pct": 32.14,
+              "net_pnl_usd": -27.52,
+              "fees_usd": 3.92
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 129,
+            "END_OF_SIM": 6
+          },
+          "window": 6,
+          "period": "2024-05-01..2024-10-31"
+        },
+        {
+          "strategy_id": "ema_cross_7_25_4h_markov_W7",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1264.05,
+          "net_pnl_usd": 264.05,
+          "roi_pct": 26.4,
+          "winrate_pct": 32.23,
+          "total_trades": 121,
+          "wins": 39,
+          "losses": 82,
+          "max_drawdown_usd": 471.02,
+          "max_drawdown_pct": 27.78,
+          "peak_equity_usd": 1695.33,
+          "min_equity_usd": 991.31,
+          "calmar_ratio": 1.916,
+          "sharpe_ratio": 1.407,
+          "profit_factor": 1.321,
+          "expectancy_usd": 2.18,
+          "total_fees_usd": 19.72,
+          "long_short": {
+            "LONG": {
+              "trades": 39,
+              "wins": 11,
+              "losses": 28,
+              "winrate_pct": 28.21,
+              "net_pnl_usd": 318.17
+            },
+            "SHORT": {
+              "trades": 82,
+              "wins": 28,
+              "losses": 54,
+              "winrate_pct": 34.15,
+              "net_pnl_usd": -54.13
+            }
+          },
+          "monthly_pnl_usd": {
+            "2024-11": 316.16,
+            "2024-12": 152.85,
+            "2025-01": -104.65,
+            "2025-02": -156.83,
+            "2025-03": 17.59,
+            "2025-04": 36.82,
+            "2025-05": 2.1
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 4,
+            "max_loss_streak": 13,
+            "avg_hold_hours": 150.84,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 27.84,
+            "avg_loss_usd": -10.02
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 24,
+              "wins": 8,
+              "losses": 16,
+              "winrate_pct": 33.33,
+              "net_pnl_usd": -42.89,
+              "fees_usd": 3.68
+            },
+            "DOGEUSDT": {
+              "trades": 17,
+              "wins": 6,
+              "losses": 11,
+              "winrate_pct": 35.29,
+              "net_pnl_usd": 233.22,
+              "fees_usd": 2.86
+            },
+            "ETHUSDT": {
+              "trades": 22,
+              "wins": 5,
+              "losses": 17,
+              "winrate_pct": 22.73,
+              "net_pnl_usd": 6.44,
+              "fees_usd": 3.73
+            },
+            "LTCUSDT": {
+              "trades": 19,
+              "wins": 6,
+              "losses": 13,
+              "winrate_pct": 31.58,
+              "net_pnl_usd": -22.41,
+              "fees_usd": 3.08
+            },
+            "SOLUSDT": {
+              "trades": 16,
+              "wins": 7,
+              "losses": 9,
+              "winrate_pct": 43.75,
+              "net_pnl_usd": 22.98,
+              "fees_usd": 2.75
+            },
+            "XRPUSDT": {
+              "trades": 23,
+              "wins": 7,
+              "losses": 16,
+              "winrate_pct": 30.43,
+              "net_pnl_usd": 66.7,
+              "fees_usd": 3.62
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 116,
+            "END_OF_SIM": 5
+          },
+          "window": 7,
+          "period": "2024-11-01..2025-04-30"
+        },
+        {
+          "strategy_id": "ema_cross_7_25_4h_markov_W8",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 877.67,
+          "net_pnl_usd": -122.33,
+          "roi_pct": -12.23,
+          "winrate_pct": 34.88,
+          "total_trades": 129,
+          "wins": 45,
+          "losses": 84,
+          "max_drawdown_usd": 524.1,
+          "max_drawdown_pct": 41.61,
+          "peak_equity_usd": 1259.44,
+          "min_equity_usd": 735.34,
+          "calmar_ratio": -0.583,
+          "sharpe_ratio": -0.482,
+          "profit_factor": 0.82,
+          "expectancy_usd": -0.95,
+          "total_fees_usd": 19.64,
+          "long_short": {
+            "LONG": {
+              "trades": 51,
+              "wins": 17,
+              "losses": 34,
+              "winrate_pct": 33.33,
+              "net_pnl_usd": 16.35
+            },
+            "SHORT": {
+              "trades": 78,
+              "wins": 28,
+              "losses": 50,
+              "winrate_pct": 35.9,
+              "net_pnl_usd": -138.67
+            }
+          },
+          "monthly_pnl_usd": {
+            "2025-05": -43.12,
+            "2025-06": 27.9,
+            "2025-07": 34.55,
+            "2025-08": 22.02,
+            "2025-09": -100.24,
+            "2025-10": -78.3,
+            "2025-11": 14.86
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 4,
+            "max_loss_streak": 9,
+            "avg_hold_hours": 164.9,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 12.4,
+            "avg_loss_usd": -8.1
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 20,
+              "wins": 7,
+              "losses": 13,
+              "winrate_pct": 35.0,
+              "net_pnl_usd": -36.36,
+              "fees_usd": 3.28
+            },
+            "DOGEUSDT": {
+              "trades": 20,
+              "wins": 6,
+              "losses": 14,
+              "winrate_pct": 30.0,
+              "net_pnl_usd": -13.69,
+              "fees_usd": 3.29
+            },
+            "ETHUSDT": {
+              "trades": 22,
+              "wins": 9,
+              "losses": 13,
+              "winrate_pct": 40.91,
+              "net_pnl_usd": 5.81,
+              "fees_usd": 3.08
+            },
+            "LTCUSDT": {
+              "trades": 21,
+              "wins": 6,
+              "losses": 15,
+              "winrate_pct": 28.57,
+              "net_pnl_usd": -54.42,
+              "fees_usd": 3.15
+            },
+            "SOLUSDT": {
+              "trades": 24,
+              "wins": 8,
+              "losses": 16,
+              "winrate_pct": 33.33,
+              "net_pnl_usd": -70.74,
+              "fees_usd": 3.76
+            },
+            "XRPUSDT": {
+              "trades": 22,
+              "wins": 9,
+              "losses": 13,
+              "winrate_pct": 40.91,
+              "net_pnl_usd": 47.07,
+              "fees_usd": 3.08
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 124,
+            "END_OF_SIM": 5
+          },
+          "window": 8,
+          "period": "2025-05-01..2025-10-31"
+        },
+        {
+          "strategy_id": "ema_cross_7_25_4h_markov_W9",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1066.06,
+          "net_pnl_usd": 66.06,
+          "roi_pct": 6.61,
+          "winrate_pct": 28.57,
+          "total_trades": 112,
+          "wins": 32,
+          "losses": 80,
+          "max_drawdown_usd": 232.94,
+          "max_drawdown_pct": 18.15,
+          "peak_equity_usd": 1285.88,
+          "min_equity_usd": 933.63,
+          "calmar_ratio": 0.734,
+          "sharpe_ratio": 0.567,
+          "profit_factor": 1.166,
+          "expectancy_usd": 0.59,
+          "total_fees_usd": 16.43,
+          "long_short": {
+            "LONG": {
+              "trades": 38,
+              "wins": 6,
+              "losses": 32,
+              "winrate_pct": 15.79,
+              "net_pnl_usd": -156.95
+            },
+            "SHORT": {
+              "trades": 74,
+              "wins": 26,
+              "losses": 48,
+              "winrate_pct": 35.14,
+              "net_pnl_usd": 223.01
+            }
+          },
+          "monthly_pnl_usd": {
+            "2025-11": 66.1,
+            "2025-12": -89.75,
+            "2026-01": -28.79,
+            "2026-02": 240.4,
+            "2026-03": -55.82,
+            "2026-04": -72.32,
+            "2026-05": 6.24
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 5,
+            "max_loss_streak": 14,
+            "avg_hold_hours": 152.75,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 14.48,
+            "avg_loss_usd": -4.97
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 15,
+              "wins": 5,
+              "losses": 10,
+              "winrate_pct": 33.33,
+              "net_pnl_usd": 18.03,
+              "fees_usd": 2.16
+            },
+            "DOGEUSDT": {
+              "trades": 18,
+              "wins": 5,
+              "losses": 13,
+              "winrate_pct": 27.78,
+              "net_pnl_usd": 7.63,
+              "fees_usd": 2.85
+            },
+            "ETHUSDT": {
+              "trades": 19,
+              "wins": 7,
+              "losses": 12,
+              "winrate_pct": 36.84,
+              "net_pnl_usd": 19.65,
+              "fees_usd": 2.79
+            },
+            "LTCUSDT": {
+              "trades": 19,
+              "wins": 4,
+              "losses": 15,
+              "winrate_pct": 21.05,
+              "net_pnl_usd": 24.52,
+              "fees_usd": 2.68
+            },
+            "SOLUSDT": {
+              "trades": 22,
+              "wins": 7,
+              "losses": 15,
+              "winrate_pct": 31.82,
+              "net_pnl_usd": 6.99,
+              "fees_usd": 2.93
+            },
+            "XRPUSDT": {
+              "trades": 19,
+              "wins": 4,
+              "losses": 15,
+              "winrate_pct": 21.05,
+              "net_pnl_usd": -10.77,
+              "fees_usd": 3.02
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 106,
+            "END_OF_SIM": 6
+          },
+          "window": 9,
+          "period": "2025-11-01..2026-04-30"
+        },
+        {
+          "strategy_id": "ema_cross_7_25_4h_markov_W10",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1195.05,
+          "net_pnl_usd": 195.05,
+          "roi_pct": 19.5,
+          "winrate_pct": 39.32,
+          "total_trades": 117,
+          "wins": 46,
+          "losses": 71,
+          "max_drawdown_usd": 131.48,
+          "max_drawdown_pct": 10.98,
+          "peak_equity_usd": 1257.04,
+          "min_equity_usd": 964.44,
+          "calmar_ratio": 3.524,
+          "sharpe_ratio": 1.604,
+          "profit_factor": 1.493,
+          "expectancy_usd": 1.67,
+          "total_fees_usd": 17.04,
+          "long_short": {
+            "LONG": {
+              "trades": 48,
+              "wins": 18,
+              "losses": 30,
+              "winrate_pct": 37.5,
+              "net_pnl_usd": 60.61
+            },
+            "SHORT": {
+              "trades": 69,
+              "wins": 28,
+              "losses": 41,
+              "winrate_pct": 40.58,
+              "net_pnl_usd": 134.44
+            }
+          },
+          "monthly_pnl_usd": {
+            "2026-05": -17.17,
+            "2026-06": 64.62,
+            "2026-07": 56.91,
+            "2026-08": 47.76,
+            "2026-09": 43.59,
+            "2026-10": -20.12,
+            "2026-11": 19.46
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 7,
+            "max_loss_streak": 13,
+            "avg_hold_hours": 198.94,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 12.85,
+            "avg_loss_usd": -5.58
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 14,
+              "wins": 9,
+              "losses": 5,
+              "winrate_pct": 64.29,
+              "net_pnl_usd": 78.43,
+              "fees_usd": 2.01
+            },
+            "DOGEUSDT": {
+              "trades": 24,
+              "wins": 7,
+              "losses": 17,
+              "winrate_pct": 29.17,
+              "net_pnl_usd": 49.97,
+              "fees_usd": 3.61
+            },
+            "ETHUSDT": {
+              "trades": 20,
+              "wins": 6,
+              "losses": 14,
+              "winrate_pct": 30.0,
+              "net_pnl_usd": -26.35,
+              "fees_usd": 2.91
+            },
+            "LTCUSDT": {
+              "trades": 25,
+              "wins": 12,
+              "losses": 13,
+              "winrate_pct": 48.0,
+              "net_pnl_usd": 68.21,
+              "fees_usd": 3.47
+            },
+            "SOLUSDT": {
+              "trades": 16,
+              "wins": 7,
+              "losses": 9,
+              "winrate_pct": 43.75,
+              "net_pnl_usd": 42.67,
+              "fees_usd": 2.37
+            },
+            "XRPUSDT": {
+              "trades": 18,
+              "wins": 5,
+              "losses": 13,
+              "winrate_pct": 27.78,
+              "net_pnl_usd": -17.88,
+              "fees_usd": 2.67
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 114,
+            "END_OF_SIM": 3
+          },
+          "window": 10,
+          "period": "2026-05-01..2026-10-31"
+        },
+        {
+          "strategy_id": "ema_cross_7_25_4h_markov_W11",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1051.09,
+          "net_pnl_usd": 51.09,
+          "roi_pct": 5.11,
+          "winrate_pct": 66.67,
+          "total_trades": 3,
+          "wins": 2,
+          "losses": 1,
+          "max_drawdown_usd": 14.42,
+          "max_drawdown_pct": 1.44,
+          "peak_equity_usd": 1055.17,
+          "min_equity_usd": 985.92,
+          "calmar_ratio": 71.864,
+          "sharpe_ratio": 8.105,
+          "profit_factor": 7.868,
+          "expectancy_usd": 17.03,
+          "total_fees_usd": 0.54,
+          "long_short": {
+            "LONG": {
+              "trades": 0,
+              "wins": 0,
+              "losses": 0,
+              "winrate_pct": 0.0,
+              "net_pnl_usd": 0
+            },
+            "SHORT": {
+              "trades": 3,
+              "wins": 2,
+              "losses": 1,
+              "winrate_pct": 66.67,
+              "net_pnl_usd": 51.09
+            }
+          },
+          "monthly_pnl_usd": {
+            "2026-11": 51.09
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 2,
+            "max_loss_streak": 1,
+            "avg_hold_hours": 224.0,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 29.26,
+            "avg_loss_usd": -7.44
+          },
+          "per_coin": {
+            "ETHUSDT": {
+              "trades": 1,
+              "wins": 0,
+              "losses": 1,
+              "winrate_pct": 0.0,
+              "net_pnl_usd": -7.44,
+              "fees_usd": 0.22
+            },
+            "LTCUSDT": {
+              "trades": 1,
+              "wins": 1,
+              "losses": 0,
+              "winrate_pct": 100.0,
+              "net_pnl_usd": 32.61,
+              "fees_usd": 0.2
+            },
+            "XRPUSDT": {
+              "trades": 1,
+              "wins": 1,
+              "losses": 0,
+              "winrate_pct": 100.0,
+              "net_pnl_usd": 25.91,
+              "fees_usd": 0.12
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 1,
+            "END_OF_SIM": 2
+          },
+          "window": 11,
+          "period": "2026-11-01..2026-11-18"
+        }
+      ],
+      "markov_pure_4h_gmm_conf": [
+        {
+          "strategy_id": "markov_pure_4h_gmm_conf_W1",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 753.03,
+          "net_pnl_usd": -246.97,
+          "roi_pct": -24.7,
+          "winrate_pct": 37.78,
+          "total_trades": 45,
+          "wins": 17,
+          "losses": 28,
+          "max_drawdown_usd": 767.49,
+          "max_drawdown_pct": 61.13,
+          "peak_equity_usd": 1255.54,
+          "min_equity_usd": 488.05,
+          "calmar_ratio": -0.815,
+          "sharpe_ratio": 0.025,
+          "profit_factor": 0.673,
+          "expectancy_usd": -5.49,
+          "total_fees_usd": 10.92,
+          "long_short": {
+            "LONG": {
+              "trades": 22,
+              "wins": 5,
+              "losses": 17,
+              "winrate_pct": 22.73,
+              "net_pnl_usd": -491.69
+            },
+            "SHORT": {
+              "trades": 23,
+              "wins": 12,
+              "losses": 11,
+              "winrate_pct": 52.17,
+              "net_pnl_usd": 244.72
+            }
+          },
+          "monthly_pnl_usd": {
+            "2021-11": -136.15,
+            "2021-12": 159.5,
+            "2022-01": -153.48,
+            "2022-02": -237.1,
+            "2022-03": -67.87,
+            "2022-04": -25.37,
+            "2022-05": 213.51
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 7,
+            "max_loss_streak": 11,
+            "avg_hold_hours": 572.27,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 29.88,
+            "avg_loss_usd": -26.96
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 9,
+              "wins": 3,
+              "losses": 6,
+              "winrate_pct": 33.33,
+              "net_pnl_usd": -33.54,
+              "fees_usd": 1.78
+            },
+            "DOGEUSDT": {
+              "trades": 10,
+              "wins": 3,
+              "losses": 7,
+              "winrate_pct": 30.0,
+              "net_pnl_usd": -105.63,
+              "fees_usd": 2.57
+            },
+            "ETHUSDT": {
+              "trades": 6,
+              "wins": 3,
+              "losses": 3,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": -4.91,
+              "fees_usd": 1.58
+            },
+            "LTCUSDT": {
+              "trades": 8,
+              "wins": 4,
+              "losses": 4,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": 0.66,
+              "fees_usd": 2.08
+            },
+            "SOLUSDT": {
+              "trades": 4,
+              "wins": 2,
+              "losses": 2,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": 80.53,
+              "fees_usd": 0.78
+            },
+            "XRPUSDT": {
+              "trades": 8,
+              "wins": 2,
+              "losses": 6,
+              "winrate_pct": 25.0,
+              "net_pnl_usd": -184.08,
+              "fees_usd": 2.13
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 39,
+            "END_OF_SIM": 6
+          },
+          "window": 1,
+          "period": "2021-11-01..2022-04-30"
+        },
+        {
+          "strategy_id": "markov_pure_4h_gmm_conf_W2",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1838.01,
+          "net_pnl_usd": 838.01,
+          "roi_pct": 83.8,
+          "winrate_pct": 58.33,
+          "total_trades": 24,
+          "wins": 14,
+          "losses": 10,
+          "max_drawdown_usd": 507.28,
+          "max_drawdown_pct": 25.63,
+          "peak_equity_usd": 1978.99,
+          "min_equity_usd": 826.07,
+          "calmar_ratio": 6.485,
+          "sharpe_ratio": 2.114,
+          "profit_factor": 3.852,
+          "expectancy_usd": 34.92,
+          "total_fees_usd": 6.26,
+          "long_short": {
+            "LONG": {
+              "trades": 12,
+              "wins": 6,
+              "losses": 6,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": 198.82
+            },
+            "SHORT": {
+              "trades": 12,
+              "wins": 8,
+              "losses": 4,
+              "winrate_pct": 66.67,
+              "net_pnl_usd": 639.19
+            }
+          },
+          "monthly_pnl_usd": {
+            "2022-06": 173.0,
+            "2022-07": 419.38,
+            "2022-08": -97.23,
+            "2022-09": 26.42,
+            "2022-10": -31.27,
+            "2022-11": 347.73
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 4,
+            "max_loss_streak": 4,
+            "avg_hold_hours": 1103.0,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 80.85,
+            "avg_loss_usd": -29.38
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 8,
+              "wins": 3,
+              "losses": 5,
+              "winrate_pct": 37.5,
+              "net_pnl_usd": -22.54,
+              "fees_usd": 2.1
+            },
+            "DOGEUSDT": {
+              "trades": 4,
+              "wins": 3,
+              "losses": 1,
+              "winrate_pct": 75.0,
+              "net_pnl_usd": 409.7,
+              "fees_usd": 1.08
+            },
+            "ETHUSDT": {
+              "trades": 4,
+              "wins": 3,
+              "losses": 1,
+              "winrate_pct": 75.0,
+              "net_pnl_usd": 164.79,
+              "fees_usd": 1.18
+            },
+            "LTCUSDT": {
+              "trades": 2,
+              "wins": 2,
+              "losses": 0,
+              "winrate_pct": 100.0,
+              "net_pnl_usd": 165.72,
+              "fees_usd": 0.47
+            },
+            "SOLUSDT": {
+              "trades": 4,
+              "wins": 1,
+              "losses": 3,
+              "winrate_pct": 25.0,
+              "net_pnl_usd": 9.46,
+              "fees_usd": 0.91
+            },
+            "XRPUSDT": {
+              "trades": 2,
+              "wins": 2,
+              "losses": 0,
+              "winrate_pct": 100.0,
+              "net_pnl_usd": 110.89,
+              "fees_usd": 0.52
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 18,
+            "END_OF_SIM": 6
+          },
+          "window": 2,
+          "period": "2022-05-01..2022-10-31"
+        },
+        {
+          "strategy_id": "markov_pure_4h_gmm_conf_W3",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 506.92,
+          "net_pnl_usd": -493.08,
+          "roi_pct": -49.31,
+          "winrate_pct": 34.09,
+          "total_trades": 44,
+          "wins": 15,
+          "losses": 29,
+          "max_drawdown_usd": 635.69,
+          "max_drawdown_pct": 59.8,
+          "peak_equity_usd": 1062.95,
+          "min_equity_usd": 427.26,
+          "calmar_ratio": -1.663,
+          "sharpe_ratio": -0.86,
+          "profit_factor": 0.474,
+          "expectancy_usd": -11.21,
+          "total_fees_usd": 10.12,
+          "long_short": {
+            "LONG": {
+              "trades": 23,
+              "wins": 9,
+              "losses": 14,
+              "winrate_pct": 39.13,
+              "net_pnl_usd": -127.43
+            },
+            "SHORT": {
+              "trades": 21,
+              "wins": 6,
+              "losses": 15,
+              "winrate_pct": 28.57,
+              "net_pnl_usd": -365.65
+            }
+          },
+          "monthly_pnl_usd": {
+            "2022-11": -98.25,
+            "2022-12": -96.71,
+            "2023-01": -162.53,
+            "2023-02": 20.5,
+            "2023-03": -129.27,
+            "2023-04": -85.24,
+            "2023-05": 58.42
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 4,
+            "max_loss_streak": 8,
+            "avg_hold_hours": 591.82,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 29.65,
+            "avg_loss_usd": -32.34
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 7,
+              "wins": 3,
+              "losses": 4,
+              "winrate_pct": 42.86,
+              "net_pnl_usd": -4.2,
+              "fees_usd": 1.61
+            },
+            "DOGEUSDT": {
+              "trades": 8,
+              "wins": 0,
+              "losses": 8,
+              "winrate_pct": 0.0,
+              "net_pnl_usd": -290.87,
+              "fees_usd": 1.75
+            },
+            "ETHUSDT": {
+              "trades": 5,
+              "wins": 2,
+              "losses": 3,
+              "winrate_pct": 40.0,
+              "net_pnl_usd": -107.34,
+              "fees_usd": 1.28
+            },
+            "LTCUSDT": {
+              "trades": 10,
+              "wins": 4,
+              "losses": 6,
+              "winrate_pct": 40.0,
+              "net_pnl_usd": 72.45,
+              "fees_usd": 2.13
+            },
+            "SOLUSDT": {
+              "trades": 7,
+              "wins": 3,
+              "losses": 4,
+              "winrate_pct": 42.86,
+              "net_pnl_usd": -106.51,
+              "fees_usd": 1.46
+            },
+            "XRPUSDT": {
+              "trades": 7,
+              "wins": 3,
+              "losses": 4,
+              "winrate_pct": 42.86,
+              "net_pnl_usd": -56.62,
+              "fees_usd": 1.89
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 38,
+            "END_OF_SIM": 6
+          },
+          "window": 3,
+          "period": "2022-11-01..2023-04-30"
+        },
+        {
+          "strategy_id": "markov_pure_4h_gmm_conf_W4",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1318.43,
+          "net_pnl_usd": 318.43,
+          "roi_pct": 31.84,
+          "winrate_pct": 63.33,
+          "total_trades": 30,
+          "wins": 19,
+          "losses": 11,
+          "max_drawdown_usd": 407.73,
+          "max_drawdown_pct": 36.45,
+          "peak_equity_usd": 1319.65,
+          "min_equity_usd": 710.76,
+          "calmar_ratio": 1.733,
+          "sharpe_ratio": 1.333,
+          "profit_factor": 1.819,
+          "expectancy_usd": 10.61,
+          "total_fees_usd": 7.43,
+          "long_short": {
+            "LONG": {
+              "trades": 14,
+              "wins": 8,
+              "losses": 6,
+              "winrate_pct": 57.14,
+              "net_pnl_usd": 278.59
+            },
+            "SHORT": {
+              "trades": 16,
+              "wins": 11,
+              "losses": 5,
+              "winrate_pct": 68.75,
+              "net_pnl_usd": 39.84
+            }
+          },
+          "monthly_pnl_usd": {
+            "2023-05": -14.9,
+            "2023-06": -44.54,
+            "2023-07": -204.56,
+            "2023-08": 76.77,
+            "2023-10": 156.03,
+            "2023-11": 349.64
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 13,
+            "max_loss_streak": 4,
+            "avg_hold_hours": 879.2,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 37.22,
+            "avg_loss_usd": -35.34
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 7,
+              "wins": 6,
+              "losses": 1,
+              "winrate_pct": 85.71,
+              "net_pnl_usd": 141.17,
+              "fees_usd": 1.63
+            },
+            "DOGEUSDT": {
+              "trades": 4,
+              "wins": 4,
+              "losses": 0,
+              "winrate_pct": 100.0,
+              "net_pnl_usd": 72.0,
+              "fees_usd": 1.07
+            },
+            "ETHUSDT": {
+              "trades": 4,
+              "wins": 2,
+              "losses": 2,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": 33.51,
+              "fees_usd": 0.9
+            },
+            "LTCUSDT": {
+              "trades": 6,
+              "wins": 2,
+              "losses": 4,
+              "winrate_pct": 33.33,
+              "net_pnl_usd": -63.36,
+              "fees_usd": 1.24
+            },
+            "SOLUSDT": {
+              "trades": 4,
+              "wins": 4,
+              "losses": 0,
+              "winrate_pct": 100.0,
+              "net_pnl_usd": 339.38,
+              "fees_usd": 1.02
+            },
+            "XRPUSDT": {
+              "trades": 5,
+              "wins": 1,
+              "losses": 4,
+              "winrate_pct": 20.0,
+              "net_pnl_usd": -204.26,
+              "fees_usd": 1.57
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 24,
+            "END_OF_SIM": 6
+          },
+          "window": 4,
+          "period": "2023-05-01..2023-10-31"
+        },
+        {
+          "strategy_id": "markov_pure_4h_gmm_conf_W5",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1691.6,
+          "net_pnl_usd": 691.6,
+          "roi_pct": 69.16,
+          "winrate_pct": 41.38,
+          "total_trades": 58,
+          "wins": 24,
+          "losses": 34,
+          "max_drawdown_usd": 628.0,
+          "max_drawdown_pct": 32.3,
+          "peak_equity_usd": 2100.67,
+          "min_equity_usd": 979.75,
+          "calmar_ratio": 4.295,
+          "sharpe_ratio": 1.831,
+          "profit_factor": 2.012,
+          "expectancy_usd": 11.92,
+          "total_fees_usd": 12.93,
+          "long_short": {
+            "LONG": {
+              "trades": 29,
+              "wins": 15,
+              "losses": 14,
+              "winrate_pct": 51.72,
+              "net_pnl_usd": 837.56
+            },
+            "SHORT": {
+              "trades": 29,
+              "wins": 9,
+              "losses": 20,
+              "winrate_pct": 31.03,
+              "net_pnl_usd": -145.95
+            }
+          },
+          "monthly_pnl_usd": {
+            "2023-11": 40.69,
+            "2023-12": 101.83,
+            "2024-01": 129.79,
+            "2024-02": -61.36,
+            "2024-03": 286.67,
+            "2024-04": -16.85,
+            "2024-05": 210.84
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 5,
+            "max_loss_streak": 10,
+            "avg_hold_hours": 451.45,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 57.3,
+            "avg_loss_usd": -20.11
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 6,
+              "wins": 4,
+              "losses": 2,
+              "winrate_pct": 66.67,
+              "net_pnl_usd": 215.21,
+              "fees_usd": 1.59
+            },
+            "DOGEUSDT": {
+              "trades": 14,
+              "wins": 5,
+              "losses": 9,
+              "winrate_pct": 35.71,
+              "net_pnl_usd": 204.45,
+              "fees_usd": 3.47
+            },
+            "ETHUSDT": {
+              "trades": 8,
+              "wins": 3,
+              "losses": 5,
+              "winrate_pct": 37.5,
+              "net_pnl_usd": -39.44,
+              "fees_usd": 1.87
+            },
+            "LTCUSDT": {
+              "trades": 12,
+              "wins": 3,
+              "losses": 9,
+              "winrate_pct": 25.0,
+              "net_pnl_usd": -153.63,
+              "fees_usd": 2.47
+            },
+            "SOLUSDT": {
+              "trades": 12,
+              "wins": 5,
+              "losses": 7,
+              "winrate_pct": 41.67,
+              "net_pnl_usd": 396.04,
+              "fees_usd": 2.2
+            },
+            "XRPUSDT": {
+              "trades": 6,
+              "wins": 4,
+              "losses": 2,
+              "winrate_pct": 66.67,
+              "net_pnl_usd": 68.97,
+              "fees_usd": 1.33
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 52,
+            "END_OF_SIM": 6
+          },
+          "window": 5,
+          "period": "2023-11-01..2024-04-30"
+        },
+        {
+          "strategy_id": "markov_pure_4h_gmm_conf_W6",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 243.65,
+          "net_pnl_usd": -756.35,
+          "roi_pct": -75.64,
+          "winrate_pct": 20.83,
+          "total_trades": 48,
+          "wins": 10,
+          "losses": 38,
+          "max_drawdown_usd": 934.9,
+          "max_drawdown_pct": 89.71,
+          "peak_equity_usd": 1042.18,
+          "min_equity_usd": 107.28,
+          "calmar_ratio": -1.673,
+          "sharpe_ratio": -1.072,
+          "profit_factor": 0.212,
+          "expectancy_usd": -15.76,
+          "total_fees_usd": 9.76,
+          "long_short": {
+            "LONG": {
+              "trades": 25,
+              "wins": 5,
+              "losses": 20,
+              "winrate_pct": 20.0,
+              "net_pnl_usd": -294.86
+            },
+            "SHORT": {
+              "trades": 23,
+              "wins": 5,
+              "losses": 18,
+              "winrate_pct": 21.74,
+              "net_pnl_usd": -461.49
+            }
+          },
+          "monthly_pnl_usd": {
+            "2024-05": -132.35,
+            "2024-06": -108.59,
+            "2024-07": -43.9,
+            "2024-08": -462.77,
+            "2024-09": -63.21,
+            "2024-10": -59.01,
+            "2024-11": 113.48
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 2,
+            "max_loss_streak": 15,
+            "avg_hold_hours": 519.0,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 20.31,
+            "avg_loss_usd": -25.25
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 8,
+              "wins": 0,
+              "losses": 8,
+              "winrate_pct": 0.0,
+              "net_pnl_usd": -98.15,
+              "fees_usd": 1.65
+            },
+            "DOGEUSDT": {
+              "trades": 8,
+              "wins": 2,
+              "losses": 6,
+              "winrate_pct": 25.0,
+              "net_pnl_usd": -217.01,
+              "fees_usd": 2.08
+            },
+            "ETHUSDT": {
+              "trades": 4,
+              "wins": 2,
+              "losses": 2,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": 18.97,
+              "fees_usd": 0.5
+            },
+            "LTCUSDT": {
+              "trades": 6,
+              "wins": 2,
+              "losses": 4,
+              "winrate_pct": 33.33,
+              "net_pnl_usd": -64.91,
+              "fees_usd": 1.48
+            },
+            "SOLUSDT": {
+              "trades": 11,
+              "wins": 2,
+              "losses": 9,
+              "winrate_pct": 18.18,
+              "net_pnl_usd": -233.83,
+              "fees_usd": 1.93
+            },
+            "XRPUSDT": {
+              "trades": 11,
+              "wins": 2,
+              "losses": 9,
+              "winrate_pct": 18.18,
+              "net_pnl_usd": -161.42,
+              "fees_usd": 2.12
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 42,
+            "END_OF_SIM": 6
+          },
+          "window": 6,
+          "period": "2024-05-01..2024-10-31"
+        },
+        {
+          "strategy_id": "markov_pure_4h_gmm_conf_W7",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 2384.83,
+          "net_pnl_usd": 1384.83,
+          "roi_pct": 138.48,
+          "winrate_pct": 42.11,
+          "total_trades": 38,
+          "wins": 16,
+          "losses": 22,
+          "max_drawdown_usd": 708.87,
+          "max_drawdown_pct": 24.43,
+          "peak_equity_usd": 2902.2,
+          "min_equity_usd": 956.48,
+          "calmar_ratio": 11.433,
+          "sharpe_ratio": 3.263,
+          "profit_factor": 3.449,
+          "expectancy_usd": 36.44,
+          "total_fees_usd": 8.51,
+          "long_short": {
+            "LONG": {
+              "trades": 19,
+              "wins": 7,
+              "losses": 12,
+              "winrate_pct": 36.84,
+              "net_pnl_usd": 1263.16
+            },
+            "SHORT": {
+              "trades": 19,
+              "wins": 9,
+              "losses": 10,
+              "winrate_pct": 47.37,
+              "net_pnl_usd": 121.67
+            }
+          },
+          "monthly_pnl_usd": {
+            "2024-11": -67.97,
+            "2024-12": 1551.26,
+            "2025-01": -230.4,
+            "2025-02": -116.85,
+            "2025-03": -128.22,
+            "2025-04": 324.41,
+            "2025-05": 52.59
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 6,
+            "max_loss_streak": 13,
+            "avg_hold_hours": 674.53,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 121.9,
+            "avg_loss_usd": -25.71
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 9,
+              "wins": 4,
+              "losses": 5,
+              "winrate_pct": 44.44,
+              "net_pnl_usd": 177.99,
+              "fees_usd": 1.64
+            },
+            "DOGEUSDT": {
+              "trades": 5,
+              "wins": 2,
+              "losses": 3,
+              "winrate_pct": 40.0,
+              "net_pnl_usd": 527.46,
+              "fees_usd": 1.4
+            },
+            "ETHUSDT": {
+              "trades": 4,
+              "wins": 2,
+              "losses": 2,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": 74.29,
+              "fees_usd": 0.77
+            },
+            "LTCUSDT": {
+              "trades": 7,
+              "wins": 2,
+              "losses": 5,
+              "winrate_pct": 28.57,
+              "net_pnl_usd": -60.32,
+              "fees_usd": 1.55
+            },
+            "SOLUSDT": {
+              "trades": 5,
+              "wins": 3,
+              "losses": 2,
+              "winrate_pct": 60.0,
+              "net_pnl_usd": 164.66,
+              "fees_usd": 1.12
+            },
+            "XRPUSDT": {
+              "trades": 8,
+              "wins": 3,
+              "losses": 5,
+              "winrate_pct": 37.5,
+              "net_pnl_usd": 500.75,
+              "fees_usd": 2.04
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 32,
+            "END_OF_SIM": 6
+          },
+          "window": 7,
+          "period": "2024-11-01..2025-04-30"
+        },
+        {
+          "strategy_id": "markov_pure_4h_gmm_conf_W8",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1213.67,
+          "net_pnl_usd": 213.67,
+          "roi_pct": 21.37,
+          "winrate_pct": 42.19,
+          "total_trades": 64,
+          "wins": 27,
+          "losses": 37,
+          "max_drawdown_usd": 726.12,
+          "max_drawdown_pct": 43.48,
+          "peak_equity_usd": 1669.9,
+          "min_equity_usd": 938.6,
+          "calmar_ratio": 0.975,
+          "sharpe_ratio": 0.889,
+          "profit_factor": 1.399,
+          "expectancy_usd": 3.34,
+          "total_fees_usd": 14.77,
+          "long_short": {
+            "LONG": {
+              "trades": 32,
+              "wins": 16,
+              "losses": 16,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": 269.07
+            },
+            "SHORT": {
+              "trades": 32,
+              "wins": 11,
+              "losses": 21,
+              "winrate_pct": 34.38,
+              "net_pnl_usd": -55.4
+            }
+          },
+          "monthly_pnl_usd": {
+            "2025-05": 123.14,
+            "2025-06": -21.4,
+            "2025-07": -69.31,
+            "2025-08": 243.16,
+            "2025-09": -73.7,
+            "2025-10": -158.8,
+            "2025-11": 170.57
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 6,
+            "max_loss_streak": 18,
+            "avg_hold_hours": 413.62,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 27.74,
+            "avg_loss_usd": -14.47
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 12,
+              "wins": 4,
+              "losses": 8,
+              "winrate_pct": 33.33,
+              "net_pnl_usd": 26.96,
+              "fees_usd": 2.56
+            },
+            "DOGEUSDT": {
+              "trades": 10,
+              "wins": 4,
+              "losses": 6,
+              "winrate_pct": 40.0,
+              "net_pnl_usd": 49.57,
+              "fees_usd": 2.51
+            },
+            "ETHUSDT": {
+              "trades": 10,
+              "wins": 4,
+              "losses": 6,
+              "winrate_pct": 40.0,
+              "net_pnl_usd": 101.49,
+              "fees_usd": 2.3
+            },
+            "LTCUSDT": {
+              "trades": 10,
+              "wins": 3,
+              "losses": 7,
+              "winrate_pct": 30.0,
+              "net_pnl_usd": -111.35,
+              "fees_usd": 2.57
+            },
+            "SOLUSDT": {
+              "trades": 8,
+              "wins": 5,
+              "losses": 3,
+              "winrate_pct": 62.5,
+              "net_pnl_usd": 57.21,
+              "fees_usd": 1.85
+            },
+            "XRPUSDT": {
+              "trades": 14,
+              "wins": 7,
+              "losses": 7,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": 89.79,
+              "fees_usd": 2.97
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 58,
+            "END_OF_SIM": 6
+          },
+          "window": 8,
+          "period": "2025-05-01..2025-10-31"
+        },
+        {
+          "strategy_id": "markov_pure_4h_gmm_conf_W9",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1030.39,
+          "net_pnl_usd": 30.39,
+          "roi_pct": 3.04,
+          "winrate_pct": 38.64,
+          "total_trades": 44,
+          "wins": 17,
+          "losses": 27,
+          "max_drawdown_usd": 304.33,
+          "max_drawdown_pct": 24.58,
+          "peak_equity_usd": 1238.08,
+          "min_equity_usd": 887.44,
+          "calmar_ratio": 0.249,
+          "sharpe_ratio": 0.362,
+          "profit_factor": 1.089,
+          "expectancy_usd": 0.69,
+          "total_fees_usd": 6.92,
+          "long_short": {
+            "LONG": {
+              "trades": 24,
+              "wins": 2,
+              "losses": 22,
+              "winrate_pct": 8.33,
+              "net_pnl_usd": -225.62
+            },
+            "SHORT": {
+              "trades": 20,
+              "wins": 15,
+              "losses": 5,
+              "winrate_pct": 75.0,
+              "net_pnl_usd": 256.02
+            }
+          },
+          "monthly_pnl_usd": {
+            "2025-11": -40.59,
+            "2025-12": 42.54,
+            "2026-01": -77.81,
+            "2026-02": 197.58,
+            "2026-03": -23.51,
+            "2026-04": -28.04,
+            "2026-05": -39.78
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 6,
+            "max_loss_streak": 7,
+            "avg_hold_hours": 590.18,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 21.94,
+            "avg_loss_usd": -12.69
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 6,
+              "wins": 3,
+              "losses": 3,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": -21.29,
+              "fees_usd": 0.7
+            },
+            "DOGEUSDT": {
+              "trades": 9,
+              "wins": 4,
+              "losses": 5,
+              "winrate_pct": 44.44,
+              "net_pnl_usd": -0.01,
+              "fees_usd": 1.66
+            },
+            "ETHUSDT": {
+              "trades": 8,
+              "wins": 3,
+              "losses": 5,
+              "winrate_pct": 37.5,
+              "net_pnl_usd": 54.01,
+              "fees_usd": 1.16
+            },
+            "LTCUSDT": {
+              "trades": 5,
+              "wins": 2,
+              "losses": 3,
+              "winrate_pct": 40.0,
+              "net_pnl_usd": 3.28,
+              "fees_usd": 0.84
+            },
+            "SOLUSDT": {
+              "trades": 5,
+              "wins": 2,
+              "losses": 3,
+              "winrate_pct": 40.0,
+              "net_pnl_usd": 15.75,
+              "fees_usd": 0.68
+            },
+            "XRPUSDT": {
+              "trades": 11,
+              "wins": 3,
+              "losses": 8,
+              "winrate_pct": 27.27,
+              "net_pnl_usd": -21.36,
+              "fees_usd": 1.89
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 38,
+            "END_OF_SIM": 6
+          },
+          "window": 9,
+          "period": "2025-11-01..2026-04-30"
+        },
+        {
+          "strategy_id": "markov_pure_4h_gmm_conf_W10",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1299.26,
+          "net_pnl_usd": 299.26,
+          "roi_pct": 29.93,
+          "winrate_pct": 58.54,
+          "total_trades": 41,
+          "wins": 24,
+          "losses": 17,
+          "max_drawdown_usd": 366.35,
+          "max_drawdown_pct": 24.93,
+          "peak_equity_usd": 1469.29,
+          "min_equity_usd": 972.01,
+          "calmar_ratio": 2.381,
+          "sharpe_ratio": 1.397,
+          "profit_factor": 1.734,
+          "expectancy_usd": 7.3,
+          "total_fees_usd": 9.01,
+          "long_short": {
+            "LONG": {
+              "trades": 20,
+              "wins": 10,
+              "losses": 10,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": 202.74
+            },
+            "SHORT": {
+              "trades": 21,
+              "wins": 14,
+              "losses": 7,
+              "winrate_pct": 66.67,
+              "net_pnl_usd": 96.52
+            }
+          },
+          "monthly_pnl_usd": {
+            "2026-05": -29.3,
+            "2026-06": 107.42,
+            "2026-07": 61.97,
+            "2026-08": -73.04,
+            "2026-09": 43.21,
+            "2026-10": 26.46,
+            "2026-11": 162.54
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 8,
+            "max_loss_streak": 6,
+            "avg_hold_hours": 632.2,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 29.46,
+            "avg_loss_usd": -23.99
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 4,
+              "wins": 3,
+              "losses": 1,
+              "winrate_pct": 75.0,
+              "net_pnl_usd": 141.93,
+              "fees_usd": 0.68
+            },
+            "DOGEUSDT": {
+              "trades": 6,
+              "wins": 3,
+              "losses": 3,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": -12.39,
+              "fees_usd": 1.5
+            },
+            "ETHUSDT": {
+              "trades": 10,
+              "wins": 6,
+              "losses": 4,
+              "winrate_pct": 60.0,
+              "net_pnl_usd": -49.23,
+              "fees_usd": 2.1
+            },
+            "LTCUSDT": {
+              "trades": 7,
+              "wins": 5,
+              "losses": 2,
+              "winrate_pct": 71.43,
+              "net_pnl_usd": 69.81,
+              "fees_usd": 1.63
+            },
+            "SOLUSDT": {
+              "trades": 8,
+              "wins": 4,
+              "losses": 4,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": 79.76,
+              "fees_usd": 1.87
+            },
+            "XRPUSDT": {
+              "trades": 6,
+              "wins": 3,
+              "losses": 3,
+              "winrate_pct": 50.0,
+              "net_pnl_usd": 69.37,
+              "fees_usd": 1.24
+            }
+          },
+          "exit_reasons": {
+            "OPPOSITE_SIGNAL": 35,
+            "END_OF_SIM": 6
+          },
+          "window": 10,
+          "period": "2026-05-01..2026-10-31"
+        },
+        {
+          "strategy_id": "markov_pure_4h_gmm_conf_W11",
+          "start_balance_usd": 1000.0,
+          "end_equity_usd": 1351.19,
+          "net_pnl_usd": 351.19,
+          "roi_pct": 35.12,
+          "winrate_pct": 100.0,
+          "total_trades": 6,
+          "wins": 6,
+          "losses": 0,
+          "max_drawdown_usd": 121.36,
+          "max_drawdown_pct": 11.69,
+          "peak_equity_usd": 1384.52,
+          "min_equity_usd": 916.83,
+          "calmar_ratio": 60.921,
+          "sharpe_ratio": 8.199,
+          "profit_factor": 999.0,
+          "expectancy_usd": 58.53,
+          "total_fees_usd": 1.43,
+          "long_short": {
+            "LONG": {
+              "trades": 0,
+              "wins": 0,
+              "losses": 0,
+              "winrate_pct": 0.0,
+              "net_pnl_usd": 0
+            },
+            "SHORT": {
+              "trades": 6,
+              "wins": 6,
+              "losses": 0,
+              "winrate_pct": 100.0,
+              "net_pnl_usd": 351.19
+            }
+          },
+          "monthly_pnl_usd": {
+            "2026-11": 351.19
+          },
+          "trade_diagnostics": {
+            "max_win_streak": 6,
+            "max_loss_streak": 0,
+            "avg_hold_hours": 428.0,
+            "avg_sl_dist_pct": 0.0,
+            "avg_win_usd": 58.53,
+            "avg_loss_usd": 0.0
+          },
+          "per_coin": {
+            "ADAUSDT": {
+              "trades": 1,
+              "wins": 1,
+              "losses": 0,
+              "winrate_pct": 100.0,
+              "net_pnl_usd": 59.84,
+              "fees_usd": 0.25
+            },
+            "DOGEUSDT": {
+              "trades": 1,
+              "wins": 1,
+              "losses": 0,
+              "winrate_pct": 100.0,
+              "net_pnl_usd": 59.56,
+              "fees_usd": 0.24
+            },
+            "ETHUSDT": {
+              "trades": 1,
+              "wins": 1,
+              "losses": 0,
+              "winrate_pct": 100.0,
+              "net_pnl_usd": 65.93,
+              "fees_usd": 0.27
+            },
+            "LTCUSDT": {
+              "trades": 1,
+              "wins": 1,
+              "losses": 0,
+              "winrate_pct": 100.0,
+              "net_pnl_usd": 37.07,
+              "fees_usd": 0.16
+            },
+            "SOLUSDT": {
+              "trades": 1,
+              "wins": 1,
+              "losses": 0,
+              "winrate_pct": 100.0,
+              "net_pnl_usd": 59.89,
+              "fees_usd": 0.23
+            },
+            "XRPUSDT": {
+              "trades": 1,
+              "wins": 1,
+              "losses": 0,
+              "winrate_pct": 100.0,
+              "net_pnl_usd": 68.91,
+              "fees_usd": 0.27
+            }
+          },
+          "exit_reasons": {
+            "END_OF_SIM": 6
+          },
+          "window": 11,
+          "period": "2026-11-01..2026-11-18"
+        }
+      ]
+    }
+  },
+  "head_to_head_scores": [
+    {
+      "strategy_id": "ema_cross_7_25_4h_markov",
+      "score": 58.46
+    },
+    {
+      "strategy_id": "markov_pure_4h_gmm_conf",
+      "score": 82.05
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+# Python caches & artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+
+# Local market data caches (large binary .npz files)
+ClavaBacktest/DATA/cache_1m/
+ClavaBacktest/DATA/cache_funding/
+
+# Runtime logs & local secrets
+ClavaBot/logs/
+*.log
+.env
+.env.local

@@ -1,0 +1,136 @@
+{
+    "strategy_id": "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_remora",
+    "enabled": true,
+    "symbols": [
+        "ADAUSDT",
+        "SOLUSDT",
+        "XRPUSDT",
+        "DOGEUSDT",
+        "ETHUSDT",
+        "LTCUSDT"
+    ],
+    "timeframe": "4h",
+    "_desc_timeframe": "Рабочий таймфрейм стратегии: '4h'",
+    "capital": {
+        "start_balance_usd": 1435.0,
+        "_desc_start_balance_usd": "Стартовый депозит гибрида 1:1 к HRON_3 (1435.0 USDT)",
+        "leverage": 4,
+        "_desc_leverage": "Удвоенное плечо 4x под стоп 5*ATR и динамический сайзер RemoraDynamicSizer",
+        "max_open_positions": null,
+        "_desc_max_open_positions": "null = без жёсткого потолка позиций (контроль маржой и min/max_slots)",
+        "risk_per_trade_ratio": null,
+        "_desc_risk_per_trade_ratio": "null при работе через RemoraDynamicSizer",
+        "fixed_notional_usd": 143.5,
+        "_desc_fixed_notional_usd": "Базовый fallback-объём при выключенном dynamic_sizing (1435 / 10)"
+    },
+    "signal": {
+        "plugin": "markov_pure",
+        "_desc_plugin": "Плагин 'markov_pure'",
+        "exit_on_opposite_signal": true,
+        "_desc_exit_on_opposite_signal": "Закрытие при смене сигнала на встречный; повторное открытие вне пула HRON_3 запрещено",
+        "params": {
+            "min_edge_ratio": 0.15,
+            "threshold_mode": "gmm_3state",
+            "calibration_window_days": 180,
+            "recalibrate_interval_days": 7,
+            "dual_confirm_gmm": false,
+            "reentry_mode": "always",
+            "sl_mode": "wide_atr",
+            "sl_pct_ratio": null,
+            "atr_period": 14,
+            "atr_sl_mult": 5.0,
+            "chandelier_atr_mult": null,
+            "be_trigger_atr_mult": null,
+            "confidence_sizing_enabled": true,
+            "confidence_scale": 2.5,
+            "min_size_multiplier": 0.5,
+            "max_size_multiplier": 1.75,
+            "block_in_sideways": true,
+            "er_period": 18,
+            "min_efficiency_ratio": 0.2,
+            "target_atr_pct_ratio": 0.02,
+            "vol_min_multiplier": 0.35,
+            "vol_max_multiplier": 1.25,
+            "exit_on_sideways": true
+        }
+    },
+    "session_window": {
+        "enabled": false,
+        "timezone": "America/New_York",
+        "start_time": "08:00",
+        "end_time": "16:00",
+        "weekdays_only": false
+    },
+    "trend_fatigue_filter": {
+        "enabled": false,
+        "lookback_days": 3,
+        "min_net_efficiency_ratio": 0.55,
+        "max_counter_pullback_ratio": 0.2,
+        "block_mode": "same_direction_as_fatigue"
+    },
+    "risk_management": {
+        "sl_anchor": "origin_swing_extreme",
+        "sl_buffer_ratio": null,
+        "tp_rr_ratio": null,
+        "soft_stop_enabled": false
+    },
+    "markov_regime": {
+        "enabled": true,
+        "return_lookback_days": 20,
+        "bull_return_threshold_ratio": 0.05,
+        "bear_return_threshold_ratio": 0.05,
+        "transition_window_days": null,
+        "min_history_states": 15,
+        "forecast_horizon_days": 1,
+        "laplace_alpha": 1.0,
+        "block_long_in_bear": true,
+        "block_short_in_bull": false,
+        "min_net_score_for_long_ratio": null,
+        "min_net_score_for_short_ratio": null,
+        "dynamic_sizing_enabled": false,
+        "high_persistence_threshold_ratio": 0.7,
+        "aligned_high_persistence_multiplier": 1.25,
+        "sideways_size_multiplier": 0.75,
+        "counter_regime_size_multiplier": 0.5
+    },
+    "ema_trend_filter": {
+        "enabled": false,
+        "period": 200
+    },
+    "market_sentinel": {
+        "enabled": true,
+        "benchmark_symbol": "BTCUSDT",
+        "btc_sentiment_enabled": true,
+        "btc_ema_period": 50,
+        "btc_adx_period": 14,
+        "btc_chop_adx_threshold": 18.0,
+        "btc_ret_lookback_days": 20,
+        "btc_chop_size_multiplier": 0.5,
+        "btc_counter_long_multiplier": 0.4,
+        "btc_counter_short_multiplier": 0.5,
+        "block_long_in_btc_bear": false,
+        "breadth_enabled": false,
+        "breadth_adx_period": 14,
+        "breadth_min_adx": 18.0,
+        "breadth_min_trending_coins": 3,
+        "breadth_defensive_multiplier": 0.5
+    },
+    "remora_gate": {
+        "enabled": true,
+        "mode": "counter_hedge",
+        "min_grid_level": 3,
+        "min_adv_pct": null,
+        "allow_reversal_outside_pool": false,
+        "snapshot_path": null,
+        "max_staleness_ms": 120000,
+        "dynamic_sizing": {
+            "enabled": true,
+            "min_slots": 3,
+            "max_slots": 6,
+            "min_slot_equity_pct": 0.25,
+            "max_slot_equity_pct": 0.7,
+            "equity_utilization": 2.0,
+            "margin_safety_ratio": 0.9
+        }
+    }
+}

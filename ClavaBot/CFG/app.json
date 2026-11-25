@@ -1,0 +1,142 @@
+{
+    "app": {
+        "name": "ClavaTrading",
+        "annualization_days": 365,
+        "_desc_annualization_days": "Число торговых дней в году для аннуализации Sharpe и Calmar (365 для крипто 24/7, 252 для классических фьючерсов)"
+    },
+    "paths": {
+        "strategies_dir": "CFG/strategies",
+        "logs_dir": "logs"
+    },
+    "mock_execution": {
+        "start_balance_usd": 10000.0,
+        "_desc_start_balance_usd": "Стартовый баланс мок-брокера в USD (10000.0 = $10,000)",
+        "leverage": 2,
+        "_desc_leverage": "Кредитное плечо для мок-исполнения (2 = 2x, запас маржи чтобы 6 монет не блокировали друг друга)",
+        "taker_fee_rate": 0.0005,
+        "_desc_taker_fee_rate": "Комиссия taker как доля от единицы (0.0005 = 0.05%)"
+    },
+    "default_passport": "markov_pure_4h_gmm_conf.json",
+    "symbol_specs": {
+        "ADAUSDT": {
+            "tick_size": "0.0001",
+            "step_size": "1",
+            "min_qty": "1",
+            "min_notional_usd": 5.0
+        },
+        "SOLUSDT": {
+            "tick_size": "0.01",
+            "step_size": "0.01",
+            "min_qty": "0.01",
+            "min_notional_usd": 5.0
+        },
+        "XRPUSDT": {
+            "tick_size": "0.0001",
+            "step_size": "0.1",
+            "min_qty": "0.1",
+            "min_notional_usd": 5.0
+        },
+        "DOGEUSDT": {
+            "tick_size": "0.00001",
+            "step_size": "1",
+            "min_qty": "1",
+            "min_notional_usd": 5.0
+        },
+        "ETHUSDT": {
+            "tick_size": "0.01",
+            "step_size": "0.001",
+            "min_qty": "0.001",
+            "min_notional_usd": 20.0
+        },
+        "LTCUSDT": {
+            "tick_size": "0.01",
+            "step_size": "0.001",
+            "min_qty": "0.001",
+            "min_notional_usd": 20.0
+        },
+        "BTCUSDT": {
+            "tick_size": "0.10",
+            "step_size": "0.001",
+            "min_qty": "0.001",
+            "min_notional_usd": 50.0
+        },
+        "AVAXUSDT": {
+            "tick_size": "0.0010",
+            "step_size": "1",
+            "min_qty": "1",
+            "min_notional_usd": 5.0
+        },
+        "1000SHIBUSDT": {
+            "tick_size": "0.000001",
+            "step_size": "1",
+            "min_qty": "1",
+            "min_notional_usd": 5.0
+        },
+        "HBARUSDT": {
+            "tick_size": "0.00001",
+            "step_size": "1",
+            "min_qty": "1",
+            "min_notional_usd": 5.0
+        },
+        "SUIUSDT": {
+            "tick_size": "0.000100",
+            "step_size": "0.1",
+            "min_qty": "0.1",
+            "min_notional_usd": 5.0
+        },
+        "UNIUSDT": {
+            "tick_size": "0.0010",
+            "step_size": "1",
+            "min_qty": "1",
+            "min_notional_usd": 5.0
+        },
+        "BCHUSDT": {
+            "tick_size": "0.01",
+            "step_size": "0.001",
+            "min_qty": "0.001",
+            "min_notional_usd": 20.0
+        },
+        "DOTUSDT": {
+            "tick_size": "0.000100",
+            "step_size": "0.1",
+            "min_qty": "0.1",
+            "min_notional_usd": 5.0
+        },
+        "BNBUSDT": {
+            "tick_size": "0.010",
+            "step_size": "0.01",
+            "min_qty": "0.01",
+            "min_notional_usd": 5.0
+        },
+        "LINKUSDT": {
+            "tick_size": "0.001",
+            "step_size": "0.01",
+            "min_qty": "0.01",
+            "min_notional_usd": 20.0
+        },
+        "XLMUSDT": {
+            "tick_size": "0.00001",
+            "step_size": "1",
+            "min_qty": "1",
+            "min_notional_usd": 5.0
+        },
+        "TRXUSDT": {
+            "tick_size": "0.00001",
+            "step_size": "1",
+            "min_qty": "1",
+            "min_notional_usd": 5.0
+        },
+        "TONUSDT": {
+            "tick_size": "0.0001000",
+            "step_size": "0.1",
+            "min_qty": "0.1",
+            "min_notional_usd": 5.0
+        },
+        "HYPEUSDT": {
+            "tick_size": "0.00100",
+            "step_size": "0.01",
+            "min_qty": "0.01",
+            "min_notional_usd": 5.0
+        }
+    }
+}
