@@ -173,11 +173,40 @@ class BacktestRunner:
 
         s_ts = dataset.sim_ts_ms
         s_valid = dataset.sim_valid
+        s_fund_rates = dataset.sim_funding_rates
+        s_fund_mask = dataset.sim_funding_mask
         t_len = int(s_ts.shape[0])
         prev_candles: Optional[Dict[str, Candle]] = None
 
-        for s_i, e_i, block_candles, block_ohlcv in sim_blocks:
+        # Единая прекомпиляция событий фандинга на индексы блоков (O(1) в цикле симуляции)
+        block_funding_events: List[List[Tuple[str, int, float]]] = []
+        if s_fund_rates is not None and s_fund_mask is not None:
+            for s_i, e_i, _bc, _bo in sim_blocks:
+                ev: List[Tuple[str, int, float]] = []
+                if np.any(s_fund_mask[s_i:e_i]):
+                    f_local = np.flatnonzero(s_fund_mask[s_i:e_i])
+                    for off in f_local.tolist():
+                        abs_idx = s_i + off
+                        ts_ev = int(s_ts[abs_idx])
+                        for sym, col in active_indices:
+                            rt = float(s_fund_rates[abs_idx, col])
+                            if rt != 0.0:
+                                ev.append((sym, ts_ev, rt))
+                block_funding_events.append(ev)
+
+        for blk_idx, (s_i, e_i, block_candles, block_ohlcv) in enumerate(sim_blocks):
             first_ts_ms = int(s_ts[s_i])
+            if block_funding_events:
+                for sym_f, ts_f, rt_f in block_funding_events[blk_idx]:
+                    orchestrator.on_funding_rate(sym_f, rt_f)
+                    if sym_f in broker.positions:
+                        bar_f = block_candles.get(sym_f)
+                        mark_px = (
+                            bar_f.open
+                            if bar_f is not None
+                            else broker.last_close_prices.get(sym_f, broker.positions[sym_f].entry_price)
+                        )
+                        broker.apply_funding(sym_f, ts_f, rt_f, mark_px)
             if prev_candles is not None:
                 if bench_sym is not None and bench_sym in prev_candles:
                     orchestrator.on_benchmark_candle(prev_candles[bench_sym])
@@ -273,6 +302,7 @@ class BacktestRunner:
             annualization_days=self.annualization_days,
         )
         summary["exit_reasons"] = self._count_exit_reasons(broker)
+        summary["total_funding_usd"] = round(broker.total_funding_usd, 2)
         return summary
 
     @staticmethod

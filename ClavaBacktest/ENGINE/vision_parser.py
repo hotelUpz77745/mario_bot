@@ -20,7 +20,7 @@ VISION_BASE_URL = "https://data.binance.vision"
 
 @dataclass
 class Aligned1mDataset:
-    """Выровненная по 1m сетке матрица OHLCV для всех символов вселенной."""
+    """Выровненная по 1m сетке матрица OHLCV (+ опционально прекомпилированный Funding Rate) для всех символов."""
     symbols: List[str]
     warmup_ts_ms: np.ndarray        # shape (W,) int64
     warmup_ohlcv: np.ndarray        # shape (W, S, 5) float64
@@ -28,6 +28,8 @@ class Aligned1mDataset:
     sim_ts_ms: np.ndarray           # shape (T,) int64
     sim_ohlcv: np.ndarray           # shape (T, S, 5) float64
     sim_valid: np.ndarray           # shape (T, S) bool
+    sim_funding_rates: Optional[np.ndarray] = None  # shape (T, S) float64
+    sim_funding_mask: Optional[np.ndarray] = None   # shape (T,) bool
 
 
 def build_monthly_kline_url(symbol: str, year_month: str, interval: str = "1m") -> str:
