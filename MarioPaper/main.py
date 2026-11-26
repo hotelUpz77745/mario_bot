@@ -55,12 +55,39 @@ def main() -> None:
         f"MarioPaper initialized | slots={[s.slot_id for s in runtime.slots]} | "
         f"paused={runtime.is_paused} | cluster_symbols={len(runtime.price_hub.cluster_symbols)}"
     )
-    if "--run" in sys.argv:
-        try:
-            asyncio.run(runtime.run_forever())
-        except KeyboardInterrupt:
-            logger.info("MarioPaper stopped by Ctrl+C")
+    if "--check" in sys.argv:
+        return
+    try:
+        asyncio.run(runtime.run_forever())
+    except KeyboardInterrupt:
+        logger.info("MarioPaper stopped by Ctrl+C")
 
 
 if __name__ == "__main__":
     main()
+
+
+
+## шпору не трогать!!
+# # chmod 600 ssh_key.txt
+# # eval "$(ssh-agent -s)" 
+# # ssh-add ssh_key.txt
+# # git remote set-url origin git@github.com:hotelUpz/uranus_bot.git
+# # source .ssh-autostart.sh
+# В терминале Git Bash, находясь в папке с проектом:
+# source C:/Users/User/Desktop/My_Pro/HP_EliteBook_735_old/WORKSPACE/COMMON/.ssh-autostart.sh
+
+# git push --set-upstream origin master 
+# # git config --global push.autoSetupRemote true
+# # ssh -T git@github.com 
+# # git log -1
+ 
+# # git add .
+# # git commit -m "plh37"
+# # git push
+
+# # pip install anthropic
+# # npm install -g @anthropic-ai/claude-code
+
+# # export ANTHROPIC_API_KEY=...
+# taskkill /F /IM python.exe

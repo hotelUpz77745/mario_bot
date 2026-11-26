@@ -1,0 +1,5 @@
+# MarioTrading (MarioBot + MarioPaper + MarioBacktest) — runtime & backtest dependencies
+numpy>=1.26.0
+requests>=2.31.0
+aiohttp>=3.9.0
+aiogram>=3.10.0,<4.0.0

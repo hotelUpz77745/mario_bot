@@ -80,21 +80,17 @@ def main() -> None:
         f"dry_run={cluster.app_cfg['binance_futures']['dry_run']} | "
         f"cluster_symbols={len(cluster.price_hub.cluster_symbols)}"
     )
-    if "--run" in sys.argv:
-        try:
-            asyncio.run(cluster.run_forever())
-        except KeyboardInterrupt:
-            logger.info("MarioBot stopped by Ctrl+C")
+    if "--check" in sys.argv:
+        return
+    try:
+        asyncio.run(cluster.run_forever())
+    except KeyboardInterrupt:
+        logger.info("MarioBot stopped by Ctrl+C")
 
 
 if __name__ == "__main__":
     main()
 
-
-
-
-# # Бумажный бот MarioPaper (при auto_start: false стартует на паузе и ждёт ▶️ Start в TG):
-# python -m MarioPaper.main --run
-
-# # Боевой бот MarioBot (dry_run: true по умолчанию):
-# python -m MarioBot.main --run
+# Примеры запуска:
+# python MarioPaper/main.py           (бумажный бот; --check = только проверка инициализации)
+# python MarioBot/main.py             (боевой бот; dry_run: true по умолчанию)
