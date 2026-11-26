@@ -1,5 +1,5 @@
-# Path: MarioBot/CORE/EXECUTION/ipc_price_hub.py
-# Role: Межпроцессный Master/Slave стрим цен (совместимый с HRON_3/cron3/API/IPC/streamer_hub.py, failover + кластер монет)
+# Path: MarioBot/API/IPC/price_hub.py
+# Role: Межпроцессный Master/Slave TCP-хаб живых цен для кластера MarioBot + MarioPaper (failover + кластер монет)
 
 from __future__ import annotations
 
@@ -7,16 +7,13 @@ import asyncio
 import contextlib
 import json
 import os
-import random
 import socket
 import time
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Awaitable, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple
-import aiohttp
+from typing import Awaitable, Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple
 
+from MarioBot.API.BINANCE.ws_price_stream import BinanceHotPriceStream, PriceTick
 from MarioBot.c_log import UnifiedLogger
-from MarioBot.CORE.EXECUTION.binance_price_stream import BinanceHotPriceStream, PriceTick
 
 
 def _is_port_in_use(host: str, port: int) -> bool:
@@ -34,7 +31,7 @@ def discover_cluster_symbols_from_configs(
     extra_symbols: Optional[Iterable[str]] = None,
 ) -> List[str]:
     """
-    Собирает объединённый список монет по всем app.json кластера (MarioBot, MarioPaper, HRON_3):
+    Собирает объединённый список монет по всем app.json кластера Mario (MarioBot + MarioPaper):
     поддерживает поля 'symbols', 'benchmark_symbol' и 'active_strategies.<id>.symbols'.
     """
     collected: Set[str] = set()
@@ -115,7 +112,7 @@ async def _binance_ws_upstream(
 class MarioCrossProcessPriceHub:
     """
     Автономный межпроцессный Master/Slave стример цен для кластера MarioBot + MarioPaper:
-    - Не зависит от HRON_3 (собственный lock в MarioBot/CACHE/ipc/streamer.lock и порт 48223);
+    - Собственный lock в MarioBot/CACHE/ipc/streamer.lock и выделенный TCP-порт 48223;
     - Кто первый поднялся (MarioBot или MarioPaper) -> Master (1 WS к Binance на все монеты кластера);
     - Второй процесс -> Slave (0 WS к Binance; мгновенный снапшот + живые тики по локальному TCP);
     - При падении Master любой Slave автоматически перехватывает роль Master (Failover).
@@ -127,7 +124,7 @@ class MarioCrossProcessPriceHub:
         peer_config_paths: Sequence[Path],
         lock_file: Path,
         host: str = "127.0.0.1",
-        port: int = 48123,
+        port: int = 48223,
         lease_timeout_sec: float = 10.0,
         heartbeat_interval_sec: float = 2.0,
         upstream_runner: Optional[UpstreamRunnerFn] = None,

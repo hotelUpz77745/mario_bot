@@ -1,18 +1,12 @@
-# Path: MarioBot/CORE/EXECUTION/hron_binance_broker.py
+# Path: MarioBot/CORE/EXECUTION/binance_broker.py
 # Role: Боевой HEDGE-брокер Binance Futures (виртуальные SL/TP в игровой лупе, без плеча в расчётах, ресторация рантайма)
 
 from __future__ import annotations
 
-import hashlib
-import hmac
-import os
 import time
-import urllib.parse
-from dataclasses import dataclass
-from decimal import Decimal
 from typing import Any, Callable, Dict, List, Optional, Sequence
-import requests
 
+from MarioBot.API.BINANCE.rest_client import BinanceFuturesRestClient, BinanceRestConfig
 from MarioBot.c_log import UnifiedLogger
 from MarioBot.CORE.EXECUTION.base_broker import ExecutionBroker
 from MarioBot.CORE.EXECUTION.runtime_state_store import MarioRuntimeStateStore
@@ -20,185 +14,13 @@ from MarioBot.CORE.models import ClosedTrade, OpenPosition, OrderPlan, SideType
 from MarioBot.CORE.spec_manager import SpecManager
 
 
-HttpTransportFn = Callable[[str, str, Dict[str, str], Optional[Dict[str, Any]], float], Any]
 FallbackSlFn = Callable[[str, SideType, float], Optional[float]]
 
 
-def load_dotenv_file(env_path: str | os.PathLike[str]) -> int:
-    """Лёгкий парсер .env (без внешних зависимостей): заполняет только отсутствующие переменные окружения."""
-    from pathlib import Path
-    p = Path(env_path)
-    if not p.exists():
-        return 0
-    loaded = 0
-    for raw_line in p.read_text(encoding="utf-8").splitlines():
-        line = raw_line.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        k, v = line.split("=", 1)
-        key = k.strip()
-        val = v.strip().strip('"').strip("'")
-        if key and key not in os.environ:
-            os.environ[key] = val
-            loaded += 1
-    return loaded
-
-
-def format_decimal_str(val: Any) -> str:
-    """Точный формат числа без научной нотации e/E (из HRON_3/cron3/API/BINANCE/client_prod.py)."""
-    if isinstance(val, int):
-        return str(val)
-    d = Decimal(str(val)).normalize()
-    if d == d.to_integral():
-        return format(d, "f")
-    return format(d, "f").rstrip("0").rstrip(".")
-
-
-@dataclass(frozen=True, slots=True)
-class HronBinanceConfig:
-    """Параметры боевого подключения Binance Futures (строго HEDGE Mode, без плеча в расчётах, виртуальные SL/TP)."""
-    base_url: str
-    recv_window_ms: int
-    timeout_sec: float
-    time_slack_sec: float
-    api_rate_limit_sec: float
-    warmup_days: int
-    dry_run: bool
-    account_cache_ttl_sec: float
-    taker_fee_rate: float
-
-    @classmethod
-    def from_dict(cls, raw: Dict[str, Any]) -> "HronBinanceConfig":
-        return cls(
-            base_url=str(raw["base_url"]).rstrip("/"),
-            recv_window_ms=int(raw["recv_window_ms"]),
-            timeout_sec=float(raw["timeout_sec"]),
-            time_slack_sec=float(raw["time_slack_sec"]),
-            api_rate_limit_sec=float(raw["api_rate_limit_sec"]),
-            warmup_days=int(raw["warmup_days"]),
-            dry_run=bool(raw["dry_run"]),
-            account_cache_ttl_sec=float(raw["account_cache_ttl_sec"]),
-            taker_fee_rate=float(raw["taker_fee_rate"]),
-        )
-
-
-class HronBinanceRestAdapter:
+class BinanceFuturesProdBroker(ExecutionBroker):
     """
-    REST-адаптер Binance Futures HEDGE Mode (по контракту HRON_3/cron3/API/BINANCE/client_prod.py):
-    - мультиаккаунт через api_key_name / api_secret_name из .env;
-    - rate limiter, HMAC-SHA256 подпись, time_slack_sec, format_decimal_str;
-    - БЕЗ вызовов set_leverage / set_margin_type;
-    - физические ордера только MARKET (positionSide=LONG|SHORT); SL и TP триггерятся игровой лупой по тикам.
-    """
-
-    def __init__(
-        self,
-        cfg: HronBinanceConfig,
-        api_key_name: str,
-        api_secret_name: str,
-        api_key: Optional[str] = None,
-        api_secret: Optional[str] = None,
-        transport: Optional[HttpTransportFn] = None,
-    ):
-        self.cfg = cfg
-        self.api_key_name = api_key_name.strip()
-        self.api_secret_name = api_secret_name.strip()
-        self.api_key: str = api_key if api_key is not None else os.environ.get(self.api_key_name, "")
-        self.api_secret: str = api_secret if api_secret is not None else os.environ.get(self.api_secret_name, "")
-        self._session = requests.Session()
-        self._transport = transport
-        self._last_send_mono: float = 0.0
-
-    def _default_transport(
-        self,
-        method: str,
-        url: str,
-        headers: Dict[str, str],
-        params: Optional[Dict[str, Any]],
-        timeout_sec: float,
-    ) -> Any:
-        resp = self._session.request(method=method, url=url, headers=headers, params=params, timeout=timeout_sec)
-        if resp.status_code >= 400:
-            raise RuntimeError(f"Binance API HTTP {resp.status_code}: {resp.text[:300]}")
-        return resp.json()
-
-    def _request(
-        self,
-        method: str,
-        path: str,
-        params: Optional[Dict[str, Any]] = None,
-        signed: bool = False,
-    ) -> Any:
-        if self._transport is None and self.cfg.api_rate_limit_sec > 0.0:
-            elapsed = time.monotonic() - self._last_send_mono
-            if elapsed < self.cfg.api_rate_limit_sec:
-                time.sleep(self.cfg.api_rate_limit_sec - elapsed)
-            self._last_send_mono = time.monotonic()
-
-        safe_params: Dict[str, Any] = dict(params) if params else {}
-        headers: Dict[str, str] = {}
-        url = f"{self.cfg.base_url}{path}"
-
-        if signed:
-            if not self.api_key or not self.api_secret:
-                raise RuntimeError(
-                    f"API credentials missing in env ({self.api_key_name} / {self.api_secret_name})"
-                )
-            safe_params["timestamp"] = int((time.time() - self.cfg.time_slack_sec) * 1000)
-            safe_params["recvWindow"] = self.cfg.recv_window_ms
-            query = urllib.parse.urlencode(safe_params, safe=",")
-            sig = hmac.new(self.api_secret.encode("utf-8"), query.encode("utf-8"), hashlib.sha256).hexdigest()
-            safe_params["signature"] = sig
-            headers["X-MBX-APIKEY"] = self.api_key
-
-        fn = self._transport if self._transport is not None else self._default_transport
-        return fn(method.upper(), url, headers, safe_params, self.cfg.timeout_sec)
-
-    def get_exchange_info(self) -> Dict[str, Any]:
-        return self._request("GET", "/fapi/v1/exchangeInfo", signed=False)
-
-    def get_klines(
-        self,
-        symbol: str,
-        interval: str,
-        start_time_ms: Optional[int] = None,
-        end_time_ms: Optional[int] = None,
-        limit: int = 1500,
-    ) -> List[List[Any]]:
-        params: Dict[str, Any] = {"symbol": symbol.upper(), "interval": interval, "limit": int(limit)}
-        if start_time_ms is not None:
-            params["startTime"] = int(start_time_ms)
-        if end_time_ms is not None:
-            params["endTime"] = int(end_time_ms)
-        return self._request("GET", "/fapi/v1/klines", params=params, signed=False)
-
-    def get_premium_index(self, symbol: str) -> Dict[str, Any]:
-        return self._request("GET", "/fapi/v1/premiumIndex", params={"symbol": symbol.upper()}, signed=False)
-
-    def fetch_account_info(self) -> Dict[str, Any]:
-        return self._request("GET", "/fapi/v2/account", signed=True)
-
-    def place_hedge_market_order(self, symbol: str, side: str, position_side: SideType, qty: float) -> Dict[str, Any]:
-        """В HEDGE Mode Binance запрещает reduceOnly: закрытие LONG — side=SELL + positionSide=LONG."""
-        return self._request(
-            "POST",
-            "/fapi/v1/order",
-            params={
-                "symbol": symbol.upper(),
-                "side": side.upper(),
-                "positionSide": position_side,
-                "type": "MARKET",
-                "quantity": format_decimal_str(abs(qty)),
-                "newOrderRespType": "RESULT",
-            },
-            signed=True,
-        )
-
-
-class HronBinanceProdBroker(ExecutionBroker):
-    """
-    Боевой HEDGE-брокер MarioBot:
-    - физические ордера на биржу ТОЛЬКО MARKET (вход и выход);
+    Боевой HEDGE-брокер MarioBot (чистый слой исполнения без HTTP-транспорта — клиент приходит через DI):
+    - физические ордера на биржу ТОЛЬКО MARKET (вход и выход через BinanceFuturesRestClient);
     - Stop-Loss и Take-Profit — виртуальные системные триггеры, проверяемые в игровой лупе по живым тикам;
     - плечо НЕ участвует в расчётах объёма и маржи;
     - пер-символьная запись рантайма (MarioRuntimeStateStore) и простая ресторация перед стартом лупы.
@@ -206,19 +28,19 @@ class HronBinanceProdBroker(ExecutionBroker):
 
     def __init__(
         self,
-        cfg: HronBinanceConfig,
+        cfg: BinanceRestConfig,
         spec_manager: SpecManager,
-        rest_adapter: HronBinanceRestAdapter,
+        rest_client: BinanceFuturesRestClient,
         start_balance_usd: float,
         slot_id: str = "default",
         runtime_store: Optional[MarioRuntimeStateStore] = None,
         analytics: Optional[Any] = None,
         on_trade_event: Optional[Callable[[str], None]] = None,
     ):
-        self.logger = UnifiedLogger(f"HronProdBroker[{rest_adapter.api_key_name}]")
+        self.logger = UnifiedLogger(f"BinanceProdBroker[{rest_client.api_key_name}]")
         self.cfg = cfg
         self.spec_manager = spec_manager
-        self.rest = rest_adapter
+        self.rest = rest_client
         self.slot_id = str(slot_id)
         self.runtime_store = runtime_store
         self.analytics = analytics
@@ -410,7 +232,7 @@ class HronBinanceProdBroker(ExecutionBroker):
         return unr
 
     def get_equity_usd(self) -> float:
-        """ADR-27: расчётное эквити бота (start + realized + funding + unrealized)."""
+        """Расчётное эквити бота (start + realized + funding + unrealized)."""
         return max(0.0, self.realized_balance_usd + self._calc_unrealized())
 
     def get_free_margin_usd(self) -> float:

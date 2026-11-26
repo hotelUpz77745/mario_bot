@@ -437,7 +437,24 @@ https://www.youtube.com/watch?v=DAHzFUyPgeU
      * На боевом `$1,000 / reinvest 12%` с реальным Funding: 5Y **`$14,762.91` (`+1,376%`, `CAGR 70.4%`)** против `$9,287.80` у базы (**`+59%` капитала**), **`MaxDD 43.72%`** (было `45.12%`), **`MinEq $851.55`** (было `$764.90`), **геом. `Calmar 1.61`** (было `1.23`), `6M` **`$2,165.50` (`DD 18.68%`)**, сделки `>30д` сжаты с `52` до **`7`** (`0` за 6M), макс. удержание `61д → 34.3д`.
      * Оригинальный паспорт `top14_r15.json` сохранён в `MarioBot/CFG/strategies/`; экспериментальные `v1_stale_drift.json` и `v3_maxhold14d.json` перенесены в `MarioBot/CFG/artifacts/`.
   2. **Документация:** [`STRATEGY_MARKOV_TOP15_R15.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/STRATEGY_MARKOV_TOP15_R15.md) помечен как артефакт; создан новый паспорт-гайд лидера [`STRATEGY_MARIO_ALPHA_TRAIL10.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/STRATEGY_MARIO_ALPHA_TRAIL10.md) со статистикой и roadmap.
-  3. **Автономный стример цен (без привязки к `HRON_3`):** выделен модуль [`MarioBot/CORE/EXECUTION/binance_price_stream.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/EXECUTION/binance_price_stream.py) (`BinanceHotPriceStream`), подключённый к [`MarioCrossProcessPriceHub`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/EXECUTION/ipc_price_hub.py) на собственном порту **`127.0.0.1:48223`** и локальном **`MarioBot/CACHE/ipc/streamer.lock`** с относительными путями `peer_app_configs` (`../MarioPaper/CFG/app.json` ↔ `../MarioBot/CFG/app.json`). Проект теперь 100% самостоятельный и переносимый на любой сервер.
+  3. **Автономный стример цен (без привязки к `HRON_3`):** выделен `BinanceHotPriceStream` + `MarioCrossProcessPriceHub` на собственном порту **`127.0.0.1:48223`** и локальном **`MarioBot/CACHE/ipc/streamer.lock`** с относительными путями `peer_app_configs` (`../MarioPaper/CFG/app.json` ↔ `../MarioBot/CFG/app.json`). Проект теперь 100% самостоятельный и переносимый на любой сервер.
+
+---
+
+### ADR-021: Выделение чистого домена `MarioBot/API/` (`BINANCE` + `IPC`) и изоляция `MarioBot/CORE/` от сетевых вызовов (2026-11-26)
+* **Статус:** Полностью внедрено и защищено архитектурным юнит-тестом (`test_core_layer_has_no_direct_network_or_binance_urls`).
+* **Контекст:** До рефакторинга адаптеры Binance (`HronBinanceRestAdapter`, `BinanceHotPriceStream`, `MarioCrossProcessPriceHub`) лежали в `MarioBot/CORE/EXECUTION/`, а `SpecManager` напрямую вызывал `requests.get("https://fapi.binance.com/fapi/v1/exchangeInfo")` — смешение транспортного слоя с доменной логикой.
+* **Решение:**
+  1. Создан выделенный домен **`MarioBot/API/`**:
+     * [`MarioBot/API/BINANCE/rest_client.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/API/BINANCE/rest_client.py) — `BinanceRestConfig`, `BinanceFuturesRestClient`, `format_decimal_str` (HMAC-SHA256, rate limiter, HEDGE `MARKET`, публичные `exchangeInfo` / `klines` / `premiumIndex`).
+     * [`MarioBot/API/BINANCE/ws_price_stream.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/API/BINANCE/ws_price_stream.py) — `BinanceHotPriceStream`, `PriceTick` (`wss://fstream.binance.com`).
+     * [`MarioBot/API/IPC/price_hub.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/API/IPC/price_hub.py) — `MarioCrossProcessPriceHub`, `discover_cluster_symbols_from_configs`.
+     * [`MarioBot/API/env_loader.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/API/env_loader.py) — `load_dotenv_file`.
+  2. Слой `MarioBot/CORE/` полностью очищен от `requests`, `aiohttp` и URL-ов Binance:
+     * [`MarioBot/CORE/EXECUTION/binance_broker.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/EXECUTION/binance_broker.py) — чистый `BinanceFuturesProdBroker` (REST-клиент приходит строго через DI).
+     * [`MarioBot/CORE/spec_manager.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/spec_manager.py) — удалён прямой `requests.get`, обновление кэша строго через инъекцию `fetcher` (`public_rest.get_exchange_info`). Из `specs_cache` в `app.json` убран дублирующий `exchange_info_url` (Единый источник истины — `binance_futures.base_url`).
+     * Рудименты `hron_binance_broker.py`, `binance_price_stream.py`, `ipc_price_hub.py` удалены из `MarioBot/CORE/EXECUTION/`.
+
 
 
 

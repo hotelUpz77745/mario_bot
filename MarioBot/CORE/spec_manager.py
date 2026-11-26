@@ -1,5 +1,5 @@
 # Path: MarioBot/CORE/spec_manager.py
-# Role: Менеджер спецификаций инструментов (tickSize, stepSize, minQty, minNotional)
+# Role: Чистый доменный менеджер спецификаций инструментов (tickSize, stepSize, minQty, minNotional; без сетевых вызовов)
 
 from __future__ import annotations
 
@@ -9,10 +9,6 @@ import json
 from pathlib import Path
 import time
 from typing import Any, Callable, Dict, Optional
-import requests
-
-
-DEFAULT_EXCHANGE_INFO_URL = "https://fapi.binance.com/fapi/v1/exchangeInfo"
 
 
 @dataclass(frozen=True, slots=True)
@@ -26,11 +22,10 @@ class SymbolSpec:
 
 class SpecManager:
     """
-    Округляет цены и объёмы строго по спецификациям биржи.
-    Поддерживает:
-    1. Загрузку из отдельного JSON-кэша CACHE/specifications.json (формат Binance exchangeInfo)
-       с автоматическим обновлением раз в сутки (ttl_sec=86400) — без хардкода монет в app.json.
-    2. Прямую инициализацию словарём для обратной совместимости с бэктестом/тестами.
+    Чистый доменный менеджер округления цен/объёмов строго по спецификациям биржи (без прямых HTTP-запросов):
+    1. Загружает спецификации из JSON-кэша CACHE/specifications.json (формат Binance exchangeInfo).
+    2. Обновление с биржи выполняется строго через инъекцию fetcher (например, BinanceFuturesRestClient.get_exchange_info).
+    3. Поддерживает прямую инициализацию словарём для бэктеста и юнит-тестов.
     """
 
     def __init__(
@@ -38,12 +33,10 @@ class SpecManager:
         specs_cfg: Optional[Dict[str, Dict[str, Any]]] = None,
         cache_path: Optional[Path] = None,
         ttl_sec: float = 86400.0,
-        exchange_info_url: str = DEFAULT_EXCHANGE_INFO_URL,
     ):
         self._specs: Dict[str, SymbolSpec] = {}
         self.cache_path: Optional[Path] = Path(cache_path) if cache_path is not None else None
         self.ttl_sec: float = float(ttl_sec)
-        self.exchange_info_url: str = str(exchange_info_url)
         self._last_loaded_ts: float = 0.0
 
         if specs_cfg:
@@ -71,7 +64,6 @@ class SpecManager:
             ttl_sec=float(sc["ttl_sec"]),
             auto_refresh=auto_refresh,
             fetcher=fetcher,
-            exchange_info_url=str(sc["exchange_info_url"]),
         )
 
     @classmethod
@@ -81,13 +73,11 @@ class SpecManager:
         ttl_sec: float = 86400.0,
         auto_refresh: bool = False,
         fetcher: Optional[Callable[[], Dict[str, Any]]] = None,
-        exchange_info_url: str = DEFAULT_EXCHANGE_INFO_URL,
     ) -> "SpecManager":
         mgr = cls(
             specs_cfg=None,
             cache_path=cache_path,
             ttl_sec=ttl_sec,
-            exchange_info_url=exchange_info_url,
         )
         mgr.load_or_refresh(auto_refresh=auto_refresh, fetcher=fetcher)
         return mgr
@@ -104,6 +94,11 @@ class SpecManager:
         fetcher: Optional[Callable[[], Dict[str, Any]]] = None,
     ) -> int:
         if auto_refresh and self.is_cache_stale():
+            if fetcher is None:
+                raise ValueError(
+                    "SpecManager.load_or_refresh(auto_refresh=True) requires an injected API fetcher "
+                    "(e.g. BinanceFuturesRestClient.get_exchange_info)"
+                )
             self.refresh_from_exchange(fetcher=fetcher)
         if self.cache_path is not None and self.cache_path.exists():
             raw = json.loads(self.cache_path.read_text(encoding="utf-8"))
@@ -112,14 +107,9 @@ class SpecManager:
             return count
         raise FileNotFoundError(f"Specifications cache file not found: {self.cache_path}")
 
-    def refresh_from_exchange(self, fetcher: Optional[Callable[[], Dict[str, Any]]] = None) -> int:
-        if fetcher is not None:
-            payload = fetcher()
-        else:
-            resp = requests.get(self.exchange_info_url, timeout=15.0)
-            if resp.status_code != 200:
-                raise RuntimeError(f"Failed to fetch Binance exchangeInfo HTTP {resp.status_code}")
-            payload = resp.json()
+    def refresh_from_exchange(self, fetcher: Callable[[], Dict[str, Any]]) -> int:
+        """Обновляет кэш спецификаций строго через переданный адаптер API (Dependency Injection)."""
+        payload = fetcher()
 
         # Сохраняем компактный, но 100% совместимый с Binance exchangeInfo JSON (все USDT PERPETUAL)
         compact_symbols = []

@@ -1,4 +1,4 @@
-# Path: MarioBot/CORE/EXECUTION/binance_price_stream.py
+# Path: MarioBot/API/BINANCE/ws_price_stream.py
 # Role: Автономный WebSocket-стример живых цен Binance USD-M Futures (<sym>@trade, chunking, ping, backoff)
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ class PriceTick:
 
 class BinanceHotPriceStream:
     """
-    Самостоятельный стример живых цен Binance USD-M Futures (без привязки к HRON_3):
+    Самостоятельный WebSocket-стример живых цен Binance USD-M Futures:
     - комбинированный поток wss://fstream.binance.com/stream?streams=<sym>@trade/...;
     - чанкинг по chunk_size символов (по умолчанию 80 на сокет);
     - принудительный IPv4, авто-ping, экспоненциальный backoff-реконнект и опциональный throttle_ms;

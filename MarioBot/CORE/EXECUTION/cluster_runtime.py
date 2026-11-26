@@ -12,18 +12,15 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 from MarioBot.ANALYTICS.live_analytics import LiveAnalyticsManager
+from MarioBot.API.BINANCE import BinanceFuturesRestClient, BinanceRestConfig, PriceTick
+from MarioBot.API.env_loader import load_dotenv_file
+from MarioBot.API.IPC import MarioCrossProcessPriceHub
 from MarioBot.c_log import UnifiedLogger, configure_file_logging
 from MarioBot.CORE.candle_aggregator import CandleAggregator, timeframe_to_ms
 from MarioBot.CORE.config_loader import StrategyPassport, StrictConfigLoader
 from MarioBot.CORE.DATA.feature_timeline import LiveRingFeatureTimeline
 from MarioBot.CORE.EXECUTION.base_broker import ExecutionBroker
-from MarioBot.CORE.EXECUTION.hron_binance_broker import (
-    HronBinanceConfig,
-    HronBinanceProdBroker,
-    HronBinanceRestAdapter,
-    load_dotenv_file,
-)
-from MarioBot.CORE.EXECUTION.ipc_price_hub import MarioCrossProcessPriceHub, PriceTick
+from MarioBot.CORE.EXECUTION.binance_broker import BinanceFuturesProdBroker
 from MarioBot.CORE.EXECUTION.runtime_state_store import MarioRuntimeStateStore, atomic_write_json
 from MarioBot.CORE.models import Candle, SideType
 from MarioBot.CORE.orchestrator import TradeEngineOrchestrator
@@ -49,7 +46,7 @@ class MarioClusterRuntime:
     """
     Единый полиморфный агрегат для MarioBot (mode='PROD') и MarioPaper (mode='PAPER'):
     - мультиаккаунт через active_strategies с двумя режимами сайзинга ('reinvest' | 'fixed', без плеча в расчётах);
-    - общий Master/Slave IPC стрим цен с HRON_3;
+    - автономный Master/Slave IPC стрим цен кластера MarioBot + MarioPaper (MarioBot/API/IPC);
     - главная игровая лупа (app.game_loop_interval_sec = 0.1с) с системными триггерами виртуальных SL и TP;
     - пер-символьный рантайм (CFG/runtime/<slot>/<sym>.json) и простая ресторация позиций перед циклом;
     - Telegram-слой управления (идемпотентные Start/Stop/Status, Analytics 1-й стратегии, Logs + Runtime Backup).
@@ -66,7 +63,7 @@ class MarioClusterRuntime:
         runtime_store: MarioRuntimeStateStore,
         slots: List[StrategySlot],
         price_hub: MarioCrossProcessPriceHub,
-        public_rest: HronBinanceRestAdapter,
+        public_rest: BinanceFuturesRestClient,
         tg_adapter: Optional[TelegramAdapter] = None,
         tg_receiver: Optional[MarioTelegramReceiver] = None,
     ):
@@ -176,7 +173,6 @@ class MarioClusterRuntime:
             cache_path=cache_path,
             ttl_sec=float(sc["ttl_sec"]),
             auto_refresh=False,
-            exchange_info_url=str(sc["exchange_info_url"]),
         )
 
         # 2. Пер-символьный менеджер рантайма (CFG/runtime/<slot>/<sym>.json)
@@ -186,7 +182,7 @@ class MarioClusterRuntime:
         # 3. Активные стратегии (мультиаккаунт + двухрежимный сайзинг reinvest/fixed без плеча)
         strategies_dir = (bot_root_dir / str(app_cfg["paths"]["strategies_dir"])).resolve()
         analytics_dir = (app_dir / str(app_cfg["paths"]["analytics_dir"])).resolve()
-        bf_cfg = HronBinanceConfig.from_dict(app_cfg["binance_futures"])
+        bf_cfg = BinanceRestConfig.from_dict(app_cfg["binance_futures"])
         active_map: Dict[str, Any] = app_cfg["active_strategies"]
 
         tg_cfg = app_cfg["telegram"]
@@ -238,7 +234,7 @@ class MarioClusterRuntime:
                 symbols=override_syms,
             )
 
-            rest_adapter = HronBinanceRestAdapter(
+            rest_client = BinanceFuturesRestClient(
                 cfg=bf_cfg,
                 api_key_name=api_key_name,
                 api_secret_name=api_secret_name,
@@ -249,10 +245,10 @@ class MarioClusterRuntime:
                     slot_id, passport, spec_manager, runtime_store, analytics, app_cfg, app_dir, _on_trade_alert
                 )
             else:
-                broker = HronBinanceProdBroker(
+                broker = BinanceFuturesProdBroker(
                     cfg=bf_cfg,
                     spec_manager=spec_manager,
-                    rest_adapter=rest_adapter,
+                    rest_client=rest_client,
                     start_balance_usd=start_bal,
                     slot_id=str(slot_id),
                     runtime_store=runtime_store,
@@ -307,7 +303,7 @@ class MarioClusterRuntime:
             port=int(ps["port"]),
             upstream_runner=upstream_runner,
         )
-        public_rest = HronBinanceRestAdapter(
+        public_rest = BinanceFuturesRestClient(
             cfg=bf_cfg,
             api_key_name="PUBLIC",
             api_secret_name="PUBLIC",
@@ -359,7 +355,7 @@ class MarioClusterRuntime:
             except Exception as exc:
                 self.logger.warning(f"Spec refresh skipped (using existing cache): {exc}")
 
-        bf_cfg = HronBinanceConfig.from_dict(self.app_cfg["binance_futures"])
+        bf_cfg = BinanceRestConfig.from_dict(self.app_cfg["binance_futures"])
         ref_now = int(now_ms) if now_ms is not None else int(time.time() * 1000)
         total_bars = 0
 

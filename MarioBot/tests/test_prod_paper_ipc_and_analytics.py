@@ -22,16 +22,18 @@ from MarioBacktest.ENGINE.time_grid_precompiler import (
     UnifiedTimeGridPrecompiler,
 )
 from MarioBot.ANALYTICS.live_analytics import LiveAnalyticsManager
+from MarioBot.API.BINANCE import (
+    BinanceFuturesRestClient,
+    BinanceHotPriceStream,
+    BinanceRestConfig,
+    PriceTick,
+)
+from MarioBot.API.IPC import MarioCrossProcessPriceHub
 from MarioBot.c_log import LineRotatingFileHandler
 from MarioBot.CORE.config_loader import StrictConfigLoader
 from MarioBot.CORE.DATA.feature_timeline import LiveRingFeatureTimeline, PrecompiledFeatureTimeline
+from MarioBot.CORE.EXECUTION.binance_broker import BinanceFuturesProdBroker
 from MarioBot.CORE.EXECUTION.cluster_runtime import MarioClusterRuntime
-from MarioBot.CORE.EXECUTION.hron_binance_broker import (
-    HronBinanceConfig,
-    HronBinanceProdBroker,
-    HronBinanceRestAdapter,
-)
-from MarioBot.CORE.EXECUTION.ipc_price_hub import MarioCrossProcessPriceHub, PriceTick
 from MarioBot.CORE.EXECUTION.runtime_state_store import MarioRuntimeStateStore
 from MarioBot.CORE.models import OpenPosition, OrderPlan
 from MarioBot.CORE.spec_manager import SpecManager
@@ -154,10 +156,10 @@ class TestProdPaperIpcAndAnalytics(unittest.TestCase):
                 else:
                     self.assertAlmostEqual(v_bt, v_lv or 0.0, places=12)
 
-    def test_hron_hedge_broker_virtual_sl_tp_and_simple_runtime_restoration(self) -> None:
+    def test_binance_hedge_broker_virtual_sl_tp_and_simple_runtime_restoration(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             app_cfg = StrictConfigLoader.read_json(ROOT_DIR / "MarioBot" / "CFG" / "app.json")
-            bf_cfg = HronBinanceConfig.from_dict({**app_cfg["binance_futures"], "dry_run": False})
+            bf_cfg = BinanceRestConfig.from_dict({**app_cfg["binance_futures"], "dry_run": False})
             store = MarioRuntimeStateStore(Path(tmp) / "runtime")
             # Предзаписываем рантайм: SOLUSDT (qty=2.0 -> на бирже 3.25) и ADAUSDT (на бирже 0 -> сброс в дефолт!)
             store.save_symbol_position(
@@ -168,10 +170,10 @@ class TestProdPaperIpcAndAnalytics(unittest.TestCase):
             )
 
             transport = _FakeHedgeTransport()
-            rest = HronBinanceRestAdapter(bf_cfg, "API_KEY", "API_SECRET", api_key="k", api_secret="s", transport=transport)
+            rest = BinanceFuturesRestClient(bf_cfg, "API_KEY", "API_SECRET", api_key="k", api_secret="s", transport=transport)
             spec_mgr = SpecManager.from_app_config(ROOT_DIR / "MarioBot", app_cfg)
             analytics = LiveAnalyticsManager("slot1", "PROD", 1000.0, Path(tmp) / "an", ["SOLUSDT", "ADAUSDT"])
-            broker = HronBinanceProdBroker(
+            broker = BinanceFuturesProdBroker(
                 bf_cfg, spec_mgr, rest, start_balance_usd=1000.0, slot_id="slot1", runtime_store=store, analytics=analytics
             )
 
@@ -355,9 +357,7 @@ class TestProdPaperIpcAndAnalytics(unittest.TestCase):
             self.assertEqual(len(tail_out.read_text(encoding="utf-8").splitlines()), 10)
 
     def test_autonomous_price_stream_and_multi_account_cluster(self) -> None:
-        from MarioBot.CORE.EXECUTION.binance_price_stream import BinanceHotPriceStream
-
-        # Проверка автономного BinanceHotPriceStream (URL, парсер тиков, throttle)
+        # Проверка автономного BinanceHotPriceStream (URL, парсер тиков, throttle) из домена MarioBot/API/BINANCE
         stream = BinanceHotPriceStream(["solusdt", "BTCUSDT"], throttle_ms=100)
         self.assertEqual(
             BinanceHotPriceStream.make_url(stream.symbols),
@@ -408,6 +408,24 @@ class TestProdPaperIpcAndAnalytics(unittest.TestCase):
             cfg_p.write_text(json.dumps(bad_cfg), encoding="utf-8")
             multi = MarioClusterRuntime.from_app_config(cfg_p, ROOT_DIR / "MarioBot", "PROD", configure_logs=False)
             self.assertEqual(len(multi.slots), 2)
+
+    def test_core_layer_has_no_direct_network_or_binance_urls(self) -> None:
+        """Архитектурная защита: в домене MarioBot/CORE/ запрещены сырые HTTP/WS клиенты и URL-ы Binance."""
+        core_dir = ROOT_DIR / "MarioBot" / "CORE"
+        forbidden = (
+            "import requests",
+            "import aiohttp",
+            "import websockets",
+            "fapi.binance.com",
+            "fstream.binance.com",
+        )
+        violations: List[str] = []
+        for py_file in sorted(core_dir.rglob("*.py")):
+            text = py_file.read_text(encoding="utf-8")
+            for token in forbidden:
+                if token in text:
+                    violations.append(f"{py_file.relative_to(ROOT_DIR)} contains '{token}'")
+        self.assertEqual(violations, [], f"API layer boundary violated: {violations}")
 
 
 if __name__ == "__main__":

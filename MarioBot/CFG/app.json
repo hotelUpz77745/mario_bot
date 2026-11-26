@@ -37,10 +37,9 @@
     },
     "specs_cache": {
         "path": "CACHE/specifications.json",
-        "_desc_path": "Путь к отдельному кэшу биржевых спецификаций Binance Futures (без хардкода монет в app.json)",
+        "_desc_path": "Путь к отдельному кэшу биржевых спецификаций Binance Futures (без хардкода монет в app.json; обновляется через MarioBot/API/BINANCE)",
         "ttl_sec": 86400,
-        "_desc_ttl_sec": "Период обновления спецификаций в секундах (86400 = раз в сутки)",
-        "exchange_info_url": "https://fapi.binance.com/fapi/v1/exchangeInfo"
+        "_desc_ttl_sec": "Период обновления спецификаций в секундах (86400 = раз в сутки)"
     },
     "price_stream": {
         "ipc_dir": "CACHE/ipc",

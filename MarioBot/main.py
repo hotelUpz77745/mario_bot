@@ -41,7 +41,6 @@ def build_prod_runtime(passport_filename: str | None = None) -> tuple[TradeEngin
         cache_path=(bot_dir / str(sc["path"])).resolve(),
         ttl_sec=float(sc["ttl_sec"]),
         auto_refresh=False,
-        exchange_info_url=str(sc["exchange_info_url"]),
     )
     mock_cfg = app_cfg["mock_execution"]
     broker = MockLiveExecutionBroker(
@@ -62,7 +61,7 @@ def build_live_cluster(
     rest_transport: Optional[Any] = None,
     upstream_runner: Optional[Any] = None,
 ) -> MarioClusterRuntime:
-    """Собирает боевой мультиаккаунтный HEDGE-рантайм MarioBot с общим IPC-стримом HRON_3."""
+    """Собирает боевой мультиаккаунтный HEDGE-рантайм MarioBot с автономным IPC-стримом (MarioBot/API)."""
     bot_dir = Path(__file__).resolve().parent
     return MarioClusterRuntime.from_app_config(
         app_cfg_path=bot_dir / "CFG" / "app.json",

@@ -86,10 +86,13 @@
 
 Проект полностью отвязан от `HRON_3` и работает самостоятельно (включая перенос на любой сервер или переименование корневой папки — все пути относительные):
 
-* **Собственный WebSocket-стример цен:** [`MarioBot/CORE/EXECUTION/binance_price_stream.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/EXECUTION/binance_price_stream.py) (`BinanceHotPriceStream`: `wss://fstream.binance.com`, `<sym>@trade`, IPv4, чанкинг по 80 монет, ping-loop, экспоненциальный backoff-реконнект).
-* **Собственный автономный Master/Slave IPC-хаб:** [`MarioBot/CORE/EXECUTION/ipc_price_hub.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/EXECUTION/ipc_price_hub.py) (`MarioCrossProcessPriceHub`) на выделенном порту **`127.0.0.1:48223`** и собственном lock-файле **`MarioBot/CACHE/ipc/streamer.lock`** (не конфликтует с `HRON_3` на `48123`!):
-  * Кто первым запустился (`MarioBot` или `MarioPaper`) — становится **`MASTER`** (открывает ровно 1 WS к Binance на объединённый пул монет обоих ботов).
-  * Второй процесс подключается как **`SLAVE`** (`0` лишних WS к Binance, мгновенный снапшот + тики + автоматический Failover при остановке `MASTER`).
+* **Выделенный домен API (`MarioBot/API/`):**
+  * REST-клиент Binance Futures: [`MarioBot/API/BINANCE/rest_client.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/API/BINANCE/rest_client.py) (`BinanceFuturesRestClient`, `BinanceRestConfig`: HMAC-SHA256, rate limiter, HEDGE `MARKET` ордера без `set_leverage`, публичные `exchangeInfo` / `klines` / `premiumIndex`).
+  * WebSocket-стример цен: [`MarioBot/API/BINANCE/ws_price_stream.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/API/BINANCE/ws_price_stream.py) (`BinanceHotPriceStream`: `wss://fstream.binance.com`, `<sym>@trade`, IPv4, чанкинг по 80 монет, ping-loop, экспоненциальный backoff-реконнект).
+  * Автономный Master/Slave IPC-хаб: [`MarioBot/API/IPC/price_hub.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/API/IPC/price_hub.py) (`MarioCrossProcessPriceHub`) на выделенном порту **`127.0.0.1:48223`** и собственном lock-файле **`MarioBot/CACHE/ipc/streamer.lock`** (не конфликтует с `HRON_3` на `48123`!):
+    * Кто первым запустился (`MarioBot` или `MarioPaper`) — становится **`MASTER`** (открывает ровно 1 WS к Binance на объединённый пул монет обоих ботов).
+    * Второй процесс подключается как **`SLAVE`** (`0` лишних WS к Binance, мгновенный снапшот + тики + автоматический Failover при остановке `MASTER`).
+  * Чистый домен `MarioBot/CORE/` полностью изолирован от `requests` / `aiohttp` / URL-ов Binance (получает клиентов строго через Dependency Injection).
 * **Единый источник истины (Правило 3.1):**
   * Паспорт содержит только математику (`signal.candle_timeframe: "4h"`, фильтры, риски, `profit_trail_activation_atr_mult: 10.0`, `profit_trail_distance_atr_mult: 3.5`).
   * В [`MarioBot/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/app.json) и [`MarioPaper/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioPaper/CFG/app.json) заданы `active_strategies` (`passport`, `symbols`, `start_balance_usd`, `max_open_positions`, двухрежимный `sizing`: `reinvest 12%` | `fixed $120` без плеча в расчётах).
@@ -107,7 +110,7 @@ python -m MarioPaper.main --run
 python -m MarioBot.main --run
 
 # 3. Автономный smoke-тест самого стримера цен Binance:
-python -m MarioBot.CORE.EXECUTION.binance_price_stream
+python -m MarioBot.API.BINANCE.ws_price_stream
 ```
 
 ---

@@ -33,9 +33,8 @@
     },
     "specs_cache": {
         "path": "../MarioBot/CACHE/specifications.json",
-        "_desc_path": "Общий суточный кэш спецификаций Binance Futures из MarioBot/CACHE/specifications.json",
-        "ttl_sec": 86400,
-        "exchange_info_url": "https://fapi.binance.com/fapi/v1/exchangeInfo"
+        "_desc_path": "Общий суточный кэш спецификаций Binance Futures из MarioBot/CACHE/specifications.json (обновляется через MarioBot/API/BINANCE)",
+        "ttl_sec": 86400
     },
     "price_stream": {
         "ipc_dir": "../MarioBot/CACHE/ipc",
