@@ -399,27 +399,32 @@ https://www.youtube.com/watch?v=DAHzFUyPgeU
   5. **Двусторонний Master/Slave IPC стрим с `HRON_3`:** [`MarioBot/CORE/EXECUTION/ipc_price_hub.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/EXECUTION/ipc_price_hub.py) + [`MarioClusterRuntime`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/EXECUTION/cluster_runtime.py) (единый `127.0.0.1:48123` + `HRON_3/cron3/API/IPC/streamer.lock`, общий список символов из `peer_app_configs` = `21` символ, автоматический Failover Master/Slave). Также обновлён `HRON_3/cron3/CFG/app.json` и `HRON_3/cron3/API/IPC/streamer_hub.py` для чтения `peer_app_configs`.
   6. **Отдельный бумажный бот `MarioPaper` + полиморфная живая аналитика:** [`MarioPaper/CORE/paper_broker.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioPaper/CORE/paper_broker.py) + [`MarioPaper/main.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioPaper/main.py) (псевдоордера по живым тикам, комиссия `0.05%`, слип `0.01%`, тиковый `5 × ATR` SL, реальный 8h funding, персистентность состояния) и общий [`LiveAnalyticsManager`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/ANALYTICS/live_analytics.py) для PROD и PAPER.
 * **Открытые эксплуатационные задачи (после запуска `MarioPaper`):**
+  * [x] Telegram-слой управления (`▶️ Start` / `⏸️ Stop` / `ℹ️ Status` / `📊 Analytics` / `📜 Logs`), HTML-алерты о входах/выходах/SL и `Runtime Backup` — реализованы в `ADR-019`.
   * [ ] Продержать `MarioPaper` на живом потоке `7–14` дней и сверить `trades_ledger_PAPER_*.csv` с контрольным бэктестом того же окна.
-  * [ ] Добавить Telegram-уведомления о входах/выходах/сбоях и внешний watchdog-перезапуск.
+  * [ ] Добавить внешний watchdog-перезапуск процесса (по образцу `HRON_3/cron3/watchdog.py`).
   * [ ] Перед переводом `MarioBot` в `"dry_run": false` прописать боевые ключи в `.env` и пройти `24–48h` проверку с `"dry_run": true`.
 
 ---
 
-### ADR-019: Ребрендинг `Clava` → `Mario`, двухрежимный сайзинг (`reinvest`/`fixed` без плеча), виртуальные SL/TP в 0.1с лупе, рантайм-ресторация и Telegram-слой (2026-11-26)
-* **Статус:** Полностью реализовано и верифицировано (`42/42` автотестов OK, все файлы `< 460` строк).
+### ADR-019: Ребрендинг `Clava` → `Mario`, единый источник истины (Правило 3.1), двухрежимный сайзинг (`reinvest`/`fixed` без плеча), виртуальные SL/TP в 0.1с лупе, ресторация и Telegram-слой (2026-11-26)
+* **Статус:** Полностью реализовано, одобрено Тим Лидом и верифицировано (`42/42` автотестов OK, все файлы `< 580` строк).
 * **Ключевые изменения:**
   1. **Полный ребрендинг в `Mario`:** папки переименованы через `git mv` (`MarioBot/`, `MarioPaper/`, `MarioBacktest/`), все импорты, классы (`MarioClusterRuntime`, `MarioCrossProcessPriceHub`), логгеры (`mario.*`), env (`MARIO_BACKTEST`), конфиги и `peer_app_configs` (включая `HRON_3/cron3/CFG/app.json` и `streamer_hub.py`) переведены на `Mario`.
-  2. **Явный двухрежимный сайзинг без плеча в расчётах (`PositionSizer` + `StrictConfigLoader`):**
+  2. **Единый источник истины между паспортом и `app.json` (Правило 3.1 + Правило 5):**
+     * Из боевого паспорта [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json) удалены дублирующие `symbols`, `enabled`, `capital` и корневой `timeframe`; рабочий таймфрейм перенесён явно в `signal.candle_timeframe: "4h"`; все параметры внутри `signal.params` и фильтров документированы через `_desc_*` с числовыми примерами.
+     * Все операционные настройки (`enabled`, `symbols`, `start_balance_usd`, `max_open_positions`, `sizing`) хранятся строго в `app.json -> active_strategies.<slot_id>` (из `MarioBot/CFG/app.json` также удалён дублирующий `default_passport`).
+     * В [`StrictConfigLoader`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/config_loader.py) добавлена жёсткая валидация: наличие `symbols`/`enabled`/`capital`/`timeframe` в боевом паспорте вызывает `ValueError`.
+  3. **Явный двухрежимный сайзинг без плеча в расчётах (`PositionSizer`):**
      * Удалена скрытая формула `risk_per_trade_ratio` и все привязки к плечу (`leverage_budget`) из живых конфигов, брокеров и расчёта объёма.
      * Введены две явные секции `sizing.reinvest` (`notional_equity_ratio: 0.12` = `12%` от `equity` → `$120` на `$1,000`) и `sizing.fixed` (`notional_usd: 120.0`), плюс внешний переключатель `sizing.mode: "reinvest" | "fixed"` и декоративная подсветка `leverage_display: 20`.
      * `annualization_days` вынесен из `app` в секцию `analytics`; все режимы (`app.mode`, `app.auto_start`, `sizing.mode`, `binance_futures.dry_run`, `logging.level`) получили явные `_desc_*` подсказки.
-  3. **Виртуальные системные SL/TP в главной игровой лупе (`app.game_loop_interval_sec = 0.1`):**
+  4. **Виртуальные системные SL/TP в главной игровой лупе (`app.game_loop_interval_sec = 0.1`):**
      * Биржевые ордера в `HronBinanceProdBroker` теперь строго `MARKET` (`positionSide = LONG|SHORT`), без физических `STOP_MARKET`.
      * Главная игровая лупа каждые `0.1с` вызывает `check_virtual_triggers()` по живым тикам IPC-стрима для обоих режимов (`PROD` и `PAPER`).
-  4. **Пер-символьный рантайм и простая ресторация (`MarioRuntimeStateStore`):**
+  5. **Пер-символьный рантайм и простая ресторация (`MarioRuntimeStateStore`):**
      * Прозрачные атомарные JSON в `CFG/runtime/<slot_id>/<symbol>.json` + `_slot_state.json`.
      * При старте перед игровой лупой `restore_and_sync()` запрашивает живые позиции: отсутствующие сбрасываются в чистую дефолтную структуру, существующие подсасываются с корректировкой `qty` и сохранением виртуальных SL/TP.
-  5. **Telegram-слой (`MarioBot/TG/`) + ротируемый логгер (`logs/all.log`):**
+  6. **Telegram-слой (`MarioBot/TG/`) + ротируемый логгер (`logs/all.log`):**
      * `aiogram 3` + `ResilientAiohttpSession` (IPv4, как в `HRON_3`), единый для `MarioBot` и `MarioPaper`. Токен строго в `.env` (`TG_TOKEN` / `TG_TOKEN_PAPER`), `allowed_users` в `app.json` (пустой список `[]` = доступен всем).
      * Идемпотентные `▶️ Start` / `⏸️ Stop` / `ℹ️ Status`, `📊 Analytics` строго по 1-й активной стратегии (`trades_ledger.csv` + `summary.txt`), `📜 Logs` (хвост 1000 строк, ZIP, все ротации `all.log*`, `💾 Runtime Backup (.json)`).
 
