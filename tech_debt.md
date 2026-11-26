@@ -428,6 +428,17 @@ https://www.youtube.com/watch?v=DAHzFUyPgeU
      * `aiogram 3` + `ResilientAiohttpSession` (IPv4, как в `HRON_3`), единый для `MarioBot` и `MarioPaper`. Токен строго в `.env` (`TG_TOKEN` / `TG_TOKEN_PAPER`), `allowed_users` в `app.json` (пустой список `[]` = доступен всем).
      * Идемпотентные `▶️ Start` / `⏸️ Stop` / `ℹ️ Status`, `📊 Analytics` строго по 1-й активной стратегии (`trades_ledger.csv` + `summary.txt`), `📜 Logs` (хвост 1000 строк, ZIP, все ротации `all.log*`, `💾 Runtime Backup (.json)`).
 
+---
+
+### ADR-020: Переход на нового лидера `V2_PROFIT_TRAIL10` (`+10×ATR → trail 3.5×ATR`) и полная автономность стримера цен `MarioBot + MarioPaper` (2026-11-26)
+* **Статус:** Полностью внедрено и проверено (`43/43` тестов OK, 5Y + 6M реальный Funding бэктест в [`exit_variants_3passports_study.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBacktest/REPORTS/exit_variants_3passports_study.json)).
+* **Ключевые решения и итоги:**
+  1. **Новый активный лидер (`V2_PROFIT_TRAIL10`):** [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v2_profit_trail10.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v2_profit_trail10.json) назначен активным в [`MarioBot/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/app.json) и [`MarioPaper/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioPaper/CFG/app.json).
+     * На боевом `$1,000 / reinvest 12%` с реальным Funding: 5Y **`$14,762.91` (`+1,376%`, `CAGR 70.4%`)** против `$9,287.80` у базы (**`+59%` капитала**), **`MaxDD 43.72%`** (было `45.12%`), **`MinEq $851.55`** (было `$764.90`), **геом. `Calmar 1.61`** (было `1.23`), `6M` **`$2,165.50` (`DD 18.68%`)**, сделки `>30д` сжаты с `52` до **`7`** (`0` за 6M), макс. удержание `61д → 34.3д`.
+     * Оригинальный паспорт `top14_r15.json` сохранён в `MarioBot/CFG/strategies/`; экспериментальные `v1_stale_drift.json` и `v3_maxhold14d.json` перенесены в `MarioBot/CFG/artifacts/`.
+  2. **Документация:** [`STRATEGY_MARKOV_TOP15_R15.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/STRATEGY_MARKOV_TOP15_R15.md) помечен как артефакт; создан новый паспорт-гайд лидера [`STRATEGY_MARIO_ALPHA_TRAIL10.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/STRATEGY_MARIO_ALPHA_TRAIL10.md) со статистикой и roadmap.
+  3. **Автономный стример цен (без привязки к `HRON_3`):** выделен модуль [`MarioBot/CORE/EXECUTION/binance_price_stream.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/EXECUTION/binance_price_stream.py) (`BinanceHotPriceStream`), подключённый к [`MarioCrossProcessPriceHub`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/EXECUTION/ipc_price_hub.py) на собственном порту **`127.0.0.1:48223`** и локальном **`MarioBot/CACHE/ipc/streamer.lock`** с относительными путями `peer_app_configs` (`../MarioPaper/CFG/app.json` ↔ `../MarioBot/CFG/app.json`). Проект теперь 100% самостоятельный и переносимый на любой сервер.
+
 
 
 

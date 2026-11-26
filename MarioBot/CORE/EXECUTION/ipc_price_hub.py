@@ -16,14 +16,7 @@ from typing import Any, Awaitable, Callable, Dict, Iterable, List, Optional, Seq
 import aiohttp
 
 from MarioBot.c_log import UnifiedLogger
-
-
-@dataclass(frozen=True, slots=True)
-class PriceTick:
-    """Единый тик цены (совместим по формату с HRON_3 HotPriceTick)."""
-    symbol: str
-    price: float
-    event_time_ms: int
+from MarioBot.CORE.EXECUTION.binance_price_stream import BinanceHotPriceStream, PriceTick
 
 
 def _is_port_in_use(host: str, port: int) -> bool:
@@ -103,58 +96,29 @@ async def _binance_ws_upstream(
     on_tick: Callable[[PriceTick], Awaitable[None]],
     stop_event: asyncio.Event,
 ) -> None:
-    """Поток тиков Binance Futures (<sym>@trade) через aiohttp с chunking и reconnect (как в HRON_3)."""
-    ws_base = "wss://fstream.binance.com"
-    chunk_size = 80
-    chunks = [symbols[i : i + chunk_size] for i in range(0, len(symbols), chunk_size)]
+    """Автономный upstream-стример Binance Futures (<sym>@trade) на базе BinanceHotPriceStream."""
+    stream = BinanceHotPriceStream(symbols)
 
-    async def _run_chunk(session: aiohttp.ClientSession, chunk: List[str]) -> None:
-        streams = "/".join(f"{s.lower()}@trade" for s in chunk)
-        url = f"{ws_base}/stream?streams={streams}"
-        backoff = 1.0
-        while not stop_event.is_set():
-            try:
-                async with session.ws_connect(url, autoping=True, heartbeat=15.0, receive_timeout=30.0) as ws:
-                    backoff = 1.0
-                    async for msg in ws:
-                        if stop_event.is_set():
-                            break
-                        if msg.type == aiohttp.WSMsgType.TEXT:
-                            payload = json.loads(msg.data)
-                            data = payload.get("data") if isinstance(payload, dict) else None
-                            if not isinstance(data, dict):
-                                continue
-                            sym = str(data.get("s", "")).upper().strip()
-                            px = float(data.get("p", 0.0) or 0.0)
-                            ts = int(data.get("E", int(time.time() * 1000)) or int(time.time() * 1000))
-                            if sym and px > 0.0:
-                                await on_tick(PriceTick(symbol=sym, price=px, event_time_ms=ts))
-                        elif msg.type in (aiohttp.WSMsgType.ERROR, aiohttp.WSMsgType.CLOSE, aiohttp.WSMsgType.CLOSED):
-                            break
-            except asyncio.CancelledError:
-                break
-            except Exception:
-                await asyncio.sleep(min(25.0, backoff) * (0.7 + random.random() * 0.6))
-                backoff = min(25.0, backoff * 1.7)
+    async def _watch_stop() -> None:
+        await stop_event.wait()
+        stream.stop()
 
-    async with aiohttp.ClientSession() as session:
-        tasks = [asyncio.create_task(_run_chunk(session, ch)) for ch in chunks if ch]
-        try:
-            await stop_event.wait()
-        finally:
-            for t in tasks:
-                t.cancel()
-            for t in tasks:
-                with contextlib.suppress(asyncio.CancelledError, Exception):
-                    await t
+    watcher = asyncio.create_task(_watch_stop())
+    try:
+        await stream.run(on_tick)
+    finally:
+        watcher.cancel()
+        with contextlib.suppress(asyncio.CancelledError, Exception):
+            await watcher
 
 
 class MarioCrossProcessPriceHub:
     """
-    Межпроцессный стример цен по протоколу HRON_3/cron3/API/IPC/streamer_hub.py:
-    - Кто первый поднялся (HRON_3, MarioBot или MarioPaper) -> Master на 127.0.0.1:48123 (1 WS к Binance).
-    - Остальные -> Slave на 127.0.0.1:48123 (0 WS к Binance; мгновенный снапшот + тики).
-    - При отключении Master любой Slave автоматически перехватывает роль Master (Failover).
+    Автономный межпроцессный Master/Slave стример цен для кластера MarioBot + MarioPaper:
+    - Не зависит от HRON_3 (собственный lock в MarioBot/CACHE/ipc/streamer.lock и порт 48223);
+    - Кто первый поднялся (MarioBot или MarioPaper) -> Master (1 WS к Binance на все монеты кластера);
+    - Второй процесс -> Slave (0 WS к Binance; мгновенный снапшот + живые тики по локальному TCP);
+    - При падении Master любой Slave автоматически перехватывает роль Master (Failover).
     """
 
     def __init__(
@@ -193,6 +157,10 @@ class MarioCrossProcessPriceHub:
     @property
     def is_master(self) -> bool:
         return self._is_master
+
+    @property
+    def role(self) -> str:
+        return "MASTER" if self._is_master else "SLAVE"
 
     @property
     def latest_prices(self) -> Dict[str, Tuple[float, int]]:

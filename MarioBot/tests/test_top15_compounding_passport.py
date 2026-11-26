@@ -178,10 +178,11 @@ class TestAlpha14CompoundingPassport(unittest.TestCase):
         app_cfg = StrictConfigLoader.read_json(ROOT_DIR / "MarioBot" / "CFG" / "app.json")
         slot_cfg = app_cfg["active_strategies"]["markov_alpha_top14_main"]
         strat_dir = ROOT_DIR / "MarioBot" / "CFG" / "strategies"
+        art_dir = ROOT_DIR / "MarioBot" / "CFG" / "artifacts"
 
-        # 1. V3 MaxHold 14d: на 13-й день держит, на 14-й закрывает
+        # 1. V3 MaxHold 14d (в artifacts): на 13-й день держит, на 14-й закрывает
         p_v3 = StrictConfigLoader.load_strategy_passport(
-            strat_dir / "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v3_maxhold14d.json", slot_cfg=slot_cfg
+            art_dir / "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v3_maxhold14d.json", slot_cfg=slot_cfg
         )
         pl_v3 = MarkovPureSignalPlugin(p_v3)
         pos = OpenPosition("SOLUSDT", "LONG", 1.0, 100.0, 1_700_000_000_000, 80.0, None, 0.0, 0.0)
@@ -190,9 +191,9 @@ class TestAlpha14CompoundingPassport(unittest.TestCase):
         self.assertIsNone(pl_v3.check_exit("SOLUSDT", c13, pos))
         self.assertEqual(pl_v3.check_exit("SOLUSDT", c14, pos), "SIGNAL_EXIT")
 
-        # 2. V1 Stale Drift (8d, min +1.5*ATR): прогреваем ATR=2.0 -> на 8д при +1.0 (0.5*ATR) закрывает, при +5.0 (2.5*ATR) держит
+        # 2. V1 Stale Drift (в artifacts): прогреваем ATR=2.0 -> на 8д при +1.0 (0.5*ATR) закрывает, при +5.0 (2.5*ATR) держит
         p_v1 = StrictConfigLoader.load_strategy_passport(
-            strat_dir / "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v1_stale_drift.json", slot_cfg=slot_cfg
+            art_dir / "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v1_stale_drift.json", slot_cfg=slot_cfg
         )
         pl_v1 = MarkovPureSignalPlugin(p_v1)
         for i in range(20):

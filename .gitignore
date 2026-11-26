@@ -10,6 +10,7 @@ MarioBacktest/DATA/cache_1m/
 MarioBacktest/DATA/cache_funding/
 
 # Runtime logs, live/paper state & local secrets
+MarioBot/CACHE/ipc/
 MarioBot/logs/
 MarioPaper/logs/
 MarioBot/CFG/runtime/

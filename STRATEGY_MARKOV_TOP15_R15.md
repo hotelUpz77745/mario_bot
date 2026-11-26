@@ -1,4 +1,8 @@
-# Стратегия «Альфа»: `markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15`
+> **[АРТЕФАКТ / ПРЕДЫДУЩАЯ БАЗОВАЯ ВЕРСИЯ]**
+> Этот документ зафиксирован как исторический артефакт базового паспорта [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json) (без профит-трейлинга `+10×ATR`).
+> **Актуальная документация нового боевого лидера (`V2_PROFIT_TRAIL10`) и автономной архитектуры `MarioBot` + `MarioPaper`:** см. [`STRATEGY_MARIO_ALPHA_TRAIL10.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/STRATEGY_MARIO_ALPHA_TRAIL10.md).
+
+# [АРТЕФАКТ] Стратегия «Альфа» (База): `markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15`
 
 > **Статус на 2026-11-26 (Оптимизация на бэктесте закрыта — см. `ADR-018` в [`tech_debt.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/tech_debt.md)):**
 > Финальная единая стратегия **«Альфа»** (14 ликвидных альтов без `DOTUSDT`, + `BTCUSDT` как чистый индикатор сентимента) полностью собрана, проверена на 5-летнем и полугодовом 1-минутном бэктесте с реальным историческим 8h Funding Rate Binance Futures (`100,779` записей) и готова к форвард-эксплуатации в **боевом (`MarioBot`, HEDGE Mode)** и **бумажном (`MarioPaper`)** контурах с единым Master/Slave IPC стримом `HRON_3`.

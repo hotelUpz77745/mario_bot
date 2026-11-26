@@ -38,14 +38,14 @@
         "exchange_info_url": "https://fapi.binance.com/fapi/v1/exchangeInfo"
     },
     "price_stream": {
-        "hron_ipc_dir": "C:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/HRON_3/cron3/API/IPC",
-        "_desc_hron_ipc_dir": "Общий Master/Slave IPC стрим с HRON_3 и MarioBot (порт 48123)",
+        "ipc_dir": "../MarioBot/CACHE/ipc",
+        "_desc_ipc_dir": "Автономный общий IPC-каталог MarioBot + MarioPaper (без привязки к HRON_3)",
         "host": "127.0.0.1",
-        "port": 48123,
+        "port": 48223,
+        "_desc_port": "Выделенный локальный TCP-порт IPC-стримера Mario (48223)",
         "lock_name": "streamer.lock",
         "peer_app_configs": [
-            "C:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/HRON_3/cron3/CFG/app.json",
-            "C:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/app.json"
+            "../MarioBot/CFG/app.json"
         ]
     },
     "telegram": {
@@ -78,7 +78,7 @@
         "_desc_sizing_guide": "Бумажная торговля (псевдоордера по живым тикам + системный триггер 5*ATR SL в игровой лупе 0.1с + 8h funding). Режимы сайзинга: 'reinvest' | 'fixed' (без плеча в расчётах).",
         "markov_alpha_top14_paper": {
             "enabled": true,
-            "passport": "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json",
+            "passport": "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v2_profit_trail10.json",
             "api_key_name": "PAPER_VIRTUAL_ACC1",
             "api_secret_name": "PAPER_VIRTUAL_SECRET1",
             "start_balance_usd": 1000.0,

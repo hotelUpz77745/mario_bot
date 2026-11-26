@@ -354,16 +354,40 @@ class TestProdPaperIpcAndAnalytics(unittest.TestCase):
             self.assertTrue(LogExportService.extract_log_tail(log_file, tail_out, max_lines=10))
             self.assertEqual(len(tail_out.read_text(encoding="utf-8").splitlines()), 10)
 
-    def test_multi_account_cluster_build_prod_and_paper(self) -> None:
+    def test_autonomous_price_stream_and_multi_account_cluster(self) -> None:
+        from MarioBot.CORE.EXECUTION.binance_price_stream import BinanceHotPriceStream
+
+        # Проверка автономного BinanceHotPriceStream (URL, парсер тиков, throttle)
+        stream = BinanceHotPriceStream(["solusdt", "BTCUSDT"], throttle_ms=100)
+        self.assertEqual(
+            BinanceHotPriceStream.make_url(stream.symbols),
+            "wss://fstream.binance.com/stream?streams=btcusdt@trade/solusdt@trade",
+        )
+        t1 = BinanceHotPriceStream.parse_tick({"data": {"s": "SOLUSDT", "p": "188.5", "E": 1_700_000_000_000}})
+        assert t1 is not None
+        self.assertEqual(t1.symbol, "SOLUSDT")
+        self.assertAlmostEqual(t1.price, 188.5)
+        self.assertTrue(stream._should_emit("SOLUSDT", 1000))
+        self.assertFalse(stream._should_emit("SOLUSDT", 1050))
+        self.assertTrue(stream._should_emit("SOLUSDT", 1100))
+
+        # Проверка полной автономности кластера MarioBot + MarioPaper (порт 48223, свой CACHE/ipc/streamer.lock, без HRON_3!)
         prod = build_live_cluster(rest_transport=_FakeHedgeTransport())
         paper = build_paper_cluster(rest_transport=_FakeHedgeTransport(), configure_logs=False)
+        self.assertEqual(prod.price_hub.port, 48223)
+        self.assertEqual(paper.price_hub.port, 48223)
+        self.assertEqual(prod.price_hub.lock_file, paper.price_hub.lock_file)
+        self.assertNotIn("HRON_3", str(prod.price_hub.lock_file))
         self.assertEqual(len(prod.slots), 1)
         self.assertEqual(len(paper.slots), 1)
         self.assertEqual(len(prod.slots[0].passport.symbols), 14)
+        self.assertAlmostEqual(float(prod.slots[0].passport.signal.params["profit_trail_activation_atr_mult"]), 10.0)
+        self.assertAlmostEqual(float(prod.slots[0].passport.signal.params["profit_trail_distance_atr_mult"]), 3.5)
         self.assertAlmostEqual(prod.slots[0].passport.capital.start_balance_usd, 1000.0)
         self.assertEqual(prod.slots[0].passport.capital.sizing_mode, "reinvest")
         self.assertIn("BTCUSDT", prod.price_hub.cluster_symbols)
         self.assertIn("SOLUSDT", prod.price_hub.cluster_symbols)
+        self.assertEqual(len(prod.price_hub.cluster_symbols), 15)
 
         with tempfile.TemporaryDirectory() as tmp:
             bad_cfg = StrictConfigLoader.read_json(ROOT_DIR / "MarioBot" / "CFG" / "app.json")

@@ -289,10 +289,16 @@ class MarioClusterRuntime:
         if not slots:
             raise ValueError(f"No enabled strategies found in {app_cfg_path}['active_strategies']")
 
-        # 4. Общий Master/Slave IPC стрим цен с HRON_3
+        # 4. Автономный Master/Slave IPC стрим цен кластера MarioBot + MarioPaper (относительные пути!)
         ps = app_cfg["price_stream"]
-        lock_file = Path(str(ps["hron_ipc_dir"])) / str(ps["lock_name"])
-        peer_paths = [Path(str(p)) for p in ps["peer_app_configs"]] + [app_cfg_path]
+        raw_ipc_dir = Path(str(ps["ipc_dir"]))
+        ipc_dir = raw_ipc_dir if raw_ipc_dir.is_absolute() else (app_dir / raw_ipc_dir).resolve()
+        lock_file = ipc_dir / str(ps["lock_name"])
+        peer_paths: List[Path] = []
+        for raw_p in ps["peer_app_configs"]:
+            p_obj = Path(str(raw_p))
+            peer_paths.append(p_obj if p_obj.is_absolute() else (app_dir / p_obj).resolve())
+        peer_paths.append(app_cfg_path)
         price_hub = MarioCrossProcessPriceHub(
             local_symbols=sorted(all_local_symbols),
             peer_config_paths=peer_paths,

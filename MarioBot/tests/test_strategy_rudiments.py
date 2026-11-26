@@ -60,9 +60,7 @@ class TestStrategyRudiments(unittest.TestCase):
             [f.name for f in files],
             [
                 "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json",
-                "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v1_stale_drift.json",
                 "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v2_profit_trail10.json",
-                "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v3_maxhold14d.json",
             ],
         )
         # Боевой паспорт строго привязан к слоту из app.json (никаких двойных источников истины!)
@@ -80,7 +78,11 @@ class TestStrategyRudiments(unittest.TestCase):
                 StrictConfigLoader.parse_strategy_passport(bad_dup, slot_cfg=primary_slot)
 
         for p_file in sorted(art_dir.glob("*.json")):
-            passport = StrictConfigLoader.load_strategy_passport(p_file)
+            raw_art = StrictConfigLoader.read_json(p_file)
+            if "capital" in raw_art:
+                passport = StrictConfigLoader.load_strategy_passport(p_file)
+            else:
+                passport = StrictConfigLoader.load_strategy_passport(p_file, slot_cfg=primary_slot)
             self.assertTrue(len(passport.symbols) >= 1)
             self.assertIn(passport.timeframe, ("1h", "4h", "1d"))
 

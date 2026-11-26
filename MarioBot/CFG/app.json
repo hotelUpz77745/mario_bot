@@ -43,16 +43,16 @@
         "exchange_info_url": "https://fapi.binance.com/fapi/v1/exchangeInfo"
     },
     "price_stream": {
-        "hron_ipc_dir": "C:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/HRON_3/cron3/API/IPC",
-        "_desc_hron_ipc_dir": "Путь к общему IPC каталогу HRON_3 (streamer.lock): кто первый поднялся — тот Master (1 WS к Binance), остальные — Slave",
+        "ipc_dir": "CACHE/ipc",
+        "_desc_ipc_dir": "Автономный IPC-каталог Mario (без привязки к HRON_3): кто первый поднялся (MarioBot или MarioPaper) — тот Master (1 WS к Binance), второй — Slave",
         "host": "127.0.0.1",
-        "port": 48123,
+        "port": 48223,
+        "_desc_port": "Выделенный локальный TCP-порт IPC-стримера Mario (48223, не конфликтует с HRON_3 на 48123)",
         "lock_name": "streamer.lock",
         "peer_app_configs": [
-            "C:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/HRON_3/cron3/CFG/app.json",
-            "C:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioPaper/CFG/app.json"
+            "../MarioPaper/CFG/app.json"
         ],
-        "_desc_peer_app_configs": "Пути к app.json остальных ботов кластера (HRON_3 + MarioPaper), чтобы Master стримил объединённый список всех монет"
+        "_desc_peer_app_configs": "Относительные пути к app.json остальных ботов кластера Mario (MarioPaper), чтобы Master стримил объединённый список всех монет"
     },
     "telegram": {
         "enabled": true,
@@ -94,7 +94,7 @@
         "_desc_sizing_guide": "ДВА ЯВНЫХ РЕЖИМА САЙЗИНГА (БЕЗ ПЛЕЧА В РАСЧЁТАХ): выберите sizing.mode = 'reinvest' (прямая пропорция от текущего equity: 0.12 = 12% = $120 при $1,000) или 'fixed' (фиксированный объём в USDT: 120.0 = $120). Поле leverage_display — чисто для подсветки. Для мультиаккаунта скопируйте блок ниже под новым ID и задайте свои api_key_name / api_secret_name из .env.",
         "markov_alpha_top14_main": {
             "enabled": true,
-            "passport": "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json",
+            "passport": "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v2_profit_trail10.json",
             "api_key_name": "API_KEY",
             "api_secret_name": "API_SECRET",
             "start_balance_usd": 1000.0,
