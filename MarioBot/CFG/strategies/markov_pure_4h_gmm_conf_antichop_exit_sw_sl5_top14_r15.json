@@ -55,7 +55,17 @@
             "vol_max_multiplier": 1.25,
             "_desc_vol_max_multiplier": "Верхняя граница волатильностного множителя ATR% (1.25 = усиливает до 125% на спокойных трендах)",
             "exit_on_sideways": true,
-            "_desc_exit_on_sideways": "true = закрывать открытую позицию в кэш (SIGNAL_EXIT) на закрытии 00:00 UTC при переходе GMM в SIDEWAYS"
+            "_desc_exit_on_sideways": "true = закрывать открытую позицию в кэш (SIGNAL_EXIT) на закрытии 00:00 UTC при переходе GMM в SIDEWAYS",
+            "max_hold_days": null,
+            "_desc_max_hold_days": "Жёсткий Time-Stop в календарных днях (null = отключён; например 14 = принудительное закрытие через 14 суток)",
+            "stale_exit_days": null,
+            "_desc_stale_exit_days": "Через сколько дней проверять застревание сделки в дрейфе (null = отключён; например 8 дней)",
+            "stale_min_profit_atr_mult": null,
+            "_desc_stale_min_profit_atr_mult": "Мин. требуемый профит в единицах ATR к stale_exit_days (например 1.5 = если профит < +1.5*ATR, дрейф закрывается)",
+            "profit_trail_activation_atr_mult": null,
+            "_desc_profit_trail_activation_atr_mult": "Порог активации скользящего трейлинга в ATR от входа (null = отключён; например 10.0 = включать трейлинг после +10*ATR)",
+            "profit_trail_distance_atr_mult": null,
+            "_desc_profit_trail_distance_atr_mult": "Дистанция трейлинга от пика в ATR после активации (например 3.5 = выход при откате на 3.5*ATR от максимума)"
         }
     },
     "session_window": {

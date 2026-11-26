@@ -148,6 +148,21 @@ class MarkovPureSignalPlugin(BaseSignalPlugin):
         self.min_efficiency_ratio = (
             float(params["min_efficiency_ratio"]) if params["min_efficiency_ratio"] is not None else None
         )
+        self.max_hold_days = int(params["max_hold_days"]) if params["max_hold_days"] is not None else None
+        self.stale_exit_days = int(params["stale_exit_days"]) if params["stale_exit_days"] is not None else None
+        self.stale_min_profit_atr_mult = (
+            float(params["stale_min_profit_atr_mult"]) if params["stale_min_profit_atr_mult"] is not None else None
+        )
+        self.profit_trail_activation_atr_mult = (
+            float(params["profit_trail_activation_atr_mult"])
+            if params["profit_trail_activation_atr_mult"] is not None
+            else None
+        )
+        self.profit_trail_distance_atr_mult = (
+            float(params["profit_trail_distance_atr_mult"])
+            if params["profit_trail_distance_atr_mult"] is not None
+            else None
+        )
 
         self._markov_fixed = MarkovRegimeFilter(passport.markov_regime)
         self._markov_adaptive: Optional[_AdaptiveMarkovTracker] = None
@@ -174,6 +189,7 @@ class MarkovPureSignalPlugin(BaseSignalPlugin):
         self._daily_state_snapshot: Dict[str, Tuple[int, str, Optional[SideType]]] = {}
         self._last_emitted_side: Dict[str, Optional[SideType]] = {}
         self._trail_state: Dict[str, Tuple[int, float]] = {}
+        self._profit_trail_state: Dict[str, Tuple[int, float, bool]] = {}
         self._be_armed: Dict[str, Tuple[int, bool]] = {}
 
     def update_and_evaluate(self, symbol: str, candle: Candle) -> Optional[SignalEvent]:
@@ -263,6 +279,10 @@ class MarkovPureSignalPlugin(BaseSignalPlugin):
         return calc_wide_atr_sl_extreme(side, price, atr, self.atr_sl_mult)
 
     def check_exit(self, symbol: str, candle: Candle, open_pos: OpenPosition) -> Optional[ExitReasonType]:
+        hold_ms = candle.close_ts_ms - open_pos.entry_ts_ms
+        if self.max_hold_days is not None and hold_ms >= (self.max_hold_days * 86_400_000):
+            return "SIGNAL_EXIT"
+
         if self.exit_on_sideways:
             snap = self._daily_state_snapshot.get(symbol)
             if snap is not None:
@@ -275,6 +295,45 @@ class MarkovPureSignalPlugin(BaseSignalPlugin):
         atr = self._atrs[symbol].value
         if atr is None or atr <= 0.0:
             return None
+
+        # Умный Stale Drift Time-Stop: закрывает зависшие в дрейфе/минусе сделки после stale_exit_days
+        if (
+            self.stale_exit_days is not None
+            and self.stale_min_profit_atr_mult is not None
+            and hold_ms >= (self.stale_exit_days * 86_400_000)
+        ):
+            move_atr = (
+                (candle.close - open_pos.entry_price) / atr
+                if open_pos.side == "LONG"
+                else (open_pos.entry_price - candle.close) / atr
+            )
+            if move_atr < self.stale_min_profit_atr_mult:
+                return "SIGNAL_EXIT"
+
+        # Активация трейлинга только ПОСЛЕ достижения профита profit_trail_activation_atr_mult * ATR
+        if (
+            self.profit_trail_activation_atr_mult is not None
+            and self.profit_trail_distance_atr_mult is not None
+        ):
+            prev_ts, prev_best, armed = self._profit_trail_state.get(symbol, (-1, open_pos.entry_price, False))
+            if prev_ts != open_pos.entry_ts_ms:
+                prev_best, armed = open_pos.entry_price, False
+            act_dist = self.profit_trail_activation_atr_mult * atr
+            trail_dist = self.profit_trail_distance_atr_mult * atr
+            if open_pos.side == "LONG":
+                best = max(prev_best, candle.high)
+                if not armed and best >= (open_pos.entry_price + act_dist):
+                    armed = True
+                self._profit_trail_state[symbol] = (open_pos.entry_ts_ms, best, armed)
+                if armed and candle.close <= (best - trail_dist):
+                    return "SIGNAL_EXIT"
+            else:
+                best = min(prev_best, candle.low)
+                if not armed and best <= (open_pos.entry_price - act_dist):
+                    armed = True
+                self._profit_trail_state[symbol] = (open_pos.entry_ts_ms, best, armed)
+                if armed and candle.close >= (best + trail_dist):
+                    return "SIGNAL_EXIT"
 
         if self.sl_mode == "chandelier_atr" and self.chandelier_atr_mult is not None:
             prev_ts, prev_best = self._trail_state.get(symbol, (-1, open_pos.entry_price))

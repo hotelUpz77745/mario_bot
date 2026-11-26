@@ -62,7 +62,12 @@
             "target_atr_pct_ratio": 0.02,
             "vol_min_multiplier": 0.35,
             "vol_max_multiplier": 1.25,
-            "exit_on_sideways": true
+            "exit_on_sideways": true,
+            "max_hold_days": null,
+            "stale_exit_days": null,
+            "stale_min_profit_atr_mult": null,
+            "profit_trail_activation_atr_mult": null,
+            "profit_trail_distance_atr_mult": null
         }
     },
     "session_window": {

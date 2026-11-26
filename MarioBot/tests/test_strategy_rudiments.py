@@ -60,6 +60,9 @@ class TestStrategyRudiments(unittest.TestCase):
             [f.name for f in files],
             [
                 "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json",
+                "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v1_stale_drift.json",
+                "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v2_profit_trail10.json",
+                "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v3_maxhold14d.json",
             ],
         )
         # Боевой паспорт строго привязан к слоту из app.json (никаких двойных источников истины!)

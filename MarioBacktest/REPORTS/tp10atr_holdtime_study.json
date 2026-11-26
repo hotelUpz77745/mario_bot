@@ -1,0 +1,836 @@
+{
+  "sizing_mode": "reinvest_12pct_start_1000",
+  "variants": {
+    "BASE_NO_TP": {
+      "5y": {
+        "label": "BASE_NO_TP_5Y",
+        "start_balance_usd": 1000.0,
+        "end_equity_usd": 9287.8,
+        "net_pnl_usd": 8287.8,
+        "roi_pct": 828.78,
+        "cagr_pct": 55.5,
+        "max_dd_pct": 45.12,
+        "max_dd_usd": 3029.4,
+        "min_equity_usd": 764.9,
+        "geom_calmar": 1.23,
+        "trades": 1181,
+        "trades_per_month": 19.5,
+        "wr_pct": 39.8,
+        "pf": 1.65,
+        "fees_usd": -465.95,
+        "funding_usd": -370.15,
+        "avg_trade_pnl_usd": 7.33,
+        "avg_trade_roi_pct": 1.47,
+        "hold_min_h": 4.4,
+        "hold_p50_h": 84.9,
+        "hold_p90_h": 528.0,
+        "hold_avg_h": 191.6,
+        "hold_max_h": 1464.0,
+        "max_tp_move_pct": 199.11,
+        "avg_tp_exec_pct": 0.0,
+        "max_sl_exec_pct": 34.38,
+        "positive_months": "34/61",
+        "exit_reasons": {
+          "SIGNAL_EXIT": 1045,
+          "STOP_LOSS": 113,
+          "OPPOSITE_SIGNAL": 14,
+          "END_OF_SIM": 9
+        },
+        "by_yr": {
+          "2021": 58.0,
+          "2022": -213.0,
+          "2023": 1323.0,
+          "2024": 1737.0,
+          "2025": 1426.0,
+          "2026": 4327.0
+        },
+        "hold_buckets": {
+          "<3d": {
+            "cnt": 487,
+            "wins": 134,
+            "pnl": -4789.95
+          },
+          "3-7d": {
+            "cnt": 273,
+            "wins": 72,
+            "pnl": -2998.12
+          },
+          "7-14d": {
+            "cnt": 169,
+            "wins": 62,
+            "pnl": -285.16
+          },
+          "14-30d": {
+            "cnt": 200,
+            "wins": 151,
+            "pnl": 9932.15
+          },
+          ">30d": {
+            "cnt": 52,
+            "wins": 51,
+            "pnl": 6799.05
+          }
+        }
+      },
+      "6m": {
+        "label": "BASE_NO_TP_6M",
+        "start_balance_usd": 1000.0,
+        "end_equity_usd": 2155.15,
+        "net_pnl_usd": 1155.15,
+        "roi_pct": 115.51,
+        "cagr_pct": 0.0,
+        "max_dd_pct": 19.02,
+        "max_dd_usd": 334.5,
+        "min_equity_usd": 989.37,
+        "geom_calmar": 0.0,
+        "trades": 109,
+        "trades_per_month": 18.1,
+        "wr_pct": 56.9,
+        "pf": 3.97,
+        "fees_usd": -22.45,
+        "funding_usd": -11.97,
+        "avg_trade_pnl_usd": 10.71,
+        "avg_trade_roi_pct": 4.66,
+        "hold_min_h": 13.4,
+        "hold_p50_h": 96.0,
+        "hold_p90_h": 609.6,
+        "hold_avg_h": 240.1,
+        "hold_max_h": 908.0,
+        "max_tp_move_pct": 48.88,
+        "avg_tp_exec_pct": 0.0,
+        "max_sl_exec_pct": 17.0,
+        "positive_months": "7/7",
+        "exit_reasons": {
+          "SIGNAL_EXIT": 89,
+          "STOP_LOSS": 10,
+          "OPPOSITE_SIGNAL": 1,
+          "END_OF_SIM": 9
+        },
+        "by_yr": {
+          "2026": 1167.0
+        },
+        "hold_buckets": {
+          "<3d": {
+            "cnt": 38,
+            "wins": 10,
+            "pnl": -217.57
+          },
+          "3-7d": {
+            "cnt": 26,
+            "wins": 12,
+            "pnl": -88.81
+          },
+          "7-14d": {
+            "cnt": 9,
+            "wins": 7,
+            "pnl": 400.39
+          },
+          "14-30d": {
+            "cnt": 32,
+            "wins": 29,
+            "pnl": 858.25
+          },
+          ">30d": {
+            "cnt": 4,
+            "wins": 4,
+            "pnl": 214.89
+          }
+        }
+      }
+    },
+    "TP_10ATR_ALWAYS": {
+      "5y": {
+        "label": "TP_10ATR_ALWAYS_5Y",
+        "start_balance_usd": 1000.0,
+        "end_equity_usd": 4428.65,
+        "net_pnl_usd": 3428.65,
+        "roi_pct": 342.87,
+        "cagr_pct": 34.3,
+        "max_dd_pct": 47.19,
+        "max_dd_usd": 1187.73,
+        "min_equity_usd": 868.99,
+        "geom_calmar": 0.73,
+        "trades": 1437,
+        "trades_per_month": 23.7,
+        "wr_pct": 40.6,
+        "pf": 1.3,
+        "fees_usd": -356.8,
+        "funding_usd": -182.54,
+        "avg_trade_pnl_usd": 2.51,
+        "avg_trade_roi_pct": 0.63,
+        "hold_min_h": 1.2,
+        "hold_p50_h": 96.0,
+        "hold_p90_h": 432.0,
+        "hold_avg_h": 160.7,
+        "hold_max_h": 1200.0,
+        "max_tp_move_pct": 80.95,
+        "avg_tp_exec_pct": 25.08,
+        "max_sl_exec_pct": 42.57,
+        "positive_months": "32/61",
+        "exit_reasons": {
+          "SIGNAL_EXIT": 1066,
+          "TAKE_PROFIT": 196,
+          "STOP_LOSS": 151,
+          "OPPOSITE_SIGNAL": 14,
+          "END_OF_SIM": 10
+        },
+        "by_yr": {
+          "2021": 55.0,
+          "2022": -104.0,
+          "2023": 1021.0,
+          "2024": 130.0,
+          "2025": 959.0,
+          "2026": 1551.0
+        },
+        "hold_buckets": {
+          "<3d": {
+            "cnt": 566,
+            "wins": 190,
+            "pnl": -352.22
+          },
+          "3-7d": {
+            "cnt": 374,
+            "wins": 144,
+            "pnl": 912.9
+          },
+          "7-14d": {
+            "cnt": 260,
+            "wins": 106,
+            "pnl": 320.9
+          },
+          "14-30d": {
+            "cnt": 227,
+            "wins": 135,
+            "pnl": 2576.54
+          },
+          ">30d": {
+            "cnt": 10,
+            "wins": 9,
+            "pnl": 153.04
+          }
+        }
+      },
+      "6m": {
+        "label": "TP_10ATR_ALWAYS_6M",
+        "start_balance_usd": 1000.0,
+        "end_equity_usd": 1783.29,
+        "net_pnl_usd": 783.29,
+        "roi_pct": 78.33,
+        "cagr_pct": 0.0,
+        "max_dd_pct": 22.65,
+        "max_dd_usd": 345.33,
+        "min_equity_usd": 989.37,
+        "geom_calmar": 0.0,
+        "trades": 151,
+        "trades_per_month": 25.1,
+        "wr_pct": 52.3,
+        "pf": 2.22,
+        "fees_usd": -26.9,
+        "funding_usd": -7.6,
+        "avg_trade_pnl_usd": 5.24,
+        "avg_trade_roi_pct": 2.32,
+        "hold_min_h": 1.2,
+        "hold_p50_h": 96.0,
+        "hold_p90_h": 456.0,
+        "hold_avg_h": 169.1,
+        "hold_max_h": 648.0,
+        "max_tp_move_pct": 43.57,
+        "avg_tp_exec_pct": 19.13,
+        "max_sl_exec_pct": 17.65,
+        "positive_months": "7/7",
+        "exit_reasons": {
+          "SIGNAL_EXIT": 95,
+          "STOP_LOSS": 17,
+          "TAKE_PROFIT": 28,
+          "OPPOSITE_SIGNAL": 1,
+          "END_OF_SIM": 10
+        },
+        "by_yr": {
+          "2026": 791.0
+        },
+        "hold_buckets": {
+          "<3d": {
+            "cnt": 52,
+            "wins": 20,
+            "pnl": 117.33
+          },
+          "3-7d": {
+            "cnt": 50,
+            "wins": 24,
+            "pnl": 86.05
+          },
+          "7-14d": {
+            "cnt": 21,
+            "wins": 14,
+            "pnl": 263.46
+          },
+          "14-30d": {
+            "cnt": 28,
+            "wins": 21,
+            "pnl": 324.07
+          },
+          ">30d": {
+            "cnt": 0,
+            "wins": 0,
+            "pnl": 0.0
+          }
+        }
+      }
+    },
+    "TP_10ATR_ONFLIP": {
+      "5y": {
+        "label": "TP_10ATR_ONFLIP_5Y",
+        "start_balance_usd": 1000.0,
+        "end_equity_usd": 4972.07,
+        "net_pnl_usd": 3972.07,
+        "roi_pct": 397.21,
+        "cagr_pct": 37.4,
+        "max_dd_pct": 41.12,
+        "max_dd_usd": 1088.5,
+        "min_equity_usd": 868.37,
+        "geom_calmar": 0.91,
+        "trades": 1387,
+        "trades_per_month": 22.9,
+        "wr_pct": 41.3,
+        "pf": 1.38,
+        "fees_usd": -350.91,
+        "funding_usd": -136.94,
+        "avg_trade_pnl_usd": 2.96,
+        "avg_trade_roi_pct": 0.76,
+        "hold_min_h": 5.4,
+        "hold_p50_h": 89.5,
+        "hold_p90_h": 384.0,
+        "hold_avg_h": 151.0,
+        "hold_max_h": 1008.0,
+        "max_tp_move_pct": 51.99,
+        "avg_tp_exec_pct": 23.51,
+        "max_sl_exec_pct": 34.38,
+        "positive_months": "37/61",
+        "exit_reasons": {
+          "SIGNAL_EXIT": 1047,
+          "TAKE_PROFIT": 186,
+          "STOP_LOSS": 136,
+          "OPPOSITE_SIGNAL": 13,
+          "END_OF_SIM": 5
+        },
+        "by_yr": {
+          "2021": 37.0,
+          "2022": -20.0,
+          "2023": 765.0,
+          "2024": 127.0,
+          "2025": 1276.0,
+          "2026": 1925.0
+        },
+        "hold_buckets": {
+          "<3d": {
+            "cnt": 573,
+            "wins": 198,
+            "pnl": -24.06
+          },
+          "3-7d": {
+            "cnt": 348,
+            "wins": 132,
+            "pnl": 1058.7
+          },
+          "7-14d": {
+            "cnt": 264,
+            "wins": 109,
+            "pnl": 525.6
+          },
+          "14-30d": {
+            "cnt": 196,
+            "wins": 129,
+            "pnl": 2475.11
+          },
+          ">30d": {
+            "cnt": 6,
+            "wins": 5,
+            "pnl": 73.63
+          }
+        }
+      },
+      "6m": {
+        "label": "TP_10ATR_ONFLIP_6M",
+        "start_balance_usd": 1000.0,
+        "end_equity_usd": 1880.4,
+        "net_pnl_usd": 880.4,
+        "roi_pct": 88.04,
+        "cagr_pct": 0.0,
+        "max_dd_pct": 16.73,
+        "max_dd_usd": 251.58,
+        "min_equity_usd": 980.17,
+        "geom_calmar": 0.0,
+        "trades": 140,
+        "trades_per_month": 23.3,
+        "wr_pct": 51.4,
+        "pf": 2.63,
+        "fees_usd": -25.65,
+        "funding_usd": -4.56,
+        "avg_trade_pnl_usd": 6.32,
+        "avg_trade_roi_pct": 2.56,
+        "hold_min_h": 4.8,
+        "hold_p50_h": 96.0,
+        "hold_p90_h": 454.4,
+        "hold_avg_h": 166.8,
+        "hold_max_h": 648.0,
+        "max_tp_move_pct": 31.47,
+        "avg_tp_exec_pct": 18.76,
+        "max_sl_exec_pct": 22.03,
+        "positive_months": "7/7",
+        "exit_reasons": {
+          "SIGNAL_EXIT": 93,
+          "STOP_LOSS": 13,
+          "TAKE_PROFIT": 28,
+          "OPPOSITE_SIGNAL": 1,
+          "END_OF_SIM": 5
+        },
+        "by_yr": {
+          "2026": 885.0
+        },
+        "hold_buckets": {
+          "<3d": {
+            "cnt": 51,
+            "wins": 22,
+            "pnl": 198.29
+          },
+          "3-7d": {
+            "cnt": 42,
+            "wins": 20,
+            "pnl": 174.21
+          },
+          "7-14d": {
+            "cnt": 19,
+            "wins": 9,
+            "pnl": 196.37
+          },
+          "14-30d": {
+            "cnt": 28,
+            "wins": 21,
+            "pnl": 316.08
+          },
+          ">30d": {
+            "cnt": 0,
+            "wins": 0,
+            "pnl": 0.0
+          }
+        }
+      }
+    },
+    "TP_7.5ATR_ALWAYS": {
+      "5y": {
+        "label": "TP_7.5ATR_ALWAYS_5Y",
+        "start_balance_usd": 1000.0,
+        "end_equity_usd": 3808.68,
+        "net_pnl_usd": 2808.68,
+        "roi_pct": 280.87,
+        "cagr_pct": 30.3,
+        "max_dd_pct": 51.03,
+        "max_dd_usd": 953.11,
+        "min_equity_usd": 788.81,
+        "geom_calmar": 0.59,
+        "trades": 1579,
+        "trades_per_month": 26.1,
+        "wr_pct": 41.9,
+        "pf": 1.29,
+        "fees_usd": -304.07,
+        "funding_usd": -125.06,
+        "avg_trade_pnl_usd": 1.86,
+        "avg_trade_roi_pct": 0.58,
+        "hold_min_h": 1.2,
+        "hold_p50_h": 92.0,
+        "hold_p90_h": 395.3,
+        "hold_avg_h": 147.6,
+        "hold_max_h": 1200.0,
+        "max_tp_move_pct": 64.78,
+        "avg_tp_exec_pct": 19.87,
+        "max_sl_exec_pct": 42.57,
+        "positive_months": "34/61",
+        "exit_reasons": {
+          "SIGNAL_EXIT": 1080,
+          "TAKE_PROFIT": 300,
+          "STOP_LOSS": 175,
+          "OPPOSITE_SIGNAL": 14,
+          "END_OF_SIM": 10
+        },
+        "by_yr": {
+          "2021": 65.0,
+          "2022": -190.0,
+          "2023": 597.0,
+          "2024": -66.0,
+          "2025": 903.0,
+          "2026": 1624.0
+        },
+        "hold_buckets": {
+          "<3d": {
+            "cnt": 658,
+            "wins": 253,
+            "pnl": 874.55
+          },
+          "3-7d": {
+            "cnt": 415,
+            "wins": 170,
+            "pnl": 609.4
+          },
+          "7-14d": {
+            "cnt": 282,
+            "wins": 120,
+            "pnl": 55.2
+          },
+          "14-30d": {
+            "cnt": 218,
+            "wins": 114,
+            "pnl": 1212.4
+          },
+          ">30d": {
+            "cnt": 6,
+            "wins": 5,
+            "pnl": 181.82
+          }
+        }
+      },
+      "6m": {
+        "label": "TP_7.5ATR_ALWAYS_6M",
+        "start_balance_usd": 1000.0,
+        "end_equity_usd": 2134.78,
+        "net_pnl_usd": 1134.78,
+        "roi_pct": 113.48,
+        "cagr_pct": 0.0,
+        "max_dd_pct": 20.46,
+        "max_dd_usd": 363.28,
+        "min_equity_usd": 989.37,
+        "geom_calmar": 0.0,
+        "trades": 172,
+        "trades_per_month": 28.6,
+        "wr_pct": 57.0,
+        "pf": 2.51,
+        "fees_usd": -34.8,
+        "funding_usd": -7.04,
+        "avg_trade_pnl_usd": 6.64,
+        "avg_trade_roi_pct": 2.93,
+        "hold_min_h": 1.2,
+        "hold_p50_h": 96.0,
+        "hold_p90_h": 406.3,
+        "hold_avg_h": 154.2,
+        "hold_max_h": 723.3,
+        "max_tp_move_pct": 32.75,
+        "avg_tp_exec_pct": 16.57,
+        "max_sl_exec_pct": 22.03,
+        "positive_months": "6/7",
+        "exit_reasons": {
+          "SIGNAL_EXIT": 94,
+          "STOP_LOSS": 18,
+          "TAKE_PROFIT": 49,
+          "OPPOSITE_SIGNAL": 1,
+          "END_OF_SIM": 10
+        },
+        "by_yr": {
+          "2026": 1142.0
+        },
+        "hold_buckets": {
+          "<3d": {
+            "cnt": 64,
+            "wins": 33,
+            "pnl": 399.1
+          },
+          "3-7d": {
+            "cnt": 57,
+            "wins": 30,
+            "pnl": 179.05
+          },
+          "7-14d": {
+            "cnt": 23,
+            "wins": 14,
+            "pnl": 151.09
+          },
+          "14-30d": {
+            "cnt": 27,
+            "wins": 20,
+            "pnl": 361.45
+          },
+          ">30d": {
+            "cnt": 1,
+            "wins": 1,
+            "pnl": 51.18
+          }
+        }
+      }
+    },
+    "TP_10ATR_MAX14D": {
+      "5y": {
+        "label": "TP_10ATR_MAX14D_5Y",
+        "start_balance_usd": 1000.0,
+        "end_equity_usd": 4850.45,
+        "net_pnl_usd": 3850.45,
+        "roi_pct": 385.04,
+        "cagr_pct": 36.7,
+        "max_dd_pct": 47.61,
+        "max_dd_usd": 1223.93,
+        "min_equity_usd": 829.79,
+        "geom_calmar": 0.77,
+        "trades": 1671,
+        "trades_per_month": 27.6,
+        "wr_pct": 42.1,
+        "pf": 1.31,
+        "fees_usd": -404.95,
+        "funding_usd": -156.29,
+        "avg_trade_pnl_usd": 2.4,
+        "avg_trade_roi_pct": 0.61,
+        "hold_min_h": 1.2,
+        "hold_p50_h": 96.0,
+        "hold_p90_h": 336.0,
+        "hold_avg_h": 136.4,
+        "hold_max_h": 336.0,
+        "max_tp_move_pct": 80.95,
+        "avg_tp_exec_pct": 24.55,
+        "max_sl_exec_pct": 42.57,
+        "positive_months": "33/61",
+        "exit_reasons": {
+          "SIGNAL_EXIT": 1283,
+          "TAKE_PROFIT": 186,
+          "STOP_LOSS": 179,
+          "OPPOSITE_SIGNAL": 13,
+          "END_OF_SIM": 10
+        },
+        "by_yr": {
+          "2021": 30.0,
+          "2022": -111.0,
+          "2023": 803.0,
+          "2024": 238.0,
+          "2025": 1011.0,
+          "2026": 2037.0
+        },
+        "hold_buckets": {
+          "<3d": {
+            "cnt": 645,
+            "wins": 211,
+            "pnl": -408.14
+          },
+          "3-7d": {
+            "cnt": 471,
+            "wins": 190,
+            "pnl": 1023.24
+          },
+          "7-14d": {
+            "cnt": 303,
+            "wins": 130,
+            "pnl": 972.15
+          },
+          "14-30d": {
+            "cnt": 252,
+            "wins": 172,
+            "pnl": 2419.41
+          },
+          ">30d": {
+            "cnt": 0,
+            "wins": 0,
+            "pnl": 0.0
+          }
+        }
+      },
+      "6m": {
+        "label": "TP_10ATR_MAX14D_6M",
+        "start_balance_usd": 1000.0,
+        "end_equity_usd": 1979.52,
+        "net_pnl_usd": 979.52,
+        "roi_pct": 97.95,
+        "cagr_pct": 0.0,
+        "max_dd_pct": 22.86,
+        "max_dd_usd": 371.31,
+        "min_equity_usd": 989.37,
+        "geom_calmar": 0.0,
+        "trades": 176,
+        "trades_per_month": 29.3,
+        "wr_pct": 54.5,
+        "pf": 2.26,
+        "fees_usd": -33.88,
+        "funding_usd": -8.29,
+        "avg_trade_pnl_usd": 5.61,
+        "avg_trade_roi_pct": 2.29,
+        "hold_min_h": 1.2,
+        "hold_p50_h": 101.5,
+        "hold_p90_h": 336.0,
+        "hold_avg_h": 144.5,
+        "hold_max_h": 336.0,
+        "max_tp_move_pct": 43.57,
+        "avg_tp_exec_pct": 17.82,
+        "max_sl_exec_pct": 17.0,
+        "positive_months": "6/7",
+        "exit_reasons": {
+          "SIGNAL_EXIT": 116,
+          "STOP_LOSS": 20,
+          "TAKE_PROFIT": 28,
+          "OPPOSITE_SIGNAL": 2,
+          "END_OF_SIM": 10
+        },
+        "by_yr": {
+          "2026": 988.0
+        },
+        "hold_buckets": {
+          "<3d": {
+            "cnt": 59,
+            "wins": 25,
+            "pnl": 123.13
+          },
+          "3-7d": {
+            "cnt": 61,
+            "wins": 29,
+            "pnl": 165.67
+          },
+          "7-14d": {
+            "cnt": 25,
+            "wins": 17,
+            "pnl": 348.6
+          },
+          "14-30d": {
+            "cnt": 31,
+            "wins": 25,
+            "pnl": 350.44
+          },
+          ">30d": {
+            "cnt": 0,
+            "wins": 0,
+            "pnl": 0.0
+          }
+        }
+      }
+    },
+    "NO_TP_MAX14D": {
+      "5y": {
+        "label": "NO_TP_MAX14D_5Y",
+        "start_balance_usd": 1000.0,
+        "end_equity_usd": 9026.29,
+        "net_pnl_usd": 8026.29,
+        "roi_pct": 802.63,
+        "cagr_pct": 54.6,
+        "max_dd_pct": 49.5,
+        "max_dd_usd": 2113.2,
+        "min_equity_usd": 692.42,
+        "geom_calmar": 1.1,
+        "trades": 1519,
+        "trades_per_month": 25.1,
+        "wr_pct": 41.9,
+        "pf": 1.55,
+        "fees_usd": -518.74,
+        "funding_usd": -243.8,
+        "avg_trade_pnl_usd": 5.44,
+        "avg_trade_roi_pct": 1.34,
+        "hold_min_h": 4.4,
+        "hold_p50_h": 96.0,
+        "hold_p90_h": 336.0,
+        "hold_avg_h": 148.4,
+        "hold_max_h": 336.0,
+        "max_tp_move_pct": 282.2,
+        "avg_tp_exec_pct": 0.0,
+        "max_sl_exec_pct": 34.38,
+        "positive_months": "34/61",
+        "exit_reasons": {
+          "SIGNAL_EXIT": 1335,
+          "STOP_LOSS": 161,
+          "OPPOSITE_SIGNAL": 14,
+          "END_OF_SIM": 9
+        },
+        "by_yr": {
+          "2021": 13.0,
+          "2022": -247.0,
+          "2023": 1051.0,
+          "2024": 1186.0,
+          "2025": 1645.0,
+          "2026": 4622.0
+        },
+        "hold_buckets": {
+          "<3d": {
+            "cnt": 564,
+            "wins": 148,
+            "pnl": -5336.41
+          },
+          "3-7d": {
+            "cnt": 366,
+            "wins": 101,
+            "pnl": -4043.43
+          },
+          "7-14d": {
+            "cnt": 264,
+            "wins": 103,
+            "pnl": 448.07
+          },
+          "14-30d": {
+            "cnt": 325,
+            "wins": 285,
+            "pnl": 17201.92
+          },
+          ">30d": {
+            "cnt": 0,
+            "wins": 0,
+            "pnl": 0.0
+          }
+        }
+      },
+      "6m": {
+        "label": "NO_TP_MAX14D_6M",
+        "start_balance_usd": 1000.0,
+        "end_equity_usd": 2271.55,
+        "net_pnl_usd": 1271.55,
+        "roi_pct": 127.16,
+        "cagr_pct": 0.0,
+        "max_dd_pct": 19.27,
+        "max_dd_usd": 327.02,
+        "min_equity_usd": 989.37,
+        "geom_calmar": 0.0,
+        "trades": 151,
+        "trades_per_month": 25.1,
+        "wr_pct": 57.0,
+        "pf": 3.18,
+        "fees_usd": -30.82,
+        "funding_usd": -10.73,
+        "avg_trade_pnl_usd": 8.49,
+        "avg_trade_roi_pct": 3.24,
+        "hold_min_h": 13.4,
+        "hold_p50_h": 120.0,
+        "hold_p90_h": 336.0,
+        "hold_avg_h": 167.6,
+        "hold_max_h": 336.0,
+        "max_tp_move_pct": 40.05,
+        "avg_tp_exec_pct": 0.0,
+        "max_sl_exec_pct": 17.0,
+        "positive_months": "6/7",
+        "exit_reasons": {
+          "SIGNAL_EXIT": 124,
+          "STOP_LOSS": 16,
+          "OPPOSITE_SIGNAL": 2,
+          "END_OF_SIM": 9
+        },
+        "by_yr": {
+          "2026": 1282.0
+        },
+        "hold_buckets": {
+          "<3d": {
+            "cnt": 48,
+            "wins": 13,
+            "pnl": -259.41
+          },
+          "3-7d": {
+            "cnt": 39,
+            "wins": 15,
+            "pnl": -211.81
+          },
+          "7-14d": {
+            "cnt": 20,
+            "wins": 17,
+            "pnl": 636.72
+          },
+          "14-30d": {
+            "cnt": 44,
+            "wins": 41,
+            "pnl": 1116.79
+          },
+          ">30d": {
+            "cnt": 0,
+            "wins": 0,
+            "pnl": 0.0
+          }
+        }
+      }
+    }
+  },
+  "elapsed_sec": 547.9
+}

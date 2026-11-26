@@ -171,6 +171,49 @@ class TestAlpha14CompoundingPassport(unittest.TestCase):
         self.assertGreaterEqual(opened, 7)
         self.assertLessEqual(opened, 9)
 
+    def test_three_new_exit_mechanics_unit(self) -> None:
+        from MarioBot.CORE.models import OpenPosition
+        from MarioBot.CORE.STRATEGY.markov_pure_signal_plugin import MarkovPureSignalPlugin
+
+        app_cfg = StrictConfigLoader.read_json(ROOT_DIR / "MarioBot" / "CFG" / "app.json")
+        slot_cfg = app_cfg["active_strategies"]["markov_alpha_top14_main"]
+        strat_dir = ROOT_DIR / "MarioBot" / "CFG" / "strategies"
+
+        # 1. V3 MaxHold 14d: на 13-й день держит, на 14-й закрывает
+        p_v3 = StrictConfigLoader.load_strategy_passport(
+            strat_dir / "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v3_maxhold14d.json", slot_cfg=slot_cfg
+        )
+        pl_v3 = MarkovPureSignalPlugin(p_v3)
+        pos = OpenPosition("SOLUSDT", "LONG", 1.0, 100.0, 1_700_000_000_000, 80.0, None, 0.0, 0.0)
+        c13 = Candle("SOLUSDT", pos.entry_ts_ms + 13 * 86_400_000 - 14_400_000, pos.entry_ts_ms + 13 * 86_400_000, 102.0, 103.0, 101.0, 102.0, 100.0)
+        c14 = Candle("SOLUSDT", pos.entry_ts_ms + 14 * 86_400_000 - 14_400_000, pos.entry_ts_ms + 14 * 86_400_000, 102.0, 103.0, 101.0, 102.0, 100.0)
+        self.assertIsNone(pl_v3.check_exit("SOLUSDT", c13, pos))
+        self.assertEqual(pl_v3.check_exit("SOLUSDT", c14, pos), "SIGNAL_EXIT")
+
+        # 2. V1 Stale Drift (8d, min +1.5*ATR): прогреваем ATR=2.0 -> на 8д при +1.0 (0.5*ATR) закрывает, при +5.0 (2.5*ATR) держит
+        p_v1 = StrictConfigLoader.load_strategy_passport(
+            strat_dir / "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v1_stale_drift.json", slot_cfg=slot_cfg
+        )
+        pl_v1 = MarkovPureSignalPlugin(p_v1)
+        for i in range(20):
+            pl_v1._atrs["SOLUSDT"].update(Candle("SOLUSDT", i * 14_400_000, (i + 1) * 14_400_000, 100.0, 102.0, 100.0, 101.0, 10.0))
+        c8_drift = Candle("SOLUSDT", pos.entry_ts_ms + 8 * 86_400_000 - 14_400_000, pos.entry_ts_ms + 8 * 86_400_000, 101.0, 101.5, 100.5, 101.0, 10.0)
+        c8_trend = Candle("SOLUSDT", pos.entry_ts_ms + 8 * 86_400_000 - 14_400_000, pos.entry_ts_ms + 8 * 86_400_000, 105.0, 106.0, 104.5, 105.0, 10.0)
+        self.assertIsNone(pl_v1.check_exit("SOLUSDT", c8_trend, pos))
+        self.assertEqual(pl_v1.check_exit("SOLUSDT", c8_drift, pos), "SIGNAL_EXIT")
+
+        # 3. V2 Profit-Activated Trail (+10*ATR -> trail 3.5*ATR): при ATR=2.0 активация на 120.0, откат ниже 125 - 7 = 118 -> выход
+        p_v2 = StrictConfigLoader.load_strategy_passport(
+            strat_dir / "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_v2_profit_trail10.json", slot_cfg=slot_cfg
+        )
+        pl_v2 = MarkovPureSignalPlugin(p_v2)
+        for i in range(20):
+            pl_v2._atrs["SOLUSDT"].update(Candle("SOLUSDT", i * 14_400_000, (i + 1) * 14_400_000, 100.0, 102.0, 100.0, 101.0, 10.0))
+        c_arm = Candle("SOLUSDT", pos.entry_ts_ms + 14_400_000, pos.entry_ts_ms + 28_800_000, 118.0, 125.0, 118.0, 124.0, 10.0)
+        c_hit = Candle("SOLUSDT", pos.entry_ts_ms + 28_800_000, pos.entry_ts_ms + 43_200_000, 123.0, 123.0, 117.0, 117.5, 10.0)
+        self.assertIsNone(pl_v2.check_exit("SOLUSDT", c_arm, pos))
+        self.assertEqual(pl_v2.check_exit("SOLUSDT", c_hit, pos), "SIGNAL_EXIT")
+
 
 if __name__ == "__main__":
     unittest.main()
