@@ -109,8 +109,8 @@
         "notify_role_switch": true
     },
     "equity_cutoff": {
-        "enabled": true,
-        "_desc_enabled": "Emergency Equity Cutoff — аварийный стоп-кран портфеля по просадке от пикового equity (HWM)",
+        "enabled": false,
+        "_desc_enabled": "Emergency Equity Cutoff — опциональный аварийный стоп-кран портфеля по просадке от HWM (по умолчанию ВЫКЛЮЧЕН; включать только вручную с осознанно выбранным порогом > исторической MaxDD стратегии)",
         "max_drawdown_ratio": 0.25,
         "_desc_max_drawdown_ratio": "Максимально допустимая просадка слота от пика (доля от 1: 0.25 = -25%); при достижении срабатывает стоп-кран",
         "close_open_positions_on_trip": true,

@@ -115,6 +115,20 @@ class TestOperationalArmorAndTelegram(unittest.TestCase):
     def test_emergency_equity_cutoff_closes_positions_pauses_and_resets_on_resume(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             rt, cfg_p, alerts = self._build_temp_runtime(tmp)
+            assert rt.armor is not None
+            # По умолчанию в app.json стоп-кран ВЫКЛЮЧЕН (оператор включает вручную осознанно)
+            self.assertFalse(rt.armor.equity_cutoff.cfg.enabled)
+            # Включаем в тесте явно для проверки механики срабатывания и сброса
+            rt.armor.equity_cutoff = EmergencyEquityCutoffGuard(
+                EquityCutoffConfig(
+                    enabled=True,
+                    max_drawdown_ratio=0.25,
+                    close_open_positions_on_trip=True,
+                    pause_runtime_on_trip=True,
+                    notify_telegram=True,
+                ),
+                rt,
+            )
             slot = rt.slots[0]
             # Открываем крупную LONG позицию (5 SOL @ $200 = $1,000 notional) на стартовом $1,000 equity
             slot.broker.on_price_tick("SOLUSDT", 200.0)

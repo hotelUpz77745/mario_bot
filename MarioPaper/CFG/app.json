@@ -114,8 +114,8 @@
     "notify_role_switch": true
   },
   "equity_cutoff": {
-    "enabled": true,
-    "_desc_enabled": "Emergency Equity Cutoff — портфельный стоп-кран по просадке от пикового equity (0.25 = -25%)",
+    "enabled": false,
+    "_desc_enabled": "Emergency Equity Cutoff — опциональный портфельный стоп-кран по просадке от HWM (по умолчанию ВЫКЛЮЧЕН)",
     "max_drawdown_ratio": 0.25,
     "close_open_positions_on_trip": true,
     "pause_runtime_on_trip": true,
