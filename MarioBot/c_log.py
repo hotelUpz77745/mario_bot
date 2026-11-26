@@ -149,3 +149,6 @@ class UnifiedLogger:
 
     def error(self, msg: str) -> None:
         self._logger.error(msg)
+
+    def critical(self, msg: str) -> None:
+        self._logger.critical(msg)

@@ -65,7 +65,9 @@
             "profit_trail_activation_atr_mult": 10.0,
             "_desc_profit_trail_activation_atr_mult": "Порог активации скользящего трейлинга в ATR от входа (null = отключён; например 10.0 = включать трейлинг после +10*ATR)",
             "profit_trail_distance_atr_mult": 3.5,
-            "_desc_profit_trail_distance_atr_mult": "Дистанция трейлинга от пика в ATR после активации (например 3.5 = выход при откате на 3.5*ATR от максимума)"
+            "_desc_profit_trail_distance_atr_mult": "Дистанция трейлинга от пика в ATR после активации (например 3.5 = выход при откате на 3.5*ATR от максимума)",
+            "profit_trail_mode": "4h_close",
+            "_desc_profit_trail_mode": "Режим проверки профит-трейлинга: '4h_close' (по закрытию 4H свечи — доказано устойчивее к теневому шуму, ADR-022) | 'intrabar_tick' (внутрисвечной 1m/тиковый)"
         }
     },
     "session_window": {

@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 from MarioBot.ANALYTICS.live_analytics import LiveAnalyticsManager
-from MarioBot.API.BINANCE import BinanceFuturesRestClient, BinanceRestConfig, PriceTick
+from MarioBot.API.BINANCE import BinanceCmsNewsClient, BinanceFuturesRestClient, BinanceRestConfig, PriceTick
 from MarioBot.API.env_loader import load_dotenv_file
 from MarioBot.API.IPC import MarioCrossProcessPriceHub
 from MarioBot.c_log import UnifiedLogger, configure_file_logging
@@ -24,6 +24,7 @@ from MarioBot.CORE.EXECUTION.binance_broker import BinanceFuturesProdBroker
 from MarioBot.CORE.EXECUTION.runtime_state_store import MarioRuntimeStateStore, atomic_write_json
 from MarioBot.CORE.models import Candle, SideType
 from MarioBot.CORE.orchestrator import TradeEngineOrchestrator
+from MarioBot.CORE.SERVICES.delisting_detector import DelistingDetectorConfig, MarioDelistingDetector
 from MarioBot.CORE.spec_manager import SpecManager
 from MarioBot.TG.tg_adapter import TelegramAdapter, resolve_tg_token_from_env
 from MarioBot.TG.tg_receiver import MarioTelegramReceiver
@@ -92,6 +93,35 @@ class MarioClusterRuntime:
         self._last_funding_bucket: int = -1
         self._last_spec_check_mono: float = time.monotonic()
         self._alert_loop: Optional[asyncio.AbstractEventLoop] = None
+        self.delisting_detector: Optional[MarioDelistingDetector] = None
+
+    def get_active_pool_symbols(self) -> List[str]:
+        """Возвращает объединённый список торгуемых монет по всем активным слотам (для детектора делистинга)."""
+        return sorted({s.upper().strip() for slot in self.slots for s in slot.passport.symbols})
+
+    def emergency_delist_symbol(self, symbol: str, reason: str = "DELISTING") -> Dict[str, Any]:
+        """Фаза 2 делистинга: закрывает позиции MARKET, убирает монету из всех слотов и атомарно обновляет app.json."""
+        sym = symbol.upper().strip()
+        closed_positions = 0
+        removed_from_slots: List[str] = []
+        active_map = self.app_cfg.get("active_strategies", {})
+        for slot in self.slots:
+            if slot.broker.has_open_position(sym):
+                if slot.broker.submit_close_market(sym, reason=reason):
+                    closed_positions += 1
+            if sym in slot.passport.symbols:
+                new_syms = [s for s in slot.passport.symbols if s != sym]
+                slot.passport = dataclasses.replace(slot.passport, symbols=new_syms)
+                slot.orchestrator.passport = slot.passport
+                removed_from_slots.append(slot.slot_id)
+                if isinstance(active_map, dict) and isinstance(active_map.get(slot.slot_id), dict):
+                    active_map[slot.slot_id]["symbols"] = list(new_syms)
+        if removed_from_slots:
+            try:
+                atomic_write_json(self.app_cfg_path, self.app_cfg)
+            except Exception as exc:
+                self.logger.warning(f"[DELISTING] Failed to persist updated app.json for {sym}: {exc}")
+        return {"symbol": sym, "closed_positions": closed_positions, "removed_from_slots": removed_from_slots}
 
     def _dispatch_tg_alert(self, html_text: str) -> None:
         if self.tg_adapter is None or not self.tg_adapter.token:
@@ -256,19 +286,11 @@ class MarioClusterRuntime:
                     on_trade_event=_on_trade_alert,
                 )
 
-            orchestrator = TradeEngineOrchestrator(
-                passport=passport,
-                spec_manager=spec_manager,
-                broker=broker,
-            )
+            orchestrator = TradeEngineOrchestrator(passport=passport, spec_manager=spec_manager, broker=broker)
             bench = passport.market_sentinel.benchmark_symbol
-            tracked = list(override_syms)
-            if bench and bench not in tracked:
-                tracked.append(bench)
+            tracked = list(override_syms) + ([bench] if (bench and bench not in override_syms) else [])
             all_local_symbols.update(tracked)
 
-            timeline = LiveRingFeatureTimeline(symbols=tracked)
-            aggregator = CandleAggregator(passport.timeframe)
             slots.append(
                 StrategySlot(
                     slot_id=str(slot_id),
@@ -276,9 +298,9 @@ class MarioClusterRuntime:
                     passport=passport,
                     broker=broker,
                     orchestrator=orchestrator,
-                    timeline=timeline,
+                    timeline=LiveRingFeatureTimeline(symbols=tracked),
                     analytics=analytics,
-                    aggregator=aggregator,
+                    aggregator=CandleAggregator(passport.timeframe),
                 )
             )
 
@@ -290,11 +312,10 @@ class MarioClusterRuntime:
         raw_ipc_dir = Path(str(ps["ipc_dir"]))
         ipc_dir = raw_ipc_dir if raw_ipc_dir.is_absolute() else (app_dir / raw_ipc_dir).resolve()
         lock_file = ipc_dir / str(ps["lock_name"])
-        peer_paths: List[Path] = []
-        for raw_p in ps["peer_app_configs"]:
-            p_obj = Path(str(raw_p))
-            peer_paths.append(p_obj if p_obj.is_absolute() else (app_dir / p_obj).resolve())
-        peer_paths.append(app_cfg_path)
+        peer_paths = [
+            (p if p.is_absolute() else (app_dir / p).resolve())
+            for p in (Path(str(raw_p)) for raw_p in ps["peer_app_configs"])
+        ] + [app_cfg_path]
         price_hub = MarioCrossProcessPriceHub(
             local_symbols=sorted(all_local_symbols),
             peer_config_paths=peer_paths,
@@ -304,14 +325,8 @@ class MarioClusterRuntime:
             upstream_runner=upstream_runner,
         )
         public_rest = BinanceFuturesRestClient(
-            cfg=bf_cfg,
-            api_key_name="PUBLIC",
-            api_secret_name="PUBLIC",
-            api_key="",
-            api_secret="",
-            transport=rest_transport,
+            cfg=bf_cfg, api_key_name="PUBLIC", api_secret_name="PUBLIC", api_key="", api_secret="", transport=rest_transport
         )
-
         rt = cls(
             mode=mode_u,
             app_cfg=app_cfg,
@@ -326,13 +341,14 @@ class MarioClusterRuntime:
             tg_adapter=tg_adapter,
         )
         runtime_ref[0] = rt
+        rt.delisting_detector = MarioDelistingDetector(
+            cfg=DelistingDetectorConfig.from_dict(app_cfg["delisting_detector"]),
+            runtime=rt,
+            instruments_fetcher=public_rest.get_exchange_instruments,
+            cms_client=BinanceCmsNewsClient(transport=rest_transport),
+        )
         if tg_enabled:
-            rt.tg_receiver = MarioTelegramReceiver(
-                runtime=rt,
-                token=tg_token,
-                allowed_users=allowed_users,
-                logs_dir=logs_dir,
-            )
+            rt.tg_receiver = MarioTelegramReceiver(runtime=rt, token=tg_token, allowed_users=allowed_users, logs_dir=logs_dir)
         return rt
 
     def _build_fallback_sl_fn(self, slot: StrategySlot):
@@ -536,6 +552,8 @@ class MarioClusterRuntime:
         self._alert_loop = asyncio.get_running_loop()
         self.is_running = True
         self.warmup_and_reconcile()
+        if self.delisting_detector is not None:
+            await self.delisting_detector.start()
 
         tasks: List[asyncio.Task[Any]] = [
             asyncio.create_task(self.price_hub.run(self.on_price_tick), name="mario_price_hub"),
@@ -549,6 +567,8 @@ class MarioClusterRuntime:
         finally:
             self.is_running = False
             self.price_hub.stop()
+            if self.delisting_detector is not None:
+                await self.delisting_detector.stop()
             if self.tg_receiver is not None:
                 await self.tg_receiver.stop()
             if self.tg_adapter is not None:

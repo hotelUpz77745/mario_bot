@@ -455,6 +455,24 @@ https://www.youtube.com/watch?v=DAHzFUyPgeU
      * [`MarioBot/CORE/spec_manager.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/spec_manager.py) — удалён прямой `requests.get`, обновление кэша строго через инъекцию `fetcher` (`public_rest.get_exchange_info`). Из `specs_cache` в `app.json` убран дублирующий `exchange_info_url` (Единый источник истины — `binance_futures.base_url`).
      * Рудименты `hron_binance_broker.py`, `binance_price_stream.py`, `ipc_price_hub.py` удалены из `MarioBot/CORE/EXECUTION/`.
 
+---
+
+### ADR-022: Приоритет 3 — Валидация плато `V2`, сравнение `4H-close` vs `1m-tick` трейлинга и двуконтурный авто-детектор делистинга (2026-11-26)
+* **Статус:** Полностью выполнено и проверено (`48/48` тестов OK, отчёт [`v2_plateau_and_1m_trail_study.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBacktest/REPORTS/v2_plateau_and_1m_trail_study.json)).
+* **Ключевые результаты:**
+  1. **Валидация плато `3×3` (`activation ∈ {8, 10, 12}` × `dist ∈ {3.0, 3.5, 4.0}` на 5Y + 6M с реальным Funding):**
+     * `BASE = $9,263.66 | DD 45.50% | Calmar 1.22`.
+     * `activation = 8` — слишком рано (`$7,936–$9,072`, `DD 45.8–51.4%`, режет недозревшие тренды).
+     * Вся рабочая зона `activation ∈ {10, 12}` × `dist ∈ {3.0, 3.5}` (+ `(10, 4.0)`) образует широкое устойчивое плато (`$11,363–$14,408`, `Calmar 1.36–1.53`). Пара **`(10.0, 3.5)`** (`$14,407.86`, `DD 45.32%`, `Calmar 1.53`) подтверждена как устойчивый центр плато.
+  2. **Сравнение `4H-close` vs `1m intrabar (tick)` профит-трейлинга (`SimExecutionBroker` + `BacktestRunner`):**
+     * На паре `(10.0, 3.5)` внутрисвечной `1m`-трейлинг дал `$9,848.90` / `DD 49.37%` / `Calmar 1.16` против **`$14,407.86` / `DD 45.32%` / `Calmar 1.53`** у `4H-close` (`-31.6%` капитала из-за выбивания внутрисвечными тенями).
+     * В боевом паспорте явно зафиксирован `"profit_trail_mode": "4h_close"` (аварийный SL `5 × ATR` по-прежнему работает на тиках в `0.1с` лупе).
+  3. **Двуконтурный авто-детектор делистинга (порт проверенной механики `HRON_3` с сохранением границы `API`/`CORE`):**
+     * Слой API: [`MarioBot/API/BINANCE/cms_client.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/API/BINANCE/cms_client.py) (`BinanceCmsNewsClient`, каталог `161`) + `BinanceFuturesRestClient.get_exchange_instruments()`.
+     * Слой сервисов: [`MarioBot/CORE/SERVICES/delisting_detector.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/SERVICES/delisting_detector.py) (`DelistingDetectorConfig`, `MarioDelistingDetector`: Контур 1 `exchangeInfo` `status` + `deliveryDate`, Контур 2 `Binance CMS`, Фаза 1 предупреждение / Фаза 2 `emergency_delist_symbol()` + атомарное обновление `app.json` + TG-алерты, no-op при `MARIO_BACKTEST=1`).
+     * Покрыто юнит-тестами [`MarioBot/tests/test_delisting_detector.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/tests/test_delisting_detector.py) + страж `test_core_layer_has_no_direct_network_or_binance_urls`.
+
+
 
 
 

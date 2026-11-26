@@ -80,6 +80,18 @@
    * Как только цена пробила **`+10.0 × ATR(14)`**, в [`MarkovPureSignalPlugin.check_exit()`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/STRATEGY/markov_pure_signal_plugin.py#L315-L335) взводится скользящий профит-замок: если `4H` свеча закрывается с откатом **`3.5 × ATR(14)`** от достигнутого максимума, позиция закрывается по рынку (`SIGNAL_EXIT`).
    * Результат: пик импульса забирается уже на `7–14` день (`+$10,282` вместо `-$285`), просадка снизилась на обоих горизонтах, `5Y` капитал вырос на **`+59%`**, а сделки `>30` дней почти исчезли (`7` за 5 лет, `0` за последние полгода).
 
+### 2.1. Валидация плато `3×3` и тест `4H-close` vs `1m-tick` трейлинга (`ADR-022`)
+Проверено на `5Y` (`2021-11-01..2026-11-18`) + `6M` (`2026-05-19..2026-11-18`) с реальным Funding ([`v2_plateau_and_1m_trail_study.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBacktest/REPORTS/v2_plateau_and_1m_trail_study.json); `BASE = $9,264 | DD 45.5% | Calmar 1.22`):
+
+| `activation` \ `trail_dist` (`4H-close`, `5Y`) | `3.0 × ATR` | **`3.5 × ATR`** | `4.0 × ATR` |
+| :--- | :---: | :---: | :---: |
+| `8 × ATR` *(слишком рано)* | `$9,072` (`DD 51.1%`, `Cal 1.07`) | `$8,691` (`DD 51.4%`, `Cal 1.04`) | `$7,936` (`DD 45.8%`, `Cal 1.11`) |
+| **`10 × ATR` *(рабочее плато)*** | **`$12,775`** (`DD 46.8%`, `Cal 1.40`) | **`$14,408` (`DD 45.3%`, `Cal 1.53`)** | **`$11,363`** (`DD 45.5%`, `Cal 1.36`) |
+| **`12 × ATR` *(рабочее плато)*** | **`$12,539`** (`DD 44.4%`, `Cal 1.46`) | **`$12,862`** (`DD 48.3%`, `Cal 1.36`) | `$8,592` (`DD 47.6%`, `Cal 1.12`) |
+
+* **Вывод по плато:** `5` смежных ячеек в зоне `activation ∈ {10, 12}` × `dist ∈ {3.0, 3.5}` (+ `(10, 4.0)`) уверенно бьют базу (`$11.4k–$14.4k`, `Calmar 1.36–1.53`). Пара **`(10.0, 3.5)`** — устойчивый центр плато, а не случайный пик.
+* **Сравнение `4H-close` vs `1m intrabar (tick)`:** на той же паре `(10.0, 3.5)` тиковый `1m`-трейлинг дал `$9,849` / `DD 49.37%` / `Calmar 1.16` против **`$14,408` / `DD 45.32%` / `Calmar 1.53`** у `4H-close` (`-31.6%` капитала из-за выбивания внутрисвечными тенями). В паспорте зафиксирован **`profit_trail_mode = "4h_close"`** (при том, что аварийный `5 × ATR` SL остаётся тиковым в `0.1с` лупе).
+
 ---
 
 ## 3. Автономная архитектура `MarioBot` + `MarioPaper` (БЕЗ привязки к `HRON_3`)
@@ -93,6 +105,11 @@
     * Кто первым запустился (`MarioBot` или `MarioPaper`) — становится **`MASTER`** (открывает ровно 1 WS к Binance на объединённый пул монет обоих ботов).
     * Второй процесс подключается как **`SLAVE`** (`0` лишних WS к Binance, мгновенный снапшот + тики + автоматический Failover при остановке `MASTER`).
   * Чистый домен `MarioBot/CORE/` полностью изолирован от `requests` / `aiohttp` / URL-ов Binance (получает клиентов строго через Dependency Injection).
+* **Двуконтурный авто-детектор делистинга (порт из `HRON_3`, `ADR-022`):**
+  * Сервис [`MarioBot/CORE/SERVICES/delisting_detector.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/SERVICES/delisting_detector.py) + клиент CMS [`MarioBot/API/BINANCE/cms_client.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/API/BINANCE/cms_client.py), настраивается в `app.json["delisting_detector"]`.
+  * **Контур 1 (`exchangeInfo`):** статус вне `["TRADING", "PENDING_TRADING"]` → немедленная Фаза 2; `deliveryDate` в пределах `90д` → Фаза 1 (TG-предупреждение) при остатке `> 4ч` и Фаза 2 при `<= 4ч`.
+  * **Контур 2 (`Binance CMS` каталог `161`):** анонсы фьючерсных делистингов с фильтрацией заголовков и кэшем `articleCode` → немедленная Фаза 2.
+  * **Фаза 2:** рыночное закрытие открытой позиции (`reason="DELISTING"`), вывод монеты из всех слотов и атомарное обновление `app.json` + критический алерт в Telegram. В бэктесте (`MARIO_BACKTEST=1`) — полный no-op.
 * **Единый источник истины (Правило 3.1):**
   * Паспорт содержит только математику (`signal.candle_timeframe: "4h"`, фильтры, риски, `profit_trail_activation_atr_mult: 10.0`, `profit_trail_distance_atr_mult: 3.5`).
   * В [`MarioBot/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/app.json) и [`MarioPaper/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioPaper/CFG/app.json) заданы `active_strategies` (`passport`, `symbols`, `start_balance_usd`, `max_open_positions`, двухрежимный `sizing`: `reinvest 12%` | `fixed $120` без плеча в расчётах).
@@ -124,7 +141,7 @@ python -m MarioBot.API.BINANCE.ws_price_stream
    * **Внешний Watchdog + Heartbeat** (по образцу `HRON_3/cron3/watchdog.py`): контроль зависания `0.1с` лупы, авто-рестарт процесса при обрыве и тихий Telegram Heartbeat.
    * **Emergency Equity Cutoff (стоп-кран портфеля):** настраиваемый предохранитель (например, при просадке портфеля `> 30%` от пика — экстренный сброс в кэш и постановка бота на паузу с алертом в TG).
    * **Проверка `REST failsafe` / сверки тиков:** если от стримера цен по символу нет тика `> 30с` (например, тихая ночь или обрыв WS), автоматический REST-фоллбек `/fapi/v1/ticker/price` для поддержания актуальности виртуальных SL/TP.
-3. **Приоритет №3 — Точечное R&D (после подтверждения в бумаге):**
-   * **Тонкий свип сетки `V2`:** проверить пару `(profit_trail_activation_atr_mult ∈ {8, 10, 12}, profit_trail_distance_atr_mult ∈ {3.0, 3.5, 4.0})` — убедиться, что `(10.0, 3.5)` лежит в центре широкого устойчивого плато, а не на случайном пике.
-   * **Тиковый `Profit Trail` vs `4H close`:** сейчас замок `+10×ATR / 3.5×ATR` проверяется на закрытии 4H свечи (как и протестировано); можно сравнить с проверкой на 1m/тиках в игровой лупе (осторожно: внутрисвечные шпильки могут выбивать раньше, обязательно проверять на 1m бэктесте).
-   * **Делистинг-детектор и периодический аудит пула:** защита от делистинга монет на Binance (как `DelistingDetector` в `HRON_3`) и полугодовой пересмотр списка 14 монет по объективным метрикам ликвидности.
+3. **Приоритет №3 — Точечное R&D и защита от делистинга (`✅ ВЫПОЛНЕНО`, `ADR-022`):**
+   * ✅ **Сетка `3×3` плато `V2`:** `(10.0, 3.5)` подтверждён в центре устойчивого плато (`5` смежных ячеек `$11.4k–$14.4k` против базы `$9.3k`).
+   * ✅ **Тиковый `Profit Trail` vs `4H close`:** доказано на `1m`-бэктесте, что `4H-close` устойчивее к внутрисвечным теням (`$14,408 / DD 45.3%` vs `$9,849 / DD 49.4%`); в паспорте явно зафиксирован `profit_trail_mode = "4h_close"`.
+   * ✅ **Двуконтурный авто-детектор делистинга:** портирован из `HRON_3` (`exchangeInfo` + `Binance CMS`) в `MarioBot/API/BINANCE/cms_client.py` + `MarioBot/CORE/SERVICES/delisting_detector.py` и покрыт тестами (`test_delisting_detector.py`). Остаётся только полугодовой аудит ликвидности пула.

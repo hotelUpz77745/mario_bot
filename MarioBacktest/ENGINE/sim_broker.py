@@ -38,6 +38,34 @@ class SimExecutionBroker(ExecutionBroker):
         self.last_close_prices: Dict[str, float] = {}
         self.closed_trades: List[ClosedTrade] = []
         self.total_funding_usd: float = 0.0
+        self._intrabar_trail_act_mult: Optional[float] = None
+        self._intrabar_trail_dist_mult: Optional[float] = None
+        self._symbol_atr: Dict[str, float] = {}
+        self._intrabar_trail_state: Dict[str, tuple[int, float, bool]] = {}
+
+    def configure_intrabar_profit_trail(self, activation_atr_mult: float, distance_atr_mult: float) -> None:
+        """Включает 1m внутрисвечной профит-трейлинг (имитация тиковой 0.1с лупы)."""
+        self._intrabar_trail_act_mult = float(activation_atr_mult)
+        self._intrabar_trail_dist_mult = float(distance_atr_mult)
+
+    def update_symbol_atr(self, symbol: str, atr: Optional[float]) -> None:
+        if atr is not None and atr > 0.0:
+            self._symbol_atr[symbol] = float(atr)
+
+    def is_intrabar_trail_relevant(self, pos: OpenPosition, bar_high: float, bar_low: float) -> bool:
+        """True, если внутри 4H-блока возможна активация или срабатывание 1m профит-трейлинга."""
+        if self._intrabar_trail_act_mult is None or self._intrabar_trail_dist_mult is None:
+            return False
+        atr = self._symbol_atr.get(pos.symbol)
+        if atr is None or atr <= 0.0:
+            return False
+        st = self._intrabar_trail_state.get(pos.symbol)
+        if st is not None and st[0] == pos.entry_ts_ms and st[2]:
+            return True
+        act_dist = self._intrabar_trail_act_mult * atr
+        if pos.side == "LONG":
+            return bar_high >= (pos.entry_price + act_dist)
+        return bar_low <= (pos.entry_price - act_dist)
 
     def has_open_position(self, symbol: str) -> bool:
         if symbol in self.pending_orders:
@@ -206,6 +234,8 @@ class SimExecutionBroker(ExecutionBroker):
                 exit_price = raw_exit * (1.0 - self.slippage_rate)
                 self._close_position(symbol, pos, exit_price, ts_ms, self.taker_fee_rate, "STOP_LOSS")
                 return
+            if self._check_intrabar_profit_trail(symbol, pos, ts_ms, o, h, l, c):
+                return
             if pos.take_profit is not None and h >= pos.take_profit:
                 raw_exit = max(o, pos.take_profit)
                 exit_price = raw_exit * (1.0 - self.tp_slippage_rate)
@@ -217,11 +247,59 @@ class SimExecutionBroker(ExecutionBroker):
                 exit_price = raw_exit * (1.0 + self.slippage_rate)
                 self._close_position(symbol, pos, exit_price, ts_ms, self.taker_fee_rate, "STOP_LOSS")
                 return
+            if self._check_intrabar_profit_trail(symbol, pos, ts_ms, o, h, l, c):
+                return
             if pos.take_profit is not None and l <= pos.take_profit:
                 raw_exit = min(o, pos.take_profit)
                 exit_price = raw_exit * (1.0 + self.tp_slippage_rate)
                 self._close_position(symbol, pos, exit_price, ts_ms, self.maker_fee_rate, "TAKE_PROFIT")
                 return
+
+    def _check_intrabar_profit_trail(
+        self, symbol: str, pos: OpenPosition, ts_ms: int, o: float, h: float, l: float, c: float
+    ) -> bool:
+        """Пессимистическая 1m проверка профит-трейлинга: сначала проверяется откат от прошлого пика, затем новый пик."""
+        if self._intrabar_trail_act_mult is None or self._intrabar_trail_dist_mult is None:
+            return False
+        atr = self._symbol_atr.get(symbol)
+        if atr is None or atr <= 0.0:
+            return False
+
+        prev_ts, peak, armed = self._intrabar_trail_state.get(symbol, (-1, pos.entry_price, False))
+        if prev_ts != pos.entry_ts_ms:
+            peak, armed = pos.entry_price, False
+
+        act_dist = self._intrabar_trail_act_mult * atr
+        trail_dist = self._intrabar_trail_dist_mult * atr
+
+        if pos.side == "LONG":
+            if armed and l <= (peak - trail_dist):
+                raw_exit = min(o, peak - trail_dist)
+                self._close_position(symbol, pos, raw_exit * (1.0 - self.slippage_rate), ts_ms, self.taker_fee_rate, "PROFIT_TRAIL")
+                return True
+            if h > peak:
+                peak = h
+            if not armed and peak >= (pos.entry_price + act_dist):
+                armed = True
+            self._intrabar_trail_state[symbol] = (pos.entry_ts_ms, peak, armed)
+            if armed and c <= (peak - trail_dist):
+                self._close_position(symbol, pos, c * (1.0 - self.slippage_rate), ts_ms, self.taker_fee_rate, "PROFIT_TRAIL")
+                return True
+            return False
+
+        if armed and h >= (peak + trail_dist):
+            raw_exit = max(o, peak + trail_dist)
+            self._close_position(symbol, pos, raw_exit * (1.0 + self.slippage_rate), ts_ms, self.taker_fee_rate, "PROFIT_TRAIL")
+            return True
+        if l < peak:
+            peak = l
+        if not armed and peak <= (pos.entry_price - act_dist):
+            armed = True
+        self._intrabar_trail_state[symbol] = (pos.entry_ts_ms, peak, armed)
+        if armed and c >= (peak + trail_dist):
+            self._close_position(symbol, pos, c * (1.0 + self.slippage_rate), ts_ms, self.taker_fee_rate, "PROFIT_TRAIL")
+            return True
+        return False
 
     def force_close_all(self, ts_ms: int) -> None:
         for sym in list(self.positions.keys()):

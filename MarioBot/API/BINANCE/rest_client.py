@@ -135,6 +135,14 @@ class BinanceFuturesRestClient:
     def get_exchange_info(self) -> Dict[str, Any]:
         return self._request("GET", "/fapi/v1/exchangeInfo", signed=False)
 
+    def get_exchange_instruments(self) -> List[Dict[str, Any]]:
+        """Возвращает список инструментов из /fapi/v1/exchangeInfo (для Контура 1 детектора делистинга)."""
+        payload = self.get_exchange_info()
+        symbols = payload.get("symbols") if isinstance(payload, dict) else None
+        if not isinstance(symbols, list):
+            return []
+        return [row for row in symbols if isinstance(row, dict) and isinstance(row.get("symbol"), str)]
+
     def get_klines(
         self,
         symbol: str,

@@ -147,6 +147,17 @@ class BacktestRunner:
             spec_manager=self.spec_manager,
             broker=broker,
         )
+        sig_params = passport.signal.params
+        intrabar_trail = (
+            str(sig_params.get("profit_trail_mode", "4h_close")) == "intrabar_tick"
+            and sig_params.get("profit_trail_activation_atr_mult") is not None
+            and sig_params.get("profit_trail_distance_atr_mult") is not None
+        )
+        if intrabar_trail:
+            broker.configure_intrabar_profit_trail(
+                float(sig_params["profit_trail_activation_atr_mult"]),
+                float(sig_params["profit_trail_distance_atr_mult"]),
+            )
         tracker = EquityTracker(passport.capital.start_balance_usd)
         tf_ms = timeframe_to_ms(passport.timeframe)
 
@@ -167,6 +178,9 @@ class BacktestRunner:
                 bar = block_candles.get(sym)
                 if bar is not None:
                     orchestrator.on_candle_close(sym, bar)
+        if intrabar_trail and hasattr(orchestrator.signal_plugin, "get_atr"):
+            for sym, _col in active_indices:
+                broker.update_symbol_atr(sym, orchestrator.signal_plugin.get_atr(sym))  # type: ignore[attr-defined]
 
         # 2. Боевая симуляция: решения по закрытию свечи ТФ + точная 1m проверка триггеров SL/TP
         orchestrator.set_trading_enabled(True)
@@ -214,6 +228,8 @@ class BacktestRunner:
                     prev_bar = prev_candles.get(sym)
                     if prev_bar is not None:
                         orchestrator.on_candle_close(sym, prev_bar)
+                        if intrabar_trail and hasattr(orchestrator.signal_plugin, "get_atr"):
+                            broker.update_symbol_atr(sym, orchestrator.signal_plugin.get_atr(sym))  # type: ignore[attr-defined]
 
             # Исполняем отложенные закрытия, MARKET-входы и доборы по Open первой доступной 1m свечи блока
             if broker.pending_orders or broker.pending_closes or broker.pending_scale_ins:
@@ -231,12 +247,24 @@ class BacktestRunner:
                         open_ts = int(s_ts[s_i + first_pos])
                         broker.fill_pending_at_minute_open(sym, open_ts, open_px)
 
-            # Коридор-фильтр: 1m-перебор запускается ТОЛЬКО если внутри блока задет SL или TP
+            # Коридор-фильтр: 1m-перебор запускается ТОЛЬКО если внутри блока задет SL/TP или активен 1m профит-трейлинг
             if broker.positions:
                 triggered_cols = [
                     (sym, col)
                     for sym, col in active_indices
-                    if sym in broker.positions and self._pos_triggered_in_block(broker.positions[sym], block_candles.get(sym))
+                    if sym in broker.positions
+                    and (
+                        self._pos_triggered_in_block(broker.positions[sym], block_candles.get(sym))
+                        or (
+                            intrabar_trail
+                            and block_candles.get(sym) is not None
+                            and broker.is_intrabar_trail_relevant(
+                                broker.positions[sym],
+                                block_candles[sym].high,
+                                block_candles[sym].low,
+                            )
+                        )
+                    )
                 ]
                 if triggered_cols:
                     block_len = e_i - s_i

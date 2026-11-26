@@ -163,6 +163,7 @@ class MarkovPureSignalPlugin(BaseSignalPlugin):
             if params["profit_trail_distance_atr_mult"] is not None
             else None
         )
+        self.profit_trail_mode = str(params.get("profit_trail_mode", "4h_close"))
 
         self._markov_fixed = MarkovRegimeFilter(passport.markov_regime)
         self._markov_adaptive: Optional[_AdaptiveMarkovTracker] = None
@@ -261,6 +262,11 @@ class MarkovPureSignalPlugin(BaseSignalPlugin):
             size_multiplier=size_mult,
         )
 
+    def get_atr(self, symbol: str) -> Optional[float]:
+        """Возвращает текущее значение 4H ATR(14) по символу (для внутрисвечного/тикового трейлинга)."""
+        tracker = self._atrs.get(symbol)
+        return tracker.value if tracker is not None else None
+
     def _side_from_edge(self, net_score: float) -> Optional[SideType]:
         if net_score >= self.min_edge_ratio:
             return "LONG"
@@ -310,9 +316,10 @@ class MarkovPureSignalPlugin(BaseSignalPlugin):
             if move_atr < self.stale_min_profit_atr_mult:
                 return "SIGNAL_EXIT"
 
-        # Активация трейлинга только ПОСЛЕ достижения профита profit_trail_activation_atr_mult * ATR
+        # Активация трейлинга только ПОСЛЕ достижения профита profit_trail_activation_atr_mult * ATR (в режиме 4h_close)
         if (
-            self.profit_trail_activation_atr_mult is not None
+            self.profit_trail_mode == "4h_close"
+            and self.profit_trail_activation_atr_mult is not None
             and self.profit_trail_distance_atr_mult is not None
         ):
             prev_ts, prev_best, armed = self._profit_trail_state.get(symbol, (-1, open_pos.entry_price, False))

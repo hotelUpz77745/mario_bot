@@ -13,9 +13,11 @@ SwingKindType = Literal["HH", "HL", "LH", "LL", "SH_INIT", "SL_INIT"]
 ExitReasonType = Literal[
     "STOP_LOSS",
     "TAKE_PROFIT",
+    "PROFIT_TRAIL",
     "OPPOSITE_SIGNAL",
     "SIGNAL_EXIT",
     "BAILOUT_EXIT",
+    "DELISTING",
     "END_OF_SIM",
     "MANUAL",
 ]

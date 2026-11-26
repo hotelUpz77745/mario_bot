@@ -61,6 +61,39 @@
         ],
         "_desc_allowed_users": "Список числовых Telegram user_id с правами доступа. Если список пуст [] — бот доступен ВСЕМ. Токен TG_TOKEN задаётся строго в корневом .env."
     },
+    "delisting_detector": {
+        "enabled": true,
+        "_desc_enabled": "Двуконтурный авто-детектор делистинга Binance USD-M Futures (Контур 1: exchangeInfo status + deliveryDate; Контур 2: новостной CMS Binance). В бэктесте (MARIO_BACKTEST=1) принудительно отключён.",
+        "poll_interval_sec": 300,
+        "_desc_poll_interval_sec": "Периодичность опроса exchangeInfo и CMS в секундах (300 = раз в 5 минут)",
+        "hard_close_sec": 14400,
+        "_desc_hard_close_sec": "Порог жёсткого закрытия в секундах (14400 = 4 часа): при остатке <= порога — рыночная ликвидация и удаление монеты из пула и app.json; иначе Telegram-предупреждение",
+        "delivery_horizon_sec": 7776000,
+        "_desc_delivery_horizon_sec": "Горизонт распознавания deliveryDate в секундах (7776000 = 90 суток)",
+        "ms_per_sec": 1000,
+        "sec_per_hour": 3600,
+        "notify_telegram": true,
+        "quote_asset": "USDT",
+        "exchange_active_statuses": [
+            "TRADING",
+            "PENDING_TRADING"
+        ],
+        "_desc_exchange_active_statuses": "Активные статусы exchangeInfo. Любой статус вне списка (SETTLING, PRE_DELIVERING, DELIVERING, BREAK, CLOSE) -> немедленная Фаза 2",
+        "news_catalog_id": 161,
+        "news_page_no": 1,
+        "news_page_size": 15,
+        "news_http_timeout_sec": 10.0,
+        "news_keywords": [
+            "futures",
+            "perpetual"
+        ],
+        "news_ticker_regex": "\\b[A-Z0-9]{2,15}\\b",
+        "news_ticker_stopwords": [
+            "UTC", "THE", "AND", "FOR", "BINANCE", "SPOT", "FUTURES", "NOTICE",
+            "DELIST", "DELISTING", "REMOVAL", "MARGIN", "LOAN", "CONTRACT",
+            "PERPETUAL", "WITH", "USD", "USDT", "FDUSD", "BUSD", "USDC", "API"
+        ]
+    },
     "mock_execution": {
         "start_balance_usd": 1000.0,
         "_desc_start_balance_usd": "Стартовый баланс сухого мок-брокера в USD (1000.0 = $1,000)",
