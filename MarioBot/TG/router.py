@@ -124,7 +124,7 @@ class MarioTelegramRouter:
             f"MinEq: <code>${st['min_equity_usd']:,.2f}</code>\n"
             f"Сделок: <b>{st['trades_total']}</b> | "
             f"WR: <b>{st['winrate_pct']:.1f}%</b> | PF: <b>{st['profit_factor']:.2f}</b>\n"
-            f"Комиссии: <code>${st['total_fees_usd']:,.2f}</code> | Funding: <code>${st['total_funding_usd']:+,.2f}</code>\n"
+            f"Комиссии: <code>-${abs(st['total_fees_usd']):,.2f}</code> | Funding: <code>${st['total_funding_usd']:+,.2f}</code>\n"
             f"Удержание (ч): min <code>{hold_min}</code> / avg <code>{st['hold_avg_h']}</code> / max <code>{st['hold_max_h']}</code>\n"
             f"Ср. сделка: <code>${st['avg_trade_pnl_usd']:+.2f}</code> (<code>{st['avg_trade_roi_pct']:+.2f}%</code>)\n"
             f"Лучшая: <code>${st['best_trade_usd']:+.2f}</code> | Худшая: <code>${st['worst_trade_usd']:+.2f}</code>\n"

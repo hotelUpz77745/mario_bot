@@ -284,7 +284,7 @@ class LiveAnalyticsManager:
             f"MaxDD: {st['max_drawdown_pct']:.2f}% (${st['max_drawdown_usd']:.2f}) "
             f"| MinEq: ${st['min_equity_usd']:.2f} | PeakEq: ${st['peak_equity_usd']:.2f}",
             f"Trades: {st['trades_total']} | WR: {st['winrate_pct']:.1f}% | PF: {st['profit_factor']:.2f} "
-            f"| Fees: ${st['total_fees_usd']:.2f} | Funding: ${st['total_funding_usd']:+.2f}",
+            f"| Fees: -${abs(st['total_fees_usd']):.2f} | Funding: ${st['total_funding_usd']:+.2f}",
             f"Hold (h): min={st['hold_min_h']} avg={st['hold_avg_h']} max={st['hold_max_h']} "
             f"| AvgTrade: ${st['avg_trade_pnl_usd']:+.2f} ({st['avg_trade_roi_pct']:+.2f}%)",
             f"Best: ${st['best_trade_usd']:+.2f} | Worst: ${st['worst_trade_usd']:+.2f} "
