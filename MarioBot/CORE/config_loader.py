@@ -187,13 +187,35 @@ class StrictConfigLoader:
         return data
 
     @classmethod
-    def load_strategy_passport(cls, path: Path) -> StrategyPassport:
+    def load_strategy_passport(
+        cls,
+        path: Path,
+        slot_cfg: Optional[Dict[str, Any]] = None,
+        slot_id: Optional[str] = None,
+    ) -> StrategyPassport:
         raw = cls.read_json(path)
-        return cls.parse_strategy_passport(raw)
+        return cls.parse_strategy_passport(raw, slot_cfg=slot_cfg, slot_id=slot_id)
+
+    @classmethod
+    def load_primary_slot_passport(cls, bot_dir: Path, app_cfg: Dict[str, Any]) -> StrategyPassport:
+        """Загружает первый активный слот из app.json['active_strategies'] (единый источник истины)."""
+        strategies_dir = (Path(bot_dir) / str(app_cfg["paths"]["strategies_dir"])).resolve()
+        for sid, s_cfg in app_cfg["active_strategies"].items():
+            if not isinstance(s_cfg, dict) or not bool(s_cfg["enabled"]):
+                continue
+            return cls.load_strategy_passport(
+                strategies_dir / str(s_cfg["passport"]),
+                slot_cfg=s_cfg,
+                slot_id=str(sid),
+            )
+        raise ValueError("No enabled strategy slot found in app_cfg['active_strategies']")
 
     @staticmethod
-    def parse_strategy_passport(raw: Dict[str, Any]) -> StrategyPassport:
-        cap_raw = raw["capital"]
+    def parse_strategy_passport(
+        raw: Dict[str, Any],
+        slot_cfg: Optional[Dict[str, Any]] = None,
+        slot_id: Optional[str] = None,
+    ) -> StrategyPassport:
         sig_raw = raw["signal"]
         ses_raw = raw["session_window"]
         fat_raw = raw["trend_fatigue_filter"]
@@ -205,16 +227,23 @@ class StrictConfigLoader:
         rg_ds_raw = rg_raw["dynamic_sizing"]
         pr_raw = raw["portfolio_risk"]
 
-        max_pos = cap_raw["max_open_positions"]
-        if "sizing" in cap_raw:
-            sz_raw = cap_raw["sizing"]
+        if slot_cfg is not None:
+            # Правило 3.1: никаких двойных источников истины между паспортом и app.json['active_strategies']!
+            forbidden = [k for k in ("symbols", "enabled", "capital", "timeframe") if k in raw]
+            if forbidden:
+                raise ValueError(
+                    f"Single source of truth violation in passport '{raw.get('strategy_id', '?')}': "
+                    f"forbidden keys {forbidden} belong strictly to app.json['active_strategies'] / signal.candle_timeframe"
+                )
+            sz_raw = slot_cfg["sizing"]
             sz_mode = str(sz_raw["mode"]).strip().lower()
             if sz_mode not in ("reinvest", "fixed"):
-                raise ValueError(f"Unsupported capital.sizing.mode: {sz_mode} (expected 'reinvest' or 'fixed')")
+                raise ValueError(f"Unsupported sizing.mode: {sz_mode} (expected 'reinvest' or 'fixed')")
             reinv_raw = sz_raw["reinvest"]
             fix_raw = sz_raw["fixed"]
+            max_pos = slot_cfg["max_open_positions"]
             capital_cfg = CapitalConfig(
-                start_balance_usd=float(cap_raw["start_balance_usd"]),
+                start_balance_usd=float(slot_cfg["start_balance_usd"]),
                 leverage=int(sz_raw["leverage_display"]),
                 max_open_positions=int(max_pos) if max_pos is not None else None,
                 risk_per_trade_ratio=None,
@@ -224,21 +253,51 @@ class StrictConfigLoader:
                 reinvest_apply_signal_multipliers=bool(reinv_raw["apply_signal_multipliers"]),
                 fixed_apply_signal_multipliers=bool(fix_raw["apply_signal_multipliers"]),
             )
+            eff_strategy_id = str(slot_id) if slot_id is not None else str(raw["strategy_id"])
+            eff_enabled = bool(slot_cfg["enabled"])
+            eff_symbols = [str(s).upper().strip() for s in slot_cfg["symbols"]]
+            eff_timeframe = str(sig_raw["candle_timeframe"]).lower().strip()
         else:
-            risk_ratio = cap_raw["risk_per_trade_ratio"]
-            fixed_notional = cap_raw["fixed_notional_usd"]
-            if (risk_ratio is None) == (fixed_notional is None):
-                raise ValueError(
-                    "Exactly one of capital.risk_per_trade_ratio or capital.fixed_notional_usd must be non-null"
+            # Обратная совместимость для архивных бэктест-паспортов в CFG/artifacts/
+            cap_raw = raw["capital"]
+            max_pos = cap_raw["max_open_positions"]
+            if "sizing" in cap_raw:
+                sz_raw = cap_raw["sizing"]
+                sz_mode = str(sz_raw["mode"]).strip().lower()
+                if sz_mode not in ("reinvest", "fixed"):
+                    raise ValueError(f"Unsupported capital.sizing.mode: {sz_mode} (expected 'reinvest' or 'fixed')")
+                reinv_raw = sz_raw["reinvest"]
+                fix_raw = sz_raw["fixed"]
+                capital_cfg = CapitalConfig(
+                    start_balance_usd=float(cap_raw["start_balance_usd"]),
+                    leverage=int(sz_raw["leverage_display"]),
+                    max_open_positions=int(max_pos) if max_pos is not None else None,
+                    risk_per_trade_ratio=None,
+                    fixed_notional_usd=float(fix_raw["notional_usd"]),
+                    sizing_mode=sz_mode,
+                    reinvest_notional_equity_ratio=float(reinv_raw["notional_equity_ratio"]),
+                    reinvest_apply_signal_multipliers=bool(reinv_raw["apply_signal_multipliers"]),
+                    fixed_apply_signal_multipliers=bool(fix_raw["apply_signal_multipliers"]),
                 )
-            capital_cfg = CapitalConfig(
-                start_balance_usd=float(cap_raw["start_balance_usd"]),
-                leverage=int(cap_raw["leverage"]),
-                max_open_positions=int(max_pos) if max_pos is not None else None,
-                risk_per_trade_ratio=float(risk_ratio) if risk_ratio is not None else None,
-                fixed_notional_usd=float(fixed_notional) if fixed_notional is not None else None,
-                sizing_mode="legacy_risk",
-            )
+            else:
+                risk_ratio = cap_raw["risk_per_trade_ratio"]
+                fixed_notional = cap_raw["fixed_notional_usd"]
+                if (risk_ratio is None) == (fixed_notional is None):
+                    raise ValueError(
+                        "Exactly one of capital.risk_per_trade_ratio or capital.fixed_notional_usd must be non-null"
+                    )
+                capital_cfg = CapitalConfig(
+                    start_balance_usd=float(cap_raw["start_balance_usd"]),
+                    leverage=int(cap_raw["leverage"]),
+                    max_open_positions=int(max_pos) if max_pos is not None else None,
+                    risk_per_trade_ratio=float(risk_ratio) if risk_ratio is not None else None,
+                    fixed_notional_usd=float(fixed_notional) if fixed_notional is not None else None,
+                    sizing_mode="legacy_risk",
+                )
+            eff_strategy_id = str(raw["strategy_id"])
+            eff_enabled = bool(raw["enabled"])
+            eff_symbols = [str(s).upper().strip() for s in raw["symbols"]]
+            eff_timeframe = str(sig_raw["candle_timeframe"] if "candle_timeframe" in sig_raw else raw["timeframe"]).lower().strip()
 
         sl_buf = rm_raw["sl_buffer_ratio"]
         tp_rr = rm_raw["tp_rr_ratio"]
@@ -247,10 +306,10 @@ class StrictConfigLoader:
         mk_min_short = mk_raw["min_net_score_for_short_ratio"]
 
         passport = StrategyPassport(
-            strategy_id=str(raw["strategy_id"]),
-            enabled=bool(raw["enabled"]),
-            symbols=[str(s).upper().strip() for s in raw["symbols"]],
-            timeframe=str(raw["timeframe"]).lower().strip(),
+            strategy_id=eff_strategy_id,
+            enabled=eff_enabled,
+            symbols=eff_symbols,
+            timeframe=eff_timeframe,
             capital=capital_cfg,
             signal=SignalPluginConfig(
                 plugin=str(sig_raw["plugin"]).strip(),

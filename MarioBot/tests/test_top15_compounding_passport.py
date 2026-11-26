@@ -70,12 +70,13 @@ class _AllBurstSignalPlugin(BaseSignalPlugin):
 
 class TestAlpha14CompoundingPassport(unittest.TestCase):
     def test_passport_schema_and_runtime_build(self) -> None:
-        passport_path = ROOT_DIR / "MarioBot" / "CFG" / "strategies" / PASSPORT_FILENAME
-        passport = StrictConfigLoader.load_strategy_passport(passport_path)
+        app_cfg = StrictConfigLoader.read_json(ROOT_DIR / "MarioBot" / "CFG" / "app.json")
+        passport = StrictConfigLoader.load_primary_slot_passport(ROOT_DIR / "MarioBot", app_cfg)
 
-        self.assertEqual(passport.strategy_id, "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15")
+        self.assertEqual(passport.strategy_id, "markov_alpha_top14_main")
         self.assertEqual(passport.symbols, EXPECTED_TOP14)
         self.assertNotIn("DOTUSDT", passport.symbols)
+        self.assertEqual(passport.timeframe, "4h")
         self.assertAlmostEqual(passport.capital.start_balance_usd, 1000.0)
         self.assertEqual(passport.capital.sizing_mode, "reinvest")
         self.assertEqual(passport.capital.leverage, 20)
@@ -123,9 +124,7 @@ class TestAlpha14CompoundingPassport(unittest.TestCase):
 
     def test_compounding_reinvest_and_portfolio_caps(self) -> None:
         app_cfg = StrictConfigLoader.read_json(ROOT_DIR / "MarioBot" / "CFG" / "app.json")
-        passport = StrictConfigLoader.load_strategy_passport(
-            ROOT_DIR / "MarioBot" / "CFG" / "strategies" / PASSPORT_FILENAME
-        )
+        passport = StrictConfigLoader.load_primary_slot_passport(ROOT_DIR / "MarioBot", app_cfg)
         passport = dataclasses.replace(
             passport,
             markov_regime=dataclasses.replace(passport.markov_regime, enabled=False),

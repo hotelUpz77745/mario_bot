@@ -22,13 +22,19 @@ from MarioBot.CORE.spec_manager import SpecManager
 
 
 def build_prod_runtime(passport_filename: str | None = None) -> tuple[TradeEngineOrchestrator, CandleAggregator]:
-    """Лёгкая сборка одного оркестратора (мок-брокер + суточный кэш specifications.json)."""
+    """Лёгкая сборка одного оркестратора по 1-му активному слоту из app.json['active_strategies']."""
     bot_dir = Path(__file__).resolve().parent
     app_cfg = StrictConfigLoader.read_json(bot_dir / "CFG" / "app.json")
 
-    strategies_dir = bot_dir / str(app_cfg["paths"]["strategies_dir"])
-    chosen = passport_filename if passport_filename is not None else str(app_cfg["default_passport"])
-    passport = StrictConfigLoader.load_strategy_passport(strategies_dir / chosen)
+    if passport_filename is None:
+        passport = StrictConfigLoader.load_primary_slot_passport(bot_dir, app_cfg)
+    else:
+        strategies_dir = bot_dir / str(app_cfg["paths"]["strategies_dir"])
+        first_slot = next(
+            (v for v in app_cfg["active_strategies"].values() if isinstance(v, dict) and bool(v["enabled"])),
+            None,
+        )
+        passport = StrictConfigLoader.load_strategy_passport(strategies_dir / passport_filename, slot_cfg=first_slot)
 
     sc = app_cfg["specs_cache"]
     spec_manager = SpecManager.from_cache_file(
@@ -88,9 +94,8 @@ if __name__ == "__main__":
 
 
 
-# # 1. Бумажный бот MarioPaper (ключи Binance не нужны, живые тики IPC + псевдоордера):
+# # Бумажный бот MarioPaper (при auto_start: false стартует на паузе и ждёт ▶️ Start в TG):
 # python -m MarioPaper.main --run
 
-# # 2. Боевой бот MarioBot (по умолчанию dry_run: true в MarioBot/CFG/app.json;
-# #    для реальных ордеров заполните API_KEY/API_SECRET в .env и поставьте dry_run: false):
+# # Боевой бот MarioBot (dry_run: true по умолчанию):
 # python -m MarioBot.main --run

@@ -210,20 +210,16 @@ class MarioClusterRuntime:
             if not isinstance(s_cfg, dict) or not bool(s_cfg["enabled"]):
                 continue
             passport_file = str(s_cfg["passport"])
-            base_passport = StrictConfigLoader.load_strategy_passport(strategies_dir / passport_file)
-
-            override_syms = [str(x).upper().strip() for x in s_cfg["symbols"]]
-            start_bal = float(s_cfg["start_balance_usd"])
             api_key_name = str(s_cfg["api_key_name"]).strip()
             api_secret_name = str(s_cfg["api_secret_name"]).strip()
 
-            sz_cfg = s_cfg["sizing"]
-            sz_mode = str(sz_cfg["mode"]).strip().lower()
-            if sz_mode not in ("reinvest", "fixed"):
-                raise ValueError(f"Unsupported sizing.mode='{sz_mode}' in slot '{slot_id}' (expected 'reinvest' or 'fixed')")
-            lev_display = int(sz_cfg["leverage_display"])
-            reinv_cfg = sz_cfg["reinvest"]
-            fix_cfg = sz_cfg["fixed"]
+            passport = StrictConfigLoader.load_strategy_passport(
+                strategies_dir / passport_file,
+                slot_cfg=s_cfg,
+                slot_id=str(slot_id),
+            )
+            override_syms = list(passport.symbols)
+            start_bal = passport.capital.start_balance_usd
 
             acc_set = used_by_account.setdefault(api_key_name, set())
             dups = acc_set.intersection(override_syms)
@@ -233,24 +229,6 @@ class MarioClusterRuntime:
                     f"Укажите разные api_key_name в active_strategies."
                 )
             acc_set.update(override_syms)
-
-            passport = dataclasses.replace(
-                base_passport,
-                strategy_id=str(slot_id),
-                symbols=override_syms,
-                capital=dataclasses.replace(
-                    base_passport.capital,
-                    start_balance_usd=start_bal,
-                    leverage=lev_display,
-                    sizing_mode=sz_mode,
-                    risk_per_trade_ratio=None,
-                    reinvest_notional_equity_ratio=float(reinv_cfg["notional_equity_ratio"]),
-                    reinvest_apply_signal_multipliers=bool(reinv_cfg["apply_signal_multipliers"]),
-                    fixed_notional_usd=float(fix_cfg["notional_usd"]),
-                    fixed_apply_signal_multipliers=bool(fix_cfg["apply_signal_multipliers"]),
-                ),
-            )
-            StrictConfigLoader._validate_passport(passport)
 
             analytics = LiveAnalyticsManager(
                 strategy_id=str(slot_id),

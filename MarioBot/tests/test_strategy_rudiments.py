@@ -52,6 +52,7 @@ class TestStrategyRudiments(unittest.TestCase):
         self.spec_manager = SpecManager.from_app_config(ROOT_DIR / "MarioBot", app_cfg)
 
     def test_strict_config_loader_all_passports_and_missing_key(self) -> None:
+        app_cfg = StrictConfigLoader.read_json(ROOT_DIR / "MarioBot" / "CFG" / "app.json")
         strat_dir = ROOT_DIR / "MarioBot" / "CFG" / "strategies"
         art_dir = ROOT_DIR / "MarioBot" / "CFG" / "artifacts"
         files = sorted(strat_dir.glob("*.json"))
@@ -61,15 +62,30 @@ class TestStrategyRudiments(unittest.TestCase):
                 "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json",
             ],
         )
-        for p_file in files + sorted(art_dir.glob("*.json")):
+        # Боевой паспорт строго привязан к слоту из app.json (никаких двойных источников истины!)
+        primary_slot = app_cfg["active_strategies"]["markov_alpha_top14_main"]
+        for p_file in files:
+            raw_p = StrictConfigLoader.read_json(p_file)
+            for forbidden in ("symbols", "enabled", "capital", "timeframe"):
+                self.assertNotIn(forbidden, raw_p)
+            passport = StrictConfigLoader.load_strategy_passport(p_file, slot_cfg=primary_slot, slot_id="markov_alpha_top14_main")
+            self.assertEqual(passport.timeframe, "4h")
+            # Попытка подсунуть symbols/capital в боевой паспорт обязана падать по Правилу 3.1
+            bad_dup = copy.deepcopy(raw_p)
+            bad_dup["symbols"] = ["BTCUSDT"]
+            with self.assertRaises(ValueError):
+                StrictConfigLoader.parse_strategy_passport(bad_dup, slot_cfg=primary_slot)
+
+        for p_file in sorted(art_dir.glob("*.json")):
             passport = StrictConfigLoader.load_strategy_passport(p_file)
+            self.assertTrue(len(passport.symbols) >= 1)
             self.assertIn(passport.timeframe, ("1h", "4h", "1d"))
 
         raw = StrictConfigLoader.read_json(files[0])
         broken = copy.deepcopy(raw)
         del broken["signal"]["plugin"]
         with self.assertRaises(KeyError):
-            StrictConfigLoader.parse_strategy_passport(broken)
+            StrictConfigLoader.parse_strategy_passport(broken, slot_cfg=primary_slot)
 
     def test_swing_detector_no_lookahead_and_choch_trigger(self) -> None:
         detector = SwingDetector(

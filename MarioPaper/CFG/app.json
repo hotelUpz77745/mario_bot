@@ -83,6 +83,8 @@
             "api_secret_name": "PAPER_VIRTUAL_SECRET1",
             "start_balance_usd": 1000.0,
             "_desc_start_balance_usd": "Стартовый виртуальный баланс бумажного бота в USDT (1000.0 = $1,000)",
+            "max_open_positions": 10,
+            "_desc_max_open_positions": "Максимум одновременно открытых позиций по этой стратегии (10 из 14 монет)",
             "sizing": {
                 "mode": "reinvest",
                 "_desc_mode": "Доступные режимы сайзинга: 'reinvest' (доля от текущего equity) | 'fixed' (фиксированный объём в USDT)",

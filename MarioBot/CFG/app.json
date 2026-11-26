@@ -62,7 +62,6 @@
         ],
         "_desc_allowed_users": "Список числовых Telegram user_id с правами доступа. Если список пуст [] — бот доступен ВСЕМ. Токен TG_TOKEN задаётся строго в корневом .env."
     },
-    "default_passport": "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json",
     "mock_execution": {
         "start_balance_usd": 1000.0,
         "_desc_start_balance_usd": "Стартовый баланс сухого мок-брокера в USD (1000.0 = $1,000)",
@@ -100,6 +99,8 @@
             "api_secret_name": "API_SECRET",
             "start_balance_usd": 1000.0,
             "_desc_start_balance_usd": "Стартовый расчётный капитал стратегии в USDT (1000.0 = $1,000)",
+            "max_open_positions": 10,
+            "_desc_max_open_positions": "Максимум одновременно открытых позиций по этой стратегии (10 из 14 монет)",
             "sizing": {
                 "mode": "reinvest",
                 "_desc_mode": "Доступные режимы сайзинга: 'reinvest' (доля от текущего equity с реинвестированием) | 'fixed' (фиксированный объём в USDT без реинвестирования)",
