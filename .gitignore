@@ -11,6 +11,8 @@ MarioBacktest/DATA/cache_funding/
 
 # Runtime logs, live/paper state & local secrets
 MarioBot/CACHE/ipc/
+MarioBot/CACHE/backups/
+MarioPaper/CACHE/
 MarioBot/logs/
 MarioPaper/logs/
 MarioBot/CFG/runtime/
@@ -19,6 +21,11 @@ MarioBot/ANALYTICS/STATS/
 MarioBot/ANALYTICS/LEDGERS/
 MarioPaper/ANALYTICS/STATS/
 MarioPaper/ANALYTICS/LEDGERS/
+**/logs/
+**/CFG/runtime/
+**/CACHE/ipc/
+**/CACHE/backups/
 *.log
+*.log.*
 .env
 .env.local
