@@ -1,0 +1,54 @@
+{
+    "paths": {
+        "bot_dir": "../MarioBot",
+        "cache_1m_dir": "DATA/cache_1m",
+        "extra_cache_dirs": [
+            "../../../CHERRY_ROD/CherryRodBacktest/DATA/cache_1m"
+        ],
+        "reports_dir": "REPORTS"
+    },
+    "period": {
+        "_desc_period": "Основной период турнира паспортов на 1m-данных (2026-02-01 .. 2026-10-27) + 31 день прогрева",
+        "start_date": "2026-02-01",
+        "end_date": "2026-10-27",
+        "warmup_days": 31
+    },
+    "half_year": {
+        "_desc_half_year": "Последние полгода (184 дня: 2026-05-19 .. 2026-11-18) + 31 день прогрева",
+        "start_date": "2026-05-19",
+        "end_date": "2026-11-18",
+        "warmup_days": 31,
+        "passports": [
+            "choch_4h_weekdays_ny.json",
+            "choch_4h_weekdays_ny_nobuf.json",
+            "choch_4h_base.json",
+            "choch_4h_buf10bp.json"
+        ]
+    },
+    "oos_study": {
+        "_desc_oos_study": "5-летний тест по ТЗ: 3 года In-Sample оптимизации N + 2 года запечатанного Out-of-Sample",
+        "in_sample_start_date": "2021-11-01",
+        "in_sample_end_date": "2024-10-31",
+        "oos_start_date": "2024-11-01",
+        "oos_end_date": "2026-11-18",
+        "warmup_days": 31,
+        "swing_n_candidates": [2, 3, 4, 5, 6],
+        "optimization_metric": "calmar_ratio"
+    },
+    "execution": {
+        "_desc_taker_fee_rate": "Комиссия рыночных ордеров (вход MARKET и выход по SL) как доля (0.0005 = 0.05%)",
+        "taker_fee_rate": 0.0005,
+        "_desc_maker_fee_rate": "Комиссия лимитного Take-Profit как доля (0.0002 = 0.02%)",
+        "maker_fee_rate": 0.0002,
+        "_desc_slippage_rate": "Проскальзывание рыночных ордеров на сторону как доля (0.0001 = 0.01%)",
+        "slippage_rate": 0.0001,
+        "_desc_tp_slippage_rate": "Проскальзывание лимитного Take-Profit (явный 0.0 = без проскальзывания)",
+        "tp_slippage_rate": 0.0,
+        "annualization_days": 365,
+        "_desc_annualization_days": "Дней в году для Sharpe/Calmar (365 для крипто)",
+        "download_workers": 16,
+        "http_timeout_sec": 30.0,
+        "http_retries": 3,
+        "equity_sample_interval_minutes": 240
+    }
+}

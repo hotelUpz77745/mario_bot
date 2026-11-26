@@ -1,0 +1,122 @@
+{
+    "app": {
+        "name": "MarioPaper",
+        "mode": "PAPER",
+        "_desc_mode": "Доступные режимы работы: 'PROD' (боевая торговля Binance Futures HEDGE) | 'PAPER' (бумажная торговля на живых тиках)",
+        "auto_start": false,
+        "_desc_auto_start": "true = автостарт торговли сразу после прогрева; false = старт в паузе до нажатия '▶️ Start' в Telegram",
+        "game_loop_interval_sec": 0.1,
+        "_desc_game_loop_interval_sec": "Частота главной игровой лупы проверки системных триггеров SL/TP по живым тикам в секундах (0.1 = 10 раз/сек)",
+        "rest_failsafe_sec": 10.0,
+        "_desc_rest_failsafe_sec": "Период фоновой сверки состояния в секундах",
+        "price_stream_ready_timeout_sec": 10.0,
+        "price_init_timeout_sec": 30.0,
+        "time_zone": "UTC"
+    },
+    "analytics": {
+        "annualization_days": 365,
+        "_desc_annualization_days": "Число торговых дней в году для расчёта годовых метрик аналитики Sharpe и Calmar (365 для крипто 24/7)"
+    },
+    "logging": {
+        "level": "INFO",
+        "_desc_level": "Доступные уровни логирования: 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR'",
+        "max_log_lines": 5000,
+        "backup_count": 5,
+        "log_to_console": true,
+        "log_to_file": true
+    },
+    "paths": {
+        "strategies_dir": "CFG/strategies",
+        "runtime_dir": "CFG/runtime",
+        "logs_dir": "logs",
+        "analytics_dir": "ANALYTICS"
+    },
+    "specs_cache": {
+        "path": "../MarioBot/CACHE/specifications.json",
+        "_desc_path": "Общий суточный кэш спецификаций Binance Futures из MarioBot/CACHE/specifications.json",
+        "ttl_sec": 86400,
+        "exchange_info_url": "https://fapi.binance.com/fapi/v1/exchangeInfo"
+    },
+    "price_stream": {
+        "hron_ipc_dir": "C:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/HRON_3/cron3/API/IPC",
+        "_desc_hron_ipc_dir": "Общий Master/Slave IPC стрим с HRON_3 и MarioBot (порт 48123)",
+        "host": "127.0.0.1",
+        "port": 48123,
+        "lock_name": "streamer.lock",
+        "peer_app_configs": [
+            "C:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/HRON_3/cron3/CFG/app.json",
+            "C:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/app.json"
+        ]
+    },
+    "telegram": {
+        "enabled": true,
+        "_desc_enabled": "true = запустить Telegram-бота управления и алертов для MarioPaper; false = отключить",
+        "allowed_users": [
+            610822492
+        ],
+        "_desc_allowed_users": "Список числовых Telegram user_id с правами доступа. Если список пуст [] — бот доступен ВСЕМ. Токен TG_TOKEN_PAPER (или fallback TG_TOKEN) задаётся строго в корневом .env."
+    },
+    "paper_execution": {
+        "taker_fee_rate": 0.0005,
+        "_desc_taker_fee_rate": "Реалистичная taker-комиссия Binance Futures (0.0005 = 0.05% на сторону)",
+        "slippage_rate": 0.0001,
+        "_desc_slippage_rate": "Проскальзывание при рыночном исполнении псевдоордера (0.0001 = 0.01%)"
+    },
+    "binance_futures": {
+        "base_url": "https://fapi.binance.com",
+        "recv_window_ms": 20000,
+        "timeout_sec": 10.0,
+        "time_slack_sec": 0.15,
+        "api_rate_limit_sec": 0.2,
+        "warmup_days": 220,
+        "dry_run": true,
+        "_desc_dry_run": "В MarioPaper всегда true (псевдоордера по живым тикам)",
+        "account_cache_ttl_sec": 5.0,
+        "taker_fee_rate": 0.0005
+    },
+    "active_strategies": {
+        "_desc_sizing_guide": "Бумажная торговля (псевдоордера по живым тикам + системный триггер 5*ATR SL в игровой лупе 0.1с + 8h funding). Режимы сайзинга: 'reinvest' | 'fixed' (без плеча в расчётах).",
+        "markov_alpha_top14_paper": {
+            "enabled": true,
+            "passport": "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json",
+            "api_key_name": "PAPER_VIRTUAL_ACC1",
+            "api_secret_name": "PAPER_VIRTUAL_SECRET1",
+            "start_balance_usd": 1000.0,
+            "_desc_start_balance_usd": "Стартовый виртуальный баланс бумажного бота в USDT (1000.0 = $1,000)",
+            "sizing": {
+                "mode": "reinvest",
+                "_desc_mode": "Доступные режимы сайзинга: 'reinvest' (доля от текущего equity) | 'fixed' (фиксированный объём в USDT)",
+                "leverage_display": 20,
+                "_desc_leverage_display": "ТОЛЬКО ПОДСВЕТКА (в расчётах сайза НЕ участвует)",
+                "reinvest": {
+                    "notional_equity_ratio": 0.12,
+                    "_desc_notional_equity_ratio": "Прямая пропорция базового сайза к текущему equity (0.12 = 12% -> $120 при $1,000)",
+                    "apply_signal_multipliers": true,
+                    "_desc_apply_signal_multipliers": "true = умножать на множители Маркова/ATR/BTC; false = строго equity * notional_equity_ratio"
+                },
+                "fixed": {
+                    "notional_usd": 120.0,
+                    "_desc_notional_usd": "Фиксированный базовый сайз 1 позиции в USDT (120.0 = $120 = 12% от стартовых $1,000)",
+                    "apply_signal_multipliers": true,
+                    "_desc_apply_signal_multipliers": "true = умножать на множители сигнала; false = строго ровно notional_usd"
+                }
+            },
+            "symbols": [
+                "ADAUSDT",
+                "SOLUSDT",
+                "AVAXUSDT",
+                "DOGEUSDT",
+                "1000SHIBUSDT",
+                "HBARUSDT",
+                "SUIUSDT",
+                "UNIUSDT",
+                "XRPUSDT",
+                "BCHUSDT",
+                "BNBUSDT",
+                "ETHUSDT",
+                "LINKUSDT",
+                "XLMUSDT"
+            ]
+        }
+    }
+}

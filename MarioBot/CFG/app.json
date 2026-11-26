@@ -1,0 +1,139 @@
+{
+    "app": {
+        "name": "MarioTrading",
+        "mode": "PROD",
+        "_desc_mode": "Доступные режимы работы: 'PROD' (боевая торговля Binance Futures HEDGE) | 'PAPER' (бумажная торговля на живых тиках)",
+        "auto_start": false,
+        "_desc_auto_start": "true = автостарт торговли сразу после прогрева; false = старт в паузе до нажатия '▶️ Start' в Telegram",
+        "game_loop_interval_sec": 0.1,
+        "_desc_game_loop_interval_sec": "Частота главной игровой лупы проверки системных триггеров SL/TP по живым тикам в секундах (0.1 = 10 раз/сек)",
+        "rest_failsafe_sec": 10.0,
+        "_desc_rest_failsafe_sec": "Период фоновой REST-сверки/фолбэка состояния в секундах",
+        "price_stream_ready_timeout_sec": 10.0,
+        "_desc_price_stream_ready_timeout_sec": "Таймаут ожидания подключения к Master/Slave IPC стриму цен в секундах",
+        "price_init_timeout_sec": 30.0,
+        "_desc_price_init_timeout_sec": "Таймаут ожидания первых тиков по всем монетам в секундах",
+        "time_zone": "UTC"
+    },
+    "analytics": {
+        "annualization_days": 365,
+        "_desc_annualization_days": "Число торговых дней в году для расчёта годовых метрик аналитики Sharpe и Calmar (365 для крипто 24/7)"
+    },
+    "logging": {
+        "level": "INFO",
+        "_desc_level": "Доступные уровни логирования: 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR'",
+        "max_log_lines": 5000,
+        "_desc_max_log_lines": "Максимум строк в файле logs/all.log перед ротацией (как в HRON_3)",
+        "backup_count": 5,
+        "_desc_backup_count": "Количество хранимых ротированных файлов logs/all.log.1 .. N",
+        "log_to_console": true,
+        "log_to_file": true
+    },
+    "paths": {
+        "strategies_dir": "CFG/strategies",
+        "runtime_dir": "CFG/runtime",
+        "logs_dir": "logs",
+        "analytics_dir": "ANALYTICS"
+    },
+    "specs_cache": {
+        "path": "CACHE/specifications.json",
+        "_desc_path": "Путь к отдельному кэшу биржевых спецификаций Binance Futures (без хардкода монет в app.json)",
+        "ttl_sec": 86400,
+        "_desc_ttl_sec": "Период обновления спецификаций в секундах (86400 = раз в сутки)",
+        "exchange_info_url": "https://fapi.binance.com/fapi/v1/exchangeInfo"
+    },
+    "price_stream": {
+        "hron_ipc_dir": "C:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/HRON_3/cron3/API/IPC",
+        "_desc_hron_ipc_dir": "Путь к общему IPC каталогу HRON_3 (streamer.lock): кто первый поднялся — тот Master (1 WS к Binance), остальные — Slave",
+        "host": "127.0.0.1",
+        "port": 48123,
+        "lock_name": "streamer.lock",
+        "peer_app_configs": [
+            "C:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/HRON_3/cron3/CFG/app.json",
+            "C:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioPaper/CFG/app.json"
+        ],
+        "_desc_peer_app_configs": "Пути к app.json остальных ботов кластера (HRON_3 + MarioPaper), чтобы Master стримил объединённый список всех монет"
+    },
+    "telegram": {
+        "enabled": true,
+        "_desc_enabled": "true = запустить Telegram-бота управления и алертов; false = отключить",
+        "allowed_users": [
+            610822492
+        ],
+        "_desc_allowed_users": "Список числовых Telegram user_id с правами доступа. Если список пуст [] — бот доступен ВСЕМ. Токен TG_TOKEN задаётся строго в корневом .env."
+    },
+    "default_passport": "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json",
+    "mock_execution": {
+        "start_balance_usd": 1000.0,
+        "_desc_start_balance_usd": "Стартовый баланс сухого мок-брокера в USD (1000.0 = $1,000)",
+        "leverage": 20,
+        "_desc_leverage": "Только подсветка (в расчётах сайзинга не участвует)",
+        "taker_fee_rate": 0.0005,
+        "_desc_taker_fee_rate": "Комиссия taker как доля от единицы (0.0005 = 0.05%)"
+    },
+    "binance_futures": {
+        "base_url": "https://fapi.binance.com",
+        "_desc_base_url": "REST-адрес Binance USD-M Futures (аккаунт в HEDGE Mode; SL/TP — системные триггеры в главной игровой лупе, НЕ физические ордера; плечо на бирже бот не меняет)",
+        "recv_window_ms": 20000,
+        "_desc_recv_window_ms": "Окно валидности подписанного запроса в мс (20000 = 20 сек, как в HRON_3)",
+        "timeout_sec": 10.0,
+        "_desc_timeout_sec": "Таймаут HTTP-запросов в секундах",
+        "time_slack_sec": 0.15,
+        "_desc_time_slack_sec": "Сдвиг локальной метки времени timestamp назад в секундах (0.15с, как в HRON_3)",
+        "api_rate_limit_sec": 0.2,
+        "_desc_api_rate_limit_sec": "Минимальный интервал между REST-запросами в секундах",
+        "warmup_days": 220,
+        "_desc_warmup_days": "Обязательный прогрев 4H свечами при старте в днях (220 >= 20d ret + 180d GMM + 15d Markov)",
+        "dry_run": true,
+        "_desc_dry_run": "Режим исполнения: true (сухой режим без отправки ордеров на Binance) | false (боевые HEDGE MARKET ордера на Binance Futures)",
+        "account_cache_ttl_sec": 5.0,
+        "_desc_account_cache_ttl_sec": "TTL кэша позиций/баланса с /fapi/v2/account в секундах",
+        "taker_fee_rate": 0.0005,
+        "_desc_taker_fee_rate": "Комиссия taker для расчётной аналитики (0.0005 = 0.05%)"
+    },
+    "active_strategies": {
+        "_desc_sizing_guide": "ДВА ЯВНЫХ РЕЖИМА САЙЗИНГА (БЕЗ ПЛЕЧА В РАСЧЁТАХ): выберите sizing.mode = 'reinvest' (прямая пропорция от текущего equity: 0.12 = 12% = $120 при $1,000) или 'fixed' (фиксированный объём в USDT: 120.0 = $120). Поле leverage_display — чисто для подсветки. Для мультиаккаунта скопируйте блок ниже под новым ID и задайте свои api_key_name / api_secret_name из .env.",
+        "markov_alpha_top14_main": {
+            "enabled": true,
+            "passport": "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json",
+            "api_key_name": "API_KEY",
+            "api_secret_name": "API_SECRET",
+            "start_balance_usd": 1000.0,
+            "_desc_start_balance_usd": "Стартовый расчётный капитал стратегии в USDT (1000.0 = $1,000)",
+            "sizing": {
+                "mode": "reinvest",
+                "_desc_mode": "Доступные режимы сайзинга: 'reinvest' (доля от текущего equity с реинвестированием) | 'fixed' (фиксированный объём в USDT без реинвестирования)",
+                "leverage_display": 20,
+                "_desc_leverage_display": "ТОЛЬКО ПОДСВЕТКА (в расчётах сайза НЕ участвует; на бирже задаётся вручную)",
+                "reinvest": {
+                    "notional_equity_ratio": 0.12,
+                    "_desc_notional_equity_ratio": "Прямая пропорция базового сайза к текущему equity (0.12 = 12% -> при $1,000 базовый сайз = $120; взято из среднего соотношения бэктеста)",
+                    "apply_signal_multipliers": true,
+                    "_desc_apply_signal_multipliers": "true = умножать базовый сайз на множители Маркова/ATR/BTC; false = входить строго ровно на equity * notional_equity_ratio"
+                },
+                "fixed": {
+                    "notional_usd": 120.0,
+                    "_desc_notional_usd": "Фиксированный базовый сайз 1 позиции в USDT (120.0 = $120 = 12% от стартовых $1,000; не зависит от PnL счёта)",
+                    "apply_signal_multipliers": true,
+                    "_desc_apply_signal_multipliers": "true = умножать fixed notional на множители Маркова/ATR/BTC; false = входить строго ровно на notional_usd"
+                }
+            },
+            "symbols": [
+                "ADAUSDT",
+                "SOLUSDT",
+                "AVAXUSDT",
+                "DOGEUSDT",
+                "1000SHIBUSDT",
+                "HBARUSDT",
+                "SUIUSDT",
+                "UNIUSDT",
+                "XRPUSDT",
+                "BCHUSDT",
+                "BNBUSDT",
+                "ETHUSDT",
+                "LINKUSDT",
+                "XLMUSDT"
+            ]
+        }
+    }
+}

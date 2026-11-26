@@ -6,16 +6,18 @@ __pycache__/
 .mypy_cache/
 
 # Local market data caches (large binary .npz files)
-ClavaBacktest/DATA/cache_1m/
-ClavaBacktest/DATA/cache_funding/
+MarioBacktest/DATA/cache_1m/
+MarioBacktest/DATA/cache_funding/
 
 # Runtime logs, live/paper state & local secrets
-ClavaBot/logs/
-ClavaPaper/logs/
-ClavaBot/ANALYTICS/STATS/
-ClavaBot/ANALYTICS/LEDGERS/
-ClavaPaper/ANALYTICS/STATS/
-ClavaPaper/ANALYTICS/LEDGERS/
+MarioBot/logs/
+MarioPaper/logs/
+MarioBot/CFG/runtime/
+MarioPaper/CFG/runtime/
+MarioBot/ANALYTICS/STATS/
+MarioBot/ANALYTICS/LEDGERS/
+MarioPaper/ANALYTICS/STATS/
+MarioPaper/ANALYTICS/LEDGERS/
 *.log
 .env
 .env.local

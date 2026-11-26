@@ -23,7 +23,7 @@
 
 Эти две стратегии дополняют друг друга по рыночным циклам (затяжной буллран vs криптозима/боковик), **обе держат в плюсе все 6 монет портфеля (включая `LTCUSDT`)**, **обе не проваливаются в 2022–2023 и 2025**, и **обе защищены аварийным биржевым стопом `5 × ATR(14)`**.
 
-### Стратегия №1 (Основной флагман): [`markov_pure_4h_gmm_conf_antichop_atr_btc_sl5.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_atr_btc_sl5.json)
+### Стратегия №1 (Основной флагман): [`markov_pure_4h_gmm_conf_antichop_atr_btc_sl5.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_atr_btc_sl5.json)
 **Роль:** Главная тренд-следящая машина для максимизации капитала на импульсных циклах и сниженной просадки.
 
 * **Как работает (механика паспорта):**
@@ -31,7 +31,7 @@
   * **Сигнал:** Марковская матрица `3×3` по 20-дневным доходностям на 180-дневном скользящем окне с **ежедневной перекалибровкой GMM (`recalibrate_interval_days = 1`)** и порогом перевеса **`±15%`**.
   * **Анти-боковик:** вход запрещён в фазе `SIDEWAYS` (`block_in_sideways = true`) и при слабой направленности цены (`ER(18) < 0.20`).
   * **Выход:** удержание тренда до противоположного сигнала (`OPPOSITE_SIGNAL`) либо срабатывание **аварийного стопа `5 × ATR(14)`** (`exit_on_sideways = false`, `tp_rr_ratio = null`).
-  * **Сайзинг:** база `$1,666.67` × уверенность Маркова `[0.50x..1.75x]` × волатильностный `ATR%` (`target 2%`, `[0.35x..1.25x]`) × [`MarketSentinel`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/STRATEGY/market_sentinel.py) `BTCUSDT` (`CHOP ×0.50`, `LONG` в `BTC BEAR ×0.40`, `SHORT` в `BTC BULL ×0.50`).
+  * **Сайзинг:** база `$1,666.67` × уверенность Маркова `[0.50x..1.75x]` × волатильностный `ATR%` (`target 2%`, `[0.35x..1.25x]`) × [`MarketSentinel`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/STRATEGY/market_sentinel.py) `BTCUSDT` (`CHOP ×0.50`, `LONG` в `BTC BEAR ×0.40`, `SHORT` в `BTC BULL ×0.50`).
 
 * **Показатели (`$10,000 / 2x`):**
   * **5 лет (`2021-11 .. 2026-11`):** **`+$47,141.04 (+471.4%)`**, `321` сделка (`137 SL`), `36.5%` в плюс, п/у **`2.27`**, макс. просадка **`37.36%`** (мин. счёт **`$7,723`**), **Calmar `2.50`**, комиссии `$621`.
@@ -41,7 +41,7 @@
 
 ---
 
-### Стратегия №2 (Тактический выход в кэш в боковике): [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5.json)
+### Стратегия №2 (Тактический выход в кэш в боковике): [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5.json)
 **Роль:** Более частая тактическая версия, которая не пересиживает боковик в открытой позиции, а уходит в USDT до следующего направленного импульса. Отлично балансирует Стратегию №1 в медвежьих и пильных фазах.
 
 * **Чем отличается от №1:**
@@ -161,18 +161,18 @@
 
 ---
 
-### 4.3. Боевой паспорт №3 (финальный победитель): [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json)
+### 4.3. Боевой паспорт №3 (финальный победитель): [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json)
 
 **Как подключить и запустить в бою/симуляции:**
-1. Спецификации Binance Futures (`tick_size`, `step_size`, `min_qty`, `min_notional_usd`) для всех **15 рекомендованных монет** и индикатора `BTCUSDT` уже добавлены в [`ClavaBot/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/app.json) (`symbol_specs`), а формула риска `risk_per_trade_ratio` и лимит `max_open_positions` штатно работают в [`PositionSizer`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/STRATEGY/position_sizer.py) и [`TradeEngineOrchestrator`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/orchestrator.py).
-2. **Активация по умолчанию:** откройте [`ClavaBot/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/app.json) и замените значение поля `"default_passport"` на:
+1. Спецификации Binance Futures (`tick_size`, `step_size`, `min_qty`, `min_notional_usd`) для всех **15 рекомендованных монет** и индикатора `BTCUSDT` уже добавлены в [`MarioBot/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/app.json) (`symbol_specs`), а формула риска `risk_per_trade_ratio` и лимит `max_open_positions` штатно работают в [`PositionSizer`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/STRATEGY/position_sizer.py) и [`TradeEngineOrchestrator`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/orchestrator.py).
+2. **Активация по умолчанию:** откройте [`MarioBot/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/app.json) и замените значение поля `"default_passport"` на:
    ```json
    "default_passport": "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json"
    ```
-   После этого запуск `python -m ClavaBot.main` автоматически поднимет паспорт №3 с `2x`, `max_open_positions = 10` и `risk_per_trade_ratio = 0.015`.
+   После этого запуск `python -m MarioBot.main` автоматически поднимет паспорт №3 с `2x`, `max_open_positions = 10` и `risk_per_trade_ratio = 0.015`.
 3. **Либо точечный вызов в коде без правки `app.json`:**
    ```python
-   from ClavaBot.main import build_prod_runtime
+   from MarioBot.main import build_prod_runtime
    orchestrator, aggregator = build_prod_runtime(
        "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json"
    )
@@ -182,7 +182,7 @@
 
 ## 5. Финальная стратегия «Альфа» (`Top-14`, реальный 8h Funding Rate) и закрытие этапа оптимизации
 
-По итогам 5-векторной верификации (`ADR-017`) и финальной чистки пула (`DOTUSDT` исключён, в `ClavaBot/CFG/strategies/` оставлен единственный боевой паспорт [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json)) зафиксированы итоговые детерминированные метрики с учётом **`100,779` реальных исторических 8h Funding Rates Binance Futures** ([`alpha14_final_metrics.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBacktest/REPORTS/alpha14_final_metrics.json)).
+По итогам 5-векторной верификации (`ADR-017`) и финальной чистки пула (`DOTUSDT` исключён, в `MarioBot/CFG/strategies/` оставлен единственный боевой паспорт [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json)) зафиксированы итоговые детерминированные метрики с учётом **`100,779` реальных исторических 8h Funding Rates Binance Futures** ([`alpha14_final_metrics.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBacktest/REPORTS/alpha14_final_metrics.json)).
 
 ### Единая сводная таблица финалиста «Альфа» (`Top-14`, `risk 1.5%`, `2x`, `same_side=5`, `open_risk=10%`, `recal=3d`)
 
@@ -199,5 +199,5 @@
 | **Лучшая / Худшая сделка (`$`)** | `+$1,129` (`ADA`) / `-$368` (`AVAX`) | `+$280` (`SOL`) / `-$55` (`XRP`) | `+$10,549` (`ADA`) / `-$3,505` (`AVAX`) | `+$2,806` (`SOL`) / `-$561` (`AVAX`) |
 | **Макс. ход `+TP%` / Макс. `SL%`** | `+199.11%` (`DOGE`) / `-34.38%` | `+48.88%` (`BCH`) / `-17.00%` | `+199.11%` (`DOGE`) / `-34.38%` | `+48.88%` (`BCH`) / `-17.00%` |
 
-* **Полная разбивка по 14 монетам, оценка готовности к проду и пошаговая инструкция запуска `ClavaPaper` + `ClavaBot` + Master/Slave IPC `HRON_3`:** см. [`STRATEGY_MARKOV_TOP15_R15.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/STRATEGY_MARKOV_TOP15_R15.md).
-* **Этап бэктест-оптимизации официально закрыт (`ADR-018` в [`tech_debt.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/tech_debt.md)):** дальнейшие подкрутки параметров или довырезание отдельных монет по 5Y-истории несут риск *overfitting*; следующая фаза — живой форвард в [`ClavaPaper`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaPaper/main.py) и последующий перевод [`ClavaBot`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/main.py) в реальный HEDGE-торг (`dry_run: false`).
+* **Полная разбивка по 14 монетам, оценка готовности к проду и пошаговая инструкция запуска `MarioPaper` + `MarioBot` + Master/Slave IPC `HRON_3`:** см. [`STRATEGY_MARKOV_TOP15_R15.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/STRATEGY_MARKOV_TOP15_R15.md).
+* **Этап бэктест-оптимизации официально закрыт (`ADR-018` в [`tech_debt.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/tech_debt.md)):** дальнейшие подкрутки параметров или довырезание отдельных монет по 5Y-истории несут риск *overfitting*; следующая фаза — живой форвард в [`MarioPaper`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioPaper/main.py) и последующий перевод [`MarioBot`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/main.py) в реальный HEDGE-торг (`dry_run: false`).

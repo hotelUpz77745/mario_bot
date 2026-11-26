@@ -1,47 +1,47 @@
-# Боевые стратегии ClavaTrading: механика, риск-менеджмент и сравнение (`$10,000 / 2x`)
+# Боевые стратегии MarioTrading: механика, риск-менеджмент и сравнение (`$10,000 / 2x`)
 
-В рабочей папке [`ClavaBot/CFG/strategies/`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies) хранятся боевые паспорта стратегий (плюс **Боевой паспорт №3** для расширенного пула из 15 альтов со сложным процентом).
+В рабочей папке [`MarioBot/CFG/strategies/`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies) хранятся боевые паспорта стратегий (плюс **Боевой паспорт №3** для расширенного пула из 15 альтов со сложным процентом).
 
 **Семейство Маркова (лидеры проекта):**
-1. [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json) — **БОЕВОЙ ПАСПОРТ №3 (АБСОЛЮТНЫЙ ЛИДЕР ПО ROI И ЧАСТОТЕ СДЕЛОК)**: `exit_sw_sl5` на пуле **15 отобранных альтов** (`max_open_positions = 10`, `2x`, **`risk_per_trade_ratio = 0.015`** вместо `fixed_notional_usd`). Даёт **`~25` сделок/мес**, **`+$105,710 (+1,057%)`** за 5 лет (`Calmar 3.23`) и **`+$18,213 (+182.1%)`** за полгода (`PF 4.03`, `Calmar 14.35`).
-2. [`markov_pure_4h_gmm_conf_antichop_atr_btc_sl5.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_atr_btc_sl5.json) — **ГЛАВНЫЙ ПРОД-ФЛАГМАН НА 6 МАЖОРАХ** (`antichop` + `ATR%` волатильностный сайзинг + сентимент `BTCUSDT` + `recal=1` + `5 × ATR` SL). **Все 6 монет в плюсе за 5 лет (включая `LTCUSDT +$1,549`)!**
-3. [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5.json) — **ТАКТИЧЕСКАЯ БАЗА С ВЫХОДОМ В КЭШ В БОКОВИКЕ (`exit_on_sideways = true`)** на 6 монетах (`2022–2023 +$8,455`, лучшее дно `$8,294`, полгода `Calmar 10.50`).
-4. [`markov_pure_4h_gmm_conf_antichop_shield.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_shield.json) — **МАКСИМАЛЬНАЯ ЗАЩИТА ПОРТФЕЛЯ** (всё из `atr_btc_sl5` + кросс-рыночный `Market Breadth < 3/6` + блок `LONG` при `BTC BEAR`).
-5. [`markov_pure_4h_gmm_conf_antichop.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop.json) — `antichop` без стопов (`block_in_sideways` + `ER >= 0.20`).
-6. [`markov_pure_4h_gmm_conf.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf.json) — базовая модель Маркова `15%` (исторический дефолт в [`app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/app.json)).
+1. [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json) — **БОЕВОЙ ПАСПОРТ №3 (АБСОЛЮТНЫЙ ЛИДЕР ПО ROI И ЧАСТОТЕ СДЕЛОК)**: `exit_sw_sl5` на пуле **15 отобранных альтов** (`max_open_positions = 10`, `2x`, **`risk_per_trade_ratio = 0.015`** вместо `fixed_notional_usd`). Даёт **`~25` сделок/мес**, **`+$105,710 (+1,057%)`** за 5 лет (`Calmar 3.23`) и **`+$18,213 (+182.1%)`** за полгода (`PF 4.03`, `Calmar 14.35`).
+2. [`markov_pure_4h_gmm_conf_antichop_atr_btc_sl5.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_atr_btc_sl5.json) — **ГЛАВНЫЙ ПРОД-ФЛАГМАН НА 6 МАЖОРАХ** (`antichop` + `ATR%` волатильностный сайзинг + сентимент `BTCUSDT` + `recal=1` + `5 × ATR` SL). **Все 6 монет в плюсе за 5 лет (включая `LTCUSDT +$1,549`)!**
+3. [`markov_pure_4h_gmm_conf_antichop_exit_sw_sl5.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5.json) — **ТАКТИЧЕСКАЯ БАЗА С ВЫХОДОМ В КЭШ В БОКОВИКЕ (`exit_on_sideways = true`)** на 6 монетах (`2022–2023 +$8,455`, лучшее дно `$8,294`, полгода `Calmar 10.50`).
+4. [`markov_pure_4h_gmm_conf_antichop_shield.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_shield.json) — **МАКСИМАЛЬНАЯ ЗАЩИТА ПОРТФЕЛЯ** (всё из `atr_btc_sl5` + кросс-рыночный `Market Breadth < 3/6` + блок `LONG` при `BTC BEAR`).
+5. [`markov_pure_4h_gmm_conf_antichop.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop.json) — `antichop` без стопов (`block_in_sideways` + `ER >= 0.20`).
+6. [`markov_pure_4h_gmm_conf.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf.json) — базовая модель Маркова `15%` (исторический дефолт в [`app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/app.json)).
 
 ### Как подключить Боевой паспорт №3 (`Top-15 + risk_per_trade_ratio = 1.5%`)
-1. **Биржевые спецификации готовы:** в [`ClavaBot/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/app.json) (`symbol_specs`) уже занесены точные фильтры Binance Futures (`tick_size`, `step_size`, `min_qty`, `min_notional_usd`) для всех **15 рекомендованных монет** (`ADAUSDT`, `SOLUSDT`, `AVAXUSDT`, `DOGEUSDT`, `1000SHIBUSDT`, `HBARUSDT`, `SUIUSDT`, `UNIUSDT`, `XRPUSDT`, `BCHUSDT`, `DOTUSDT`, `BNBUSDT`, `ETHUSDT`, `LINKUSDT`, `XLMUSDT`) и `BTCUSDT` *(а также `LTCUSDT`, `TRXUSDT`, `TONUSDT`, `HYPEUSDT` для совместимости)*.
-2. **Подключение по умолчанию:** в [`ClavaBot/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/app.json) измените поле:
+1. **Биржевые спецификации готовы:** в [`MarioBot/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/app.json) (`symbol_specs`) уже занесены точные фильтры Binance Futures (`tick_size`, `step_size`, `min_qty`, `min_notional_usd`) для всех **15 рекомендованных монет** (`ADAUSDT`, `SOLUSDT`, `AVAXUSDT`, `DOGEUSDT`, `1000SHIBUSDT`, `HBARUSDT`, `SUIUSDT`, `UNIUSDT`, `XRPUSDT`, `BCHUSDT`, `DOTUSDT`, `BNBUSDT`, `ETHUSDT`, `LINKUSDT`, `XLMUSDT`) и `BTCUSDT` *(а также `LTCUSDT`, `TRXUSDT`, `TONUSDT`, `HYPEUSDT` для совместимости)*.
+2. **Подключение по умолчанию:** в [`MarioBot/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/app.json) измените поле:
    ```json
    "default_passport": "markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json"
    ```
-   и запустите `python -m ClavaBot.main` — [`PositionSizer`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/STRATEGY/position_sizer.py) автоматически переключится на расчёт лота от риска до стопа `5 × ATR`:
+   и запустите `python -m MarioBot.main` — [`PositionSizer`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/STRATEGY/position_sizer.py) автоматически переключится на расчёт лота от риска до стопа `5 × ATR`:
    $$\text{Notional} = \min\!\left(\frac{\text{Equity} \times 0.015 \times M_{\text{total}}}{5 \times \text{ATR}(14)} \times \text{Price},\;\text{FreeMargin} \times 2\right)$$
-   а [`TradeEngineOrchestrator`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/orchestrator.py) ограничит число одновременно открытых сделок `10` слотами (`max_open_positions = 10`).
+   а [`TradeEngineOrchestrator`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/orchestrator.py) ограничит число одновременно открытых сделок `10` слотами (`max_open_positions = 10`).
 3. **Прямой запуск из Python без смены `default_passport`:** `build_prod_runtime("markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top15_r15.json")`.
 4. **Примечание по плечу при `5 × ATR` SL:** оптимально держать **`leverage = 2`** (верхний допустимый потолок `3x` даёт `MaxDD 76.7%`, а `4x` разрушает сложный процент до `MaxDD 93.6%`). Подробнее — в [`STRATEGIES_REPORT_2.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/STRATEGIES_REPORT_2.md).
 
 **Семейство `EMA 7/25`:**
-5. [`ema_cross_7_25_4h_markov_probe20_atr_sl5.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/ema_cross_7_25_4h_markov_probe20_atr_sl5.json) — **рекорд прибыли среди EMA** (`20% → 100%` + `ATR%` сайзинг + `5 × ATR SL`): **вывел даже 2025 год в плюс (`+$25.96`)!**
-6. [`ema_cross_7_25_4h_markov_hybrid_sl5.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/ema_cross_7_25_4h_markov_hybrid_sl5.json) — **боевой гибрид** (мёртвый флэт `ADX < 15` заблокирован, `15 <= ADX < 21` → проба `20%`, на пробое `ADX >= 21` в прибыль → добор `100%` + `ATR%` + `BTCUSDT` сентимент + `5 × ATR SL`).
-7. [`ema_cross_7_25_4h_markov_probe20.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/ema_cross_7_25_4h_markov_probe20.json) — базовый пробник `20% → 100%` без `ATR%` и без стопа.
-8. [`ema_cross_7_25_4h_markov_adx20.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/ema_cross_7_25_4h_markov_adx20.json) — жёсткий фильтр `ADX(14) >= 20`.
-9. [`ema_cross_7_25_4h_markov.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/ema_cross_7_25_4h_markov.json) — базовый микс `EMA 7/25` + асимметричный Марковский гейт.
-10. [`ema_cross_7_25_4h.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/ema_cross_7_25_4h.json) — **чистая** `EMA 7/25` без фильтров.
+5. [`ema_cross_7_25_4h_markov_probe20_atr_sl5.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/ema_cross_7_25_4h_markov_probe20_atr_sl5.json) — **рекорд прибыли среди EMA** (`20% → 100%` + `ATR%` сайзинг + `5 × ATR SL`): **вывел даже 2025 год в плюс (`+$25.96`)!**
+6. [`ema_cross_7_25_4h_markov_hybrid_sl5.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/ema_cross_7_25_4h_markov_hybrid_sl5.json) — **боевой гибрид** (мёртвый флэт `ADX < 15` заблокирован, `15 <= ADX < 21` → проба `20%`, на пробое `ADX >= 21` в прибыль → добор `100%` + `ATR%` + `BTCUSDT` сентимент + `5 × ATR SL`).
+7. [`ema_cross_7_25_4h_markov_probe20.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/ema_cross_7_25_4h_markov_probe20.json) — базовый пробник `20% → 100%` без `ATR%` и без стопа.
+8. [`ema_cross_7_25_4h_markov_adx20.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/ema_cross_7_25_4h_markov_adx20.json) — жёсткий фильтр `ADX(14) >= 20`.
+9. [`ema_cross_7_25_4h_markov.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/ema_cross_7_25_4h_markov.json) — базовый микс `EMA 7/25` + асимметричный Марковский гейт.
+10. [`ema_cross_7_25_4h.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/ema_cross_7_25_4h.json) — **чистая** `EMA 7/25` без фильтров.
 
 ---
 
 ## 1. Риск-менеджмент, стопы, тейки и условия симуляции
 
-Все стратегии работают внутри единого движка [`TradeEngineOrchestrator`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/orchestrator.py) и 1-минутного симулятора [`SimExecutionBroker`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBacktest/ENGINE/sim_broker.py):
+Все стратегии работают внутри единого движка [`TradeEngineOrchestrator`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/orchestrator.py) и 1-минутного симулятора [`SimExecutionBroker`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBacktest/ENGINE/sim_broker.py):
 
 * **Стартовый счёт и плечо:** общий портфель **`$10,000`**, кредитное плечо **`2x`** (запас маржи `$20,000`, чтобы все 6 монет входили независимо, без отсечения сделок по нехватке кэша).
 * **График и инструменты:** свечи **4 часа (`4h`, UTC)**, **6 монет** (`ADAUSDT`, `SOLUSDT`, `XRPUSDT`, `DOGEUSDT`, `ETHUSDT`, `LTCUSDT`). В стратегиях с `MarketSentinel` дополнительно подаётся поток **4H свечей `BTCUSDT`** только как рыночный индикатор (без сделок по BTC).
 * **Лимит позиций:** максимум **1 позиция на монету** (до `6` одновременно).
 * **Исполнение и комиссии:** сигнал считается по закрытию 4H свечи, вход/выход/добор исполняются по `Open` следующей **1-минутной** свечи; комиссия **`0.05%`** вход + **`0.05%`** выход (`0.10%` круг), проскальзывание **`0.01%`** на сторону. Отдельно проверена инвариантность без подглядывания в будущее (полное совпадение сигналов на обрезанном горизонте vs полном датасете).
 
-### Как работают Take-Profit и Stop-Loss ([`RiskStopTargetCalculator`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/STRATEGY/risk_sl_tp_calculator.py))
+### Как работают Take-Profit и Stop-Loss ([`RiskStopTargetCalculator`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/STRATEGY/risk_sl_tp_calculator.py))
 * **Take-Profit (`tp_rr_ratio = null`):** фиксированных тейк-профитов **нет ни в одном из 10 паспортов**. Стратегии тренд-следящие: они не режут потолок прибыли и держат позицию до **противоположного сигнала с переворотом (`OPPOSITE_SIGNAL`)**. *(Технически движок умеет считать TP как `risk_dist * tp_rr_ratio`, но во всех боевых паспортах он отключён.)*
 * **Stop-Loss:**
   * **6 базовых и промежуточных паспортов** (`ema_cross_7_25_4h*` без `_sl5`, `markov_pure_4h_gmm_conf`, `antichop`): `sl_anchor = "none"`, `sl_mode = "none"`, `soft_stop_enabled = false`. Жёсткого стопа нет — выход только по противоположному сигналу.
@@ -55,10 +55,10 @@
 
 ## 2. Как устроены стратегии: сигналы, индикаторы и каскад сайзинга
 
-### Семейство 1: Чистый Марков (`markov_pure` — [`markov_pure_signal_plugin.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/STRATEGY/markov_pure_signal_plugin.py))
+### Семейство 1: Чистый Марков (`markov_pure` — [`markov_pure_signal_plugin.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/STRATEGY/markov_pure_signal_plugin.py))
 Модель прогнозирует смену рыночного режима по **дневным закрытиям (00:00 UTC)** без заглядывания в будущее:
 1. **Доходность за 20 дней:** при закрытии каждых полных суток считается $\text{ret}_{20} = (C_d - C_{d-20}) / C_{d-20}$.
-2. **Адаптивные 3-кластерные пороги (`gmm_3state` в [`_markov_thresholds.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/STRATEGY/_markov_thresholds.py)):**
+2. **Адаптивные 3-кластерные пороги (`gmm_3state` в [`_markov_thresholds.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/STRATEGY/_markov_thresholds.py)):**
    * Каждые `7` дней на скользящем окне `180` последних дней EM-алгоритм Gaussian Mixture Model раскладывает историю доходностей монеты на 3 кластера (`BEAR`, `SIDEWAYS`, `BULL`), автоматически подстраивая границы под волатильность каждой монеты *(если данных мало — fallback на 30%-е квантили или `±5%`)*.
 3. **Матрица переходов 3×3 (сглаживание Лапласа `alpha = 1.0`):**
    * По всей доступной истории переходов между дневными режимами строится матрица вероятностей $P$ (прогноз на `1` день вперёд = $P^1$).
@@ -69,16 +69,16 @@
    * Если позиция уже открыта в противоположную сторону — немедленный разворот (`OPPOSITE_SIGNAL`).
 5. **Анти-боковиковые фильтры (включены в `antichop`, `atr_btc_sl5` и `shield`):**
    * **`block_in_sideways = true`:** запрещает открывать новые сделки, пока текущий кластер GMM — боковик `SIDEWAYS`, даже если у матрицы есть формальный перевес.
-   * **Коэффициент эффективности Кауфмана [`RollingEfficiencyRatio`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/STRATEGY/_indicators.py) (`ER >= 0.20`, окно `18` 4H свечей = `3` дня):**
+   * **Коэффициент эффективности Кауфмана [`RollingEfficiencyRatio`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/STRATEGY/_indicators.py) (`ER >= 0.20`, окно `18` 4H свечей = `3` дня):**
      $$\text{ER} = \frac{|\text{Close}_t - \text{Close}_{t-18}|}{\sum_{i=t-17}^{t} |\text{Close}_i - \text{Close}_{i-1}|}$$
      В пиле (например, январь–март 2025) цена ходит на месте, шум в знаменателе большой, `ER < 0.20` — вход блокируется до направленного импульса.
 
-### Семейство 2: `EMA 7/25` + Марков ([`ema_cross_signal_plugin.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/STRATEGY/ema_cross_signal_plugin.py))
+### Семейство 2: `EMA 7/25` + Марков ([`ema_cross_signal_plugin.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/STRATEGY/ema_cross_signal_plugin.py))
 1. **Импульсный кроссовер (`EMACrossCalculator`):**
    * На 4H закрытиях считаются `EMA(7)` и `EMA(25)` (с SMA-инициализацией первых `N` баров) и разница $d_t = \text{EMA}_7 - \text{EMA}_{25}$.
    * **`CROSS_UP` (`LONG`):** 2 свечи назад $d_{t-2} < 0$, сейчас $d_t > 0$, спред рос ($d_{t-1} > d_{t-2}$) **и ускоряется**: $|d_t - d_{t-1}| > |d_{t-1} - d_{t-2}|$.
    * **`CROSS_DOWN` (`SHORT`):** зеркально сверху вниз с ускоряющимся расхождением. Переворот по встречному сигналу.
-2. **Асимметричный Марковский гейт ([`MarkovRegimeFilter`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/STRATEGY/markov_regime_filter.py), в миксах):**
+2. **Асимметричный Марковский гейт ([`MarkovRegimeFilter`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/STRATEGY/markov_regime_filter.py), в миксах):**
    * Матрица 3×3 на фиксированных порогах `±5%` за 20 дней и скользящем окне переходов `180` дней.
    * **Жёстко блокирует `LONG` в `BEAR`** (`block_long_in_bear = true`), но **разрешает `SHORT` в `BULL`** (`block_short_in_bull = false`, чтобы не пропускать ранние развороты сверху).
 3. **Индикатор силы тренда Уайлдера `ADX(14)` (`IncrementalADX`) и режимы входа:**
@@ -97,7 +97,7 @@ $$\text{Notional} = \$1{,}666.67 \times M_{\text{signal}} \times M_{\text{atr}} 
    * Выравнивает дневной риск по монетам: $M_{\text{atr}} = \text{clamp}(0.02 / (\text{ATR}(14) / \text{Close}),\; 0.35,\; 1.25)$ *(для `EMA` верхняя граница `1.30`)*. Спокойная `ETH` получает больший объём, а резкая `DOGE`/`LTC` пропорционально сжимается; этот же множитель применяется при доборе `check_scale_in`.
 3. **`M_markov_filter` (динамический сайзинг фильтра, только в `EMA+Марков`):**
    * Если режим совпадает со сделкой и диагональная устойчивость $P[s,s] \ge 0.70$ → **`1.25x`** (`+25%`), при обычном совпадении → `1.00x`, в `SIDEWAYS` → **`0.75x`**, против режима → **`0.50x`**.
-4. **`M_sentinel` (кросс-рыночный фильтр [`MarketSentinel`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/STRATEGY/market_sentinel.py) в `atr_btc_sl5`, `shield`, `hybrid_sl5`):**
+4. **`M_sentinel` (кросс-рыночный фильтр [`MarketSentinel`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/STRATEGY/market_sentinel.py) в `atr_btc_sl5`, `shield`, `hybrid_sl5`):**
    * **Сентимент `BTCUSDT`** (по 4H `EMA(50)`, `ADX(14)` и 20-дневной доходности без торговли BTC): в фазе `CHOP` (`BTC ADX < 18`) → **`×0.50`** всем сделкам; `LONG` в `BTC BEAR` → **`×0.40`** (или полная блокировка в `shield`); `SHORT` в `BTC BULL` → **`×0.50`**.
    * **`Market Breadth`** (в `shield`): считает долю трендовых монет из `6` (`ADX(14) >= 18` и Марков `!= SIDEWAYS`). Если их **меньше `3` из `6`**, весь портфель переходит в защитный режим **`×0.50`**.
 
@@ -105,7 +105,7 @@ $$\text{Notional} = \$1{,}666.67 \times M_{\text{signal}} \times M_{\text{atr}} 
 
 ## 3. Сводка за 5 лет на продакшн-движке (`2021-11-01 .. 2026-11-18`, `$10,000 / 2x / $1,666.67`)
 
-Источник: [`prod_upgrades_10k_2x_5y.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBacktest/REPORTS/prod_upgrades_10k_2x_5y.json).
+Источник: [`prod_upgrades_10k_2x_5y.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBacktest/REPORTS/prod_upgrades_10k_2x_5y.json).
 
 ### 3.1. Главные итоги (семейство Маркова vs лидеры `EMA 7/25`)
 
@@ -182,9 +182,9 @@ $$\text{Notional} = \$1{,}666.67 \times M_{\text{signal}} \times M_{\text{atr}} 
 
 ## 6. Главный итог: что ставить в прод
 
-1. **Лучший флагман для прода — [`markov_pure_4h_gmm_conf_antichop_atr_btc_sl5.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_atr_btc_sl5.json):**
+1. **Лучший флагман для прода — [`markov_pure_4h_gmm_conf_antichop_atr_btc_sl5.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_atr_btc_sl5.json):**
    * Вырос до **`+$46,215.43 (+462.15%)`** за 5 лет, **уменьшил максимальную просадку почти вдвое** (`76.59% → 39.86%`), поднял **Calmar до `2.29`** и **прибыль/убыток до `2.20`**, поднял минимальное дно счёта с `$3,700` до **`$7,439`**, заработал **`+$3,185.80`** в тяжёлом боковике 2025, стоит на бирже со **страховочным SL `5 × ATR`** и **вывел в плюс все 6 монет, включая `LTCUSDT` (`+$949.69`)**.
-2. **Если нужен ещё более плавный ход — [`markov_pure_4h_gmm_conf_antichop_shield.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_shield.json):** `+$39,783.18 (+397.83%)`, просадка **`37.10%`**, лучшее дно счёта среди Марковских версий (**`$7,894`**), также **6/6 монет в плюсе**.
-3. **Если выбирать среди `EMA 7/25` — пара [`probe20_atr_sl5`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/ema_cross_7_25_4h_markov_probe20_atr_sl5.json) / [`hybrid_sl5`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/ema_cross_7_25_4h_markov_hybrid_sl5.json):**
+2. **Если нужен ещё более плавный ход — [`markov_pure_4h_gmm_conf_antichop_shield.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_shield.json):** `+$39,783.18 (+397.83%)`, просадка **`37.10%`**, лучшее дно счёта среди Марковских версий (**`$7,894`**), также **6/6 монет в плюсе**.
+3. **Если выбирать среди `EMA 7/25` — пара [`probe20_atr_sl5`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/ema_cross_7_25_4h_markov_probe20_atr_sl5.json) / [`hybrid_sl5`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/ema_cross_7_25_4h_markov_hybrid_sl5.json):**
    * `probe20_atr_sl5` дал максимум прибыли для `EMA` (**`+$12,378.59`**) и первым вывел `2025` год в плюс (**`+$25.96`**).
    * `hybrid_sl5` (с отсевом `ADX < 15` и сентиментом `BTCUSDT`) поднял п/у до лучшего среди `EMA` (**`1.40`**), сжал 2025 год в 6x (`-$433`) и показал лучший полугодовой результат среди всех `EMA` (**`+$3,521.46`**, п/у `2.52`).

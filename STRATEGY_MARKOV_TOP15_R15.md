@@ -1,11 +1,11 @@
 # Стратегия «Альфа»: `markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15`
 
 > **Статус на 2026-11-26 (Оптимизация на бэктесте закрыта — см. `ADR-018` в [`tech_debt.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/tech_debt.md)):**
-> Финальная единая стратегия **«Альфа»** (14 ликвидных альтов без `DOTUSDT`, + `BTCUSDT` как чистый индикатор сентимента) полностью собрана, проверена на 5-летнем и полугодовом 1-минутном бэктесте с реальным историческим 8h Funding Rate Binance Futures (`100,779` записей) и готова к форвард-эксплуатации в **боевом (`ClavaBot`, HEDGE Mode)** и **бумажном (`ClavaPaper`)** контурах с единым Master/Slave IPC стримом `HRON_3`.
+> Финальная единая стратегия **«Альфа»** (14 ликвидных альтов без `DOTUSDT`, + `BTCUSDT` как чистый индикатор сентимента) полностью собрана, проверена на 5-летнем и полугодовом 1-минутном бэктесте с реальным историческим 8h Funding Rate Binance Futures (`100,779` записей) и готова к форвард-эксплуатации в **боевом (`MarioBot`, HEDGE Mode)** и **бумажном (`MarioPaper`)** контурах с единым Master/Slave IPC стримом `HRON_3`.
 
 * **Официальное имя стратегии (`strategy_id`):** `markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15`
-* **Единственный активный паспорт:** [`ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json) *(все 13 устаревших паспортов вынесены в [`ClavaBot/CFG/artifacts/`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/artifacts))*
-* **Полный JSON-отчёт верификации:** [`ClavaBacktest/REPORTS/alpha14_final_metrics.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBacktest/REPORTS/alpha14_final_metrics.json)
+* **Единственный активный паспорт:** [`MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/strategies/markov_pure_4h_gmm_conf_antichop_exit_sw_sl5_top14_r15.json) *(все 13 устаревших паспортов вынесены в [`MarioBot/CFG/artifacts/`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/artifacts))*
+* **Полный JSON-отчёт верификации:** [`MarioBacktest/REPORTS/alpha14_final_metrics.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBacktest/REPORTS/alpha14_final_metrics.json)
 * **Класс стратегии:** мультимонетная среднесрочная тренд-следящая система (`4H` UTC, Binance USD-M Perpetual Futures, **HEDGE Mode**) на 3-кластерных цепях Маркова (`GMM 180d`, `recal = 3d`) с выходом в кэш в боковике (`exit_on_sideways`), анти-пилой `ER(18) >= 0.20`, сентимент-фильтром `BTCUSDT`, аварийным стопом `5 × ATR(14)`, портфельным риск-контроллером (`same_side <= 5`, `open_risk <= 10%`, `funding_guard 0.05%`) и сложным процентом от риска `1.5%`.
 
 ---
@@ -75,7 +75,7 @@
 | 13 | `XRPUSDT` | 77 | 36.4% | 8 | `-$2,985.49` | `-$290.32` | 5 | 60.0% | `-$492.89` | `-$49.24` |
 | 14 | `BCHUSDT` | 94 | 31.9% | 9 | `-$8,549.67` | `-$1,052.16` | 5 | 40.0% | `+$324.84` | `+$32.52` |
 
-> **Честное примечание по `XRPUSDT` и `BCHUSDT`:** при жёстком лимите `max_same_side_positions = 5` монеты в середине списка чаще попадают в слоты на поздней фазе импульса, из-за чего за 5 лет две из 14 монет дали локальный минус (хотя `BCHUSDT` дал лучший одиночный ход `+48.88%` и плюс за последние 6M). **Мы осознанно НЕ вырезаем их задним числом**, чтобы не скатиться в *in-sample* подгонку списка — 14 фундаментальных ликвидных альтов фиксируются и уходят на живой форвард в `ClavaPaper` (подробное обоснование — в `ADR-018` [`tech_debt.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/tech_debt.md)).
+> **Честное примечание по `XRPUSDT` и `BCHUSDT`:** при жёстком лимите `max_same_side_positions = 5` монеты в середине списка чаще попадают в слоты на поздней фазе импульса, из-за чего за 5 лет две из 14 монет дали локальный минус (хотя `BCHUSDT` дал лучший одиночный ход `+48.88%` и плюс за последние 6M). **Мы осознанно НЕ вырезаем их задним числом**, чтобы не скатиться в *in-sample* подгонку списка — 14 фундаментальных ликвидных альтов фиксируются и уходят на живой форвард в `MarioPaper` (подробное обоснование — в `ADR-018` [`tech_debt.md`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/tech_debt.md)).
 
 ---
 
@@ -89,18 +89,16 @@
 5. **Кросс-рыночный барометр `MarketSentinel` (`BTCUSDT`):** `BTC ADX(14) < 18` (`CHOP`) → множитель `×0.50`; `SHORT` против `BTC BULL` → `×0.50`; `LONG` против `BTC BEAR` → `×0.40`.
 6. **Портфельный риск-контроллер (`PortfolioRiskGuard`):** максимум **`10`** позиций одновременно, максимум **`5`** позиций в одну сторону (`LONG` или `SHORT`), максимальный суммарный открытый стоп-риск **`10%`** от `equity`, и `Funding Guard`: при неблагоприятном 8h funding `> 0.05%` объём входа режется вдвое (`×0.50`).
 
-### 3.2. Рекомендуемое соотношение сайза, плеча и капитала
+### 3.2. Рекомендуемое соотношение сайза и капитала (два явных режима без плеча)
 
-| Параметр | Оптимальное значение | Эквивалент на стартовом депозите `$1,000` | Эквивалент на `$10,000` |
+Плечо **НЕ участвует** ни в каких расчётах сайза и маржи — поле `sizing.leverage_display: 20` служит исключительно для подсветки (на бирже может стоять `20x Cross HEDGE`). В [`MarioBot/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/app.json) и [`MarioPaper/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioPaper/CFG/app.json) предусмотрены две явные секции и внешний переключатель `sizing.mode`:
+
+| Режим (`sizing.mode`) | Настройка по умолчанию (из пропорции бэктеста) | Эквивалент на `$1,000` | Эквивалент на `$10,000` |
 | :--- | :---: | :---: | :---: |
-| **`risk_per_trade_ratio`** | **`0.015`** (`1.5%` до `5 × ATR`) | Базовый риск **`$15`** на сделку | Базовый риск **`$150`** |
-| **Нотионал 1 позиции (`Notional`)** | **`6% .. 15%`** от текущего `equity` | **`~$60 .. $150`** на монету | `~$600 .. $1,500` |
-| **`max_open_positions`** | **`10`** (из `14` монет) | До `10` слотов одновременно | До `10` слотов |
-| **`max_same_side_positions`** | **`5`** | Не более `5` `LONG` или `5` `SHORT` | Не более `5` в сторону |
-| **`max_portfolio_risk_ratio`** | **`0.10`** (`10%`) | Суммарный стоп-риск `<= $100` | Суммарный стоп-риск `<= $1,000` |
-| **`leverage_budget`** | **`2x`** *(минимум `2x`, макс `3x`)* | Суммарный нотионал `<= FreeMargin × 2` | Суммарный нотионал `<= FreeMargin × 2` |
-
-> **Важно про плечо и HEDGE Mode на Binance:** бот **НЕ вызывает `set_leverage` и `set_margin_type`**. На аккаунте Binance Futures может спокойно стоять **20x Cross Margin в HEDGE Mode** (как в `HRON_3`) — фактический риск жёстко ограничен формулой `risk_per_trade_ratio = 0.015` и бюджетом `leverage_budget = 2`. При `$1,000` стратегия полностью работоспособна на всех 14 монетах (на 5-летнем тесте с `$1,000` прошло `1,146` из `1,154` сделок, итого `+1,474.42%`).
+| **`reinvest`** *(сложный процент)* | `notional_equity_ratio: 0.12` (`12%` от `equity`) | Базовый сайз **`$120`** на монету *(растёт с профитом)* | Базовый сайз **`$1,200`** |
+| **`fixed`** *(без реинвестирования)* | `notional_usd: 120.0` | Фиксированный сайз **`$120`** на монету | `1200.0` (задаётся вручную) |
+| **Лимиты портфеля** | `max_open = 10`, `same_side = 5`, `open_risk = 10%` | До `10` слотов, не более `5` в сторону | До `10` слотов |
+| **Защитные SL/TP** | Системные триггеры в главной игровой лупе (`0.1с`) | Физические ордера — только `MARKET` (`HEDGE`) | Физические — только `MARKET` |
 
 ---
 
@@ -108,14 +106,14 @@
 
 ### Вердикт готовности («Отмашка»)
 * **Математика и риск-ядро:** **ГОТОВО (100%)**. Проверено за 5 лет + 6 мес с реальным Funding Rate; `2022` криптозима пройдена почти в ноль (`-$61` на `$1,000`), `2025` пила — в уверенный плюс (`+$3,137` на `$1,000`), `MinEq` ни разу не падал ниже `$797` от `$1,000`.
-* **Боевая инфраструктура (`ClavaBot` + `ClavaPaper`):** **ГОТОВО К ЗАПУСКУ В `ClavaPaper` И `dry_run`**.
-  * HEDGE-адаптер [`HronBinanceProdBroker`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/EXECUTION/hron_binance_broker.py) (`positionSide = LONG|SHORT`, без `reduceOnly`, без `set_leverage`, изолированный `equity` по ADR-27, авто-реконсиляция позиций и стопов).
-  * Двусторонний Master/Slave IPC стрим [`ClavaCrossProcessPriceHub`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/EXECUTION/ipc_price_hub.py) с `HRON_3` (`127.0.0.1:48123` + `streamer.lock`, общий пул из `21` символа в одном WS-соединении с автоматическим Failover).
-  * Полиморфный [`BaseFeatureTimeline`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/DATA/feature_timeline.py) (единый интерфейс `OHLCV + Funding + Индикаторы` для бэктеста и прода), суточный кэш спецификаций [`ClavaBot/CACHE/specifications.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CACHE/specifications.json) (`ttl_sec = 86400`), полиморфная аналитика [`LiveAnalyticsManager`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/ANALYTICS/live_analytics.py).
+* **Боевая инфраструктура (`MarioBot` + `MarioPaper`):** **ГОТОВО К ЗАПУСКУ В `MarioPaper` И `dry_run`**.
+  * HEDGE-адаптер [`HronBinanceProdBroker`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/EXECUTION/hron_binance_broker.py) (`positionSide = LONG|SHORT`, без `reduceOnly`, без `set_leverage`, изолированный `equity` по ADR-27, авто-реконсиляция позиций и стопов).
+  * Двусторонний Master/Slave IPC стрим [`MarioCrossProcessPriceHub`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/EXECUTION/ipc_price_hub.py) с `HRON_3` (`127.0.0.1:48123` + `streamer.lock`, общий пул из `21` символа в одном WS-соединении с автоматическим Failover).
+  * Полиморфный [`BaseFeatureTimeline`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/DATA/feature_timeline.py) (единый интерфейс `OHLCV + Funding + Индикаторы` для бэктеста и прода), суточный кэш спецификаций [`MarioBot/CACHE/specifications.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CACHE/specifications.json) (`ttl_sec = 86400`), полиморфная аналитика [`LiveAnalyticsManager`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/ANALYTICS/live_analytics.py).
   * Автотесты: **`40/40 OK`** (вкл. реальный локальный TCP Master/Slave failover и сверку паритета индикаторов до `1e-12`).
 * **Рекомендуемый протокол выхода на реальные деньги:**
-  1. **Неделя 1–2:** запустить [`ClavaPaper`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaPaper/main.py) круглосуточно на живом IPC-потоке вместе с `HRON_3`, убедиться в штатных закрытиях 4H свечей, 8h начислении funding и отчётах `ClavaPaper/ANALYTICS/`.
-  2. **Затем (Prod):** прописать ключи в `.env`, прогнать `ClavaBot` с `"dry_run": true` на 1–2 суток (проверка прогрева `220d` и `reconcile_positions`), затем переключить `"dry_run": false` на стартовом бюджете `$1,000`.
+  1. **Неделя 1–2:** запустить [`MarioPaper`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioPaper/main.py) круглосуточно на живом IPC-потоке вместе с `HRON_3`, убедиться в штатных закрытиях 4H свечей, 8h начислении funding и отчётах `MarioPaper/ANALYTICS/`.
+  2. **Затем (Prod):** прописать ключи в `.env`, прогнать `MarioBot` с `"dry_run": true` на 1–2 суток (проверка прогрева `220d` и `reconcile_positions`), затем переключить `"dry_run": false` на стартовом бюджете `$1,000`.
 
 ### Честные ожидания на 1 месяц в живой торговле (форвард-ориентир)
 * **Частота сделок:** **`15 – 22` сделок/мес** (~`0.5–0.7` сделки в день). Возможны тихие недели в боковике (2–3 сделки) и всплески при выходе рынка из флэта.
@@ -126,12 +124,12 @@
 
 ---
 
-## 5. Инструкция по запуску `ClavaPaper` (бумажный) и `ClavaBot` (боевой)
+## 5. Инструкция по запуску `MarioPaper` (бумажный) и `MarioBot` (боевой)
 
 ### Шаг 1. Подготовка ключей в корневом [`.env`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/.env)
-Для **`ClavaPaper`** API-ключи Binance **не требуются** (прогрев и `/fapi/v1/exchangeInfo` идут по публичным REST-эндпоинтам, живые цены — через Master/Slave IPC или публичный WS).
+Для **`MarioPaper`** API-ключи Binance **не требуются** (прогрев и `/fapi/v1/exchangeInfo` идут по публичным REST-эндпоинтам, живые цены — через Master/Slave IPC или публичный WS).
 
-Для боевого **`ClavaBot`** раскомментируйте и заполните ключи в [`ClavaTrading/.env`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/.env) (файл добавлен в `.gitignore`):
+Для боевого **`MarioBot`** раскомментируйте и заполните ключи в [`MarioTrading/.env`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/.env) (файл добавлен в `.gitignore`):
 ```env
 API_KEY=ваш_binance_futures_api_key
 API_SECRET=ваш_binance_futures_api_secret
@@ -141,37 +139,37 @@ API_SECRET=ваш_binance_futures_api_secret
 ```
 > На аккаунте Binance Futures должен быть включён **HEDGE Mode** (`Dual Side Position`). Кредитное плечо на бирже бот не трогает.
 
-### Шаг 2. Запуск бумажного бота `ClavaPaper` (живые тики + псевдоордера)
-Из корня проекта `ClavaTrading`:
+### Шаг 2. Запуск бумажного бота `MarioPaper` (живые тики + псевдоордера)
+Из корня проекта `MarioTrading`:
 ```powershell
 # Проверка инициализации и списка символов кластера (без старта цикла):
-python -m ClavaPaper.main
+python -m MarioPaper.main
 
 # Боевой запуск бумажного бота (220d прогрев + IPC Master/Slave + тиковый 5*ATR SL + 8h funding):
-python -m ClavaPaper.main --run
+python -m MarioPaper.main --run
 ```
-* Конфиг: [`ClavaPaper/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaPaper/CFG/app.json) (`start_balance_usd: 1000.0`, `taker_fee_rate: 0.0005`, `slippage_rate: 0.0001`).
-* Состояние позиций и баланса сохраняется автоматически в `ClavaPaper/ANALYTICS/paper_state_<slot_id>.json` (переживает рестарт).
-* Полиморфная живая аналитика пишется в `ClavaPaper/ANALYTICS/`:
+* Конфиг: [`MarioPaper/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioPaper/CFG/app.json) (`start_balance_usd: 1000.0`, `taker_fee_rate: 0.0005`, `slippage_rate: 0.0001`).
+* Состояние позиций и баланса сохраняется автоматически в `MarioPaper/ANALYTICS/paper_state_<slot_id>.json` (переживает рестарт).
+* Полиморфная живая аналитика пишется в `MarioPaper/ANALYTICS/`:
   * `analytics_PAPER_<slot_id>.json` — полная расширенная статистика (как в таблице выше);
   * `trades_ledger_PAPER_<slot_id>.csv` — реестр всех закрытых сделок;
   * `summary_PAPER_<slot_id>.txt` — читаемая текстовая сводка.
 
-### Шаг 3. Запуск боевого бота `ClavaBot` (HEDGE Mode)
-Из корня проекта `ClavaTrading`:
+### Шаг 3. Запуск боевого бота `MarioBot` (HEDGE Mode)
+Из корня проекта `MarioTrading`:
 ```powershell
 # Проверка конфигурации и кластера:
-python -m ClavaBot.main
+python -m MarioBot.main
 
-# Запуск (по умолчанию dry_run: true в ClavaBot/CFG/app.json — реальные ордера НЕ шлёт):
-python -m ClavaBot.main --run
+# Запуск (по умолчанию dry_run: true в MarioBot/CFG/app.json — реальные ордера НЕ шлёт):
+python -m MarioBot.main --run
 ```
-* Чтобы перевести в **реальную торговлю**, откройте [`ClavaBot/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CFG/app.json), проверьте `"start_balance_usd"` и `"risk_per_trade_ratio"` в `active_strategies.markov_alpha_top14_main`, и смените `"binance_futures.dry_run": false`.
-* **Мультиаккаунт:** скопируйте блок `markov_alpha_top14_main` в `active_strategies` под новым ключом (например, `markov_alpha_top14_acc2`) и укажите `"api_key_name": "API_KEY_ACC2"`, `"api_secret_name": "API_SECRET_ACC2"`. Защита от пересечения одинаковых монет на одном API-ключе встроена в [`ClavaClusterRuntime`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CORE/EXECUTION/cluster_runtime.py).
-* Живая аналитика PROD пишется тем же полиморфным `LiveAnalyticsManager` в `ClavaBot/ANALYTICS/` (`analytics_PROD_<slot_id>.json`, `trades_ledger_PROD_<slot_id>.csv`, `summary_PROD_<slot_id>.txt`).
+* Чтобы перевести в **реальную торговлю**, откройте [`MarioBot/CFG/app.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CFG/app.json), проверьте `"start_balance_usd"` и `"risk_per_trade_ratio"` в `active_strategies.markov_alpha_top14_main`, и смените `"binance_futures.dry_run": false`.
+* **Мультиаккаунт:** скопируйте блок `markov_alpha_top14_main` в `active_strategies` под новым ключом (например, `markov_alpha_top14_acc2`) и укажите `"api_key_name": "API_KEY_ACC2"`, `"api_secret_name": "API_SECRET_ACC2"`. Защита от пересечения одинаковых монет на одном API-ключе встроена в [`MarioClusterRuntime`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/EXECUTION/cluster_runtime.py).
+* Живая аналитика PROD пишется тем же полиморфным `LiveAnalyticsManager` в `MarioBot/ANALYTICS/` (`analytics_PROD_<slot_id>.json`, `trades_ledger_PROD_<slot_id>.csv`, `summary_PROD_<slot_id>.txt`).
 
 ### Шаг 4. Совместная работа с `HRON_3` (Master/Slave IPC `127.0.0.1:48123`)
-* Все три процесса (`HRON_3`, `ClavaBot`, `ClavaPaper`) указывают на единый lock-файл `HRON_3/cron3/API/IPC/streamer.lock` и порт `127.0.0.1:48123` и перечисляют друг друга в `peer_app_configs`.
+* Все три процесса (`HRON_3`, `MarioBot`, `MarioPaper`) указывают на единый lock-файл `HRON_3/cron3/API/IPC/streamer.lock` и порт `127.0.0.1:48123` и перечисляют друг друга в `peer_app_configs`.
 * **Кто поднялся первым — становится `Master`** (открывает ровно **одно** WebSocket-соединение к Binance на объединённый список символов всех ботов — сейчас `21` символ — и раздаёт тики по локальному TCP).
 * **Остальные подключаются как `Slave`** (нулевая доп. нагрузка на WS-лимиты Binance). При падении или перезапуске `Master` любой `Slave` автоматически перехватывает lock-файл и становится новым `Master` без потери работы.
-* Биржевые спецификации кэшируются в [`ClavaBot/CACHE/specifications.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/ClavaBot/CACHE/specifications.json) и автоматически обновляются с Binance `/fapi/v1/exchangeInfo` раз в сутки (`ttl_sec = 86400`).
+* Биржевые спецификации кэшируются в [`MarioBot/CACHE/specifications.json`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CACHE/specifications.json) и автоматически обновляются с Binance `/fapi/v1/exchangeInfo` раз в сутки (`ttl_sec = 86400`).
