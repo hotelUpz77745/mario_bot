@@ -161,6 +161,28 @@ class BinanceFuturesRestClient:
     def get_premium_index(self, symbol: str) -> Dict[str, Any]:
         return self._request("GET", "/fapi/v1/premiumIndex", params={"symbol": symbol.upper()}, signed=False)
 
+    def get_all_ticker_prices(self) -> List[Dict[str, Any]]:
+        """GET /fapi/v1/ticker/price (один лёгкий bulk-запрос на все символы Binance Futures)."""
+        data = self._request("GET", "/fapi/v1/ticker/price", signed=False)
+        return [row for row in data if isinstance(row, dict)] if isinstance(data, list) else []
+
+    def get_prices_bulk(self, symbols: List[str] | tuple[str, ...]) -> Dict[str, float]:
+        """Возвращает {SYMBOL: price} для запрошенных монет за один REST-вызов (для Stale-Tick Fallback)."""
+        wanted = {str(s).upper().strip() for s in symbols if isinstance(s, str) and s.strip()}
+        if not wanted:
+            return {}
+        out: Dict[str, float] = {}
+        for row in self.get_all_ticker_prices():
+            sym = str(row.get("symbol", "")).upper().strip()
+            if sym in wanted:
+                try:
+                    px = float(row.get("price", 0.0) or 0.0)
+                    if px > 0.0:
+                        out[sym] = px
+                except (TypeError, ValueError):
+                    continue
+        return out
+
     # ---------- Private signed trading endpoints ----------
 
     def fetch_account_info(self) -> Dict[str, Any]:

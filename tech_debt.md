@@ -472,6 +472,18 @@ https://www.youtube.com/watch?v=DAHzFUyPgeU
      * Слой сервисов: [`MarioBot/CORE/SERVICES/delisting_detector.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/SERVICES/delisting_detector.py) (`DelistingDetectorConfig`, `MarioDelistingDetector`: Контур 1 `exchangeInfo` `status` + `deliveryDate`, Контур 2 `Binance CMS`, Фаза 1 предупреждение / Фаза 2 `emergency_delist_symbol()` + атомарное обновление `app.json` + TG-алерты, no-op при `MARIO_BACKTEST=1`).
      * Покрыто юнит-тестами [`MarioBot/tests/test_delisting_detector.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/tests/test_delisting_detector.py) + страж `test_core_layer_has_no_direct_network_or_binance_urls`.
 
+---
+
+### ADR-023: Приоритет 2 — Эксплуатационная броня (`Watchdog + Heartbeat`, `Equity Cutoff`, `Stale-Tick REST Fallback`) и аудит TG-слоя (2026-11-26)
+* **Статус:** Полностью внедрено и проверено (`52/52` тестов OK).
+* **Ключевые компоненты:**
+  1. **Единый фасад брони [`MarioOperationalArmor`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/SERVICES/armor_bundle.py):** объединяет 4 защитных контура (`Delisting`, `Watchdog`, `EquityCutoff`, `StaleFallback`), удерживая `cluster_runtime.py` ниже 600 строк и полностью сохраняя изоляцию `MarioBot/CORE/` от сетевых библиотек (`ADR-021`).
+  2. **[`MarioWatchdogService`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/SERVICES/watchdog_service.py):** контроль зависания `0.1с` лупы (`> 60с`), тишины WS-стрима (`> 60с`), переключений `MASTER ↔ SLAVE` и тихий Telegram Heartbeat (`disable_notification=True`, обновление на месте `editMessageText`, пересоздание через `deleteMessage` раз в `heartbeat_autodelete_sec`).
+  3. **[`EmergencyEquityCutoffGuard`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/SERVICES/equity_cutoff_guard.py):** портфельный стоп-кран (`max_drawdown_ratio = 0.25` от HWM слота) с закрытием всех позиций MARKET (`reason="EQUITY_CUTOFF"`), авто-паузой (`auto_start=false`), алертом в TG и ручной перекалибровкой HWM при `▶️ Start`.
+  4. **[`StaleTickRestFallback`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/SERVICES/stale_tick_fallback.py) + `BinanceFuturesRestClient.get_prices_bulk()`:** при тишине по символу `> 30с` подтягивает свежие цены одним bulk-вызовом `/fapi/v1/ticker/price` и немедленно запускает `game_loop_step()` для проверки виртуальных SL/TP.
+  5. **Аудит и фиксы TG-слоя (`MarioBot/TG/`):** добавлен `send_or_update_heartbeat`, сброс зависших апдейтов `delete_webhook(drop_pending_updates=True)`, явная обработка `TelegramConflictError (409)` при дублировании токена, предупреждение при fallback `PAPER → TG_TOKEN`, `/help`, null-guard `callback.message`, отображение статуса всех 4 систем брони в `ℹ️ Status`.
+
+
 
 
 

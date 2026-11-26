@@ -18,6 +18,7 @@ ExitReasonType = Literal[
     "SIGNAL_EXIT",
     "BAILOUT_EXIT",
     "DELISTING",
+    "EQUITY_CUTOFF",
     "END_OF_SIM",
     "MANUAL",
 ]

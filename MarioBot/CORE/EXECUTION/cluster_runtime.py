@@ -24,7 +24,7 @@ from MarioBot.CORE.EXECUTION.binance_broker import BinanceFuturesProdBroker
 from MarioBot.CORE.EXECUTION.runtime_state_store import MarioRuntimeStateStore, atomic_write_json
 from MarioBot.CORE.models import Candle, SideType
 from MarioBot.CORE.orchestrator import TradeEngineOrchestrator
-from MarioBot.CORE.SERVICES.delisting_detector import DelistingDetectorConfig, MarioDelistingDetector
+from MarioBot.CORE.SERVICES.armor_bundle import MarioOperationalArmor
 from MarioBot.CORE.spec_manager import SpecManager
 from MarioBot.TG.tg_adapter import TelegramAdapter, resolve_tg_token_from_env
 from MarioBot.TG.tg_receiver import MarioTelegramReceiver
@@ -93,7 +93,8 @@ class MarioClusterRuntime:
         self._last_funding_bucket: int = -1
         self._last_spec_check_mono: float = time.monotonic()
         self._alert_loop: Optional[asyncio.AbstractEventLoop] = None
-        self.delisting_detector: Optional[MarioDelistingDetector] = None
+        self.armor: Optional[MarioOperationalArmor] = None
+        self.delisting_detector: Optional[Any] = None
 
     def get_active_pool_symbols(self) -> List[str]:
         """Возвращает объединённый список торгуемых монет по всем активным слотам (для детектора делистинга)."""
@@ -137,6 +138,8 @@ class MarioClusterRuntime:
         if not self.is_paused:
             return False
         self.is_paused = False
+        if self.armor is not None:
+            self.armor.on_manual_resume(self.slots)
         for slot in self.slots:
             slot.orchestrator.set_trading_enabled(True)
         if persist_app_cfg:
@@ -341,12 +344,14 @@ class MarioClusterRuntime:
             tg_adapter=tg_adapter,
         )
         runtime_ref[0] = rt
-        rt.delisting_detector = MarioDelistingDetector(
-            cfg=DelistingDetectorConfig.from_dict(app_cfg["delisting_detector"]),
+        rt.armor = MarioOperationalArmor.from_app_config(
+            app_cfg=app_cfg,
             runtime=rt,
             instruments_fetcher=public_rest.get_exchange_instruments,
+            prices_fetcher=public_rest.get_prices_bulk,
             cms_client=BinanceCmsNewsClient(transport=rest_transport),
         )
+        rt.delisting_detector = rt.armor.delisting
         if tg_enabled:
             rt.tg_receiver = MarioTelegramReceiver(runtime=rt, token=tg_token, allowed_users=allowed_users, logs_dir=logs_dir)
         return rt
@@ -456,6 +461,8 @@ class MarioClusterRuntime:
     async def on_price_tick(self, tick: PriceTick) -> None:
         """Обновляет цены тиков и формирует 4H свечи (виртуальные SL/TP проверяет главная игровая лупа)."""
         sym = tick.symbol.upper().strip()
+        if self.armor is not None:
+            self.armor.on_price_tick(sym)
         f_bucket = tick.event_time_ms // (8 * 3_600_000)
         if self._last_funding_bucket >= 0 and f_bucket > self._last_funding_bucket:
             self._settle_8h_funding()
@@ -499,13 +506,15 @@ class MarioClusterRuntime:
                     slot.analytics.flush()
 
     def game_loop_step(self, now_ms: Optional[int] = None) -> int:
-        """Один шаг главной игровой лупы (вызывается каждые 0.1с): системная проверка виртуальных SL/TP."""
+        """Один шаг главной игровой лупы (вызывается каждые 0.1с): системная проверка виртуальных SL/TP + броня."""
         ts_ms = int(now_ms) if now_ms is not None else int(time.time() * 1000)
         triggered = 0
         for slot in self.slots:
             if hasattr(slot.broker, "check_virtual_triggers"):
                 closed = slot.broker.check_virtual_triggers(ts_ms)  # type: ignore[attr-defined]
                 triggered += len(closed)
+        if self.armor is not None:
+            self.armor.on_game_loop_step(self.slots)
         return triggered
 
     async def _game_loop(self) -> None:
@@ -552,8 +561,8 @@ class MarioClusterRuntime:
         self._alert_loop = asyncio.get_running_loop()
         self.is_running = True
         self.warmup_and_reconcile()
-        if self.delisting_detector is not None:
-            await self.delisting_detector.start()
+        if self.armor is not None:
+            await self.armor.start_all()
 
         tasks: List[asyncio.Task[Any]] = [
             asyncio.create_task(self.price_hub.run(self.on_price_tick), name="mario_price_hub"),
@@ -567,8 +576,8 @@ class MarioClusterRuntime:
         finally:
             self.is_running = False
             self.price_hub.stop()
-            if self.delisting_detector is not None:
-                await self.delisting_detector.stop()
+            if self.armor is not None:
+                await self.armor.stop_all()
             if self.tg_receiver is not None:
                 await self.tg_receiver.stop()
             if self.tg_adapter is not None:

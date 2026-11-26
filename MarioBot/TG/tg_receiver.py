@@ -10,7 +10,12 @@ from typing import Any, List, Optional, Sequence
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.session.aiohttp import AiohttpSession
-from aiogram.exceptions import TelegramNetworkError, TelegramRetryAfter, TelegramServerError
+from aiogram.exceptions import (
+    TelegramConflictError,
+    TelegramNetworkError,
+    TelegramRetryAfter,
+    TelegramServerError,
+)
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import CallbackQuery, ErrorEvent, Message
 
@@ -106,10 +111,23 @@ class MarioTelegramReceiver:
             try:
                 if self.bot is None:
                     self.bot = Bot(token=self.token, session=ResilientAiohttpSession())
-                await self.dp.start_polling(self.bot, handle_signals=False)
+                # Сбрасываем старые зависшие апдейты до старта, чтобы старые клики ▶️ Start / ⏸️ Stop не стреляли при рестарте
+                await self.bot.delete_webhook(drop_pending_updates=True)
+                await self.dp.start_polling(
+                    self.bot,
+                    handle_signals=False,
+                    allowed_updates=["message", "callback_query"],
+                )
                 break
             except asyncio.CancelledError:
                 break
+            except TelegramConflictError as exc:
+                self.logger.error(
+                    f"[TG] Conflict (409): токен уже используется другим процессом! "
+                    f"Задайте отдельные TG_TOKEN и TG_TOKEN_PAPER в .env ({exc}). Повтор через 30с..."
+                )
+                await self.stop()
+                await asyncio.sleep(30)
             except Exception as exc:
                 self.logger.warning(f"[TG] Polling error: {exc}. Reconnecting in {backoff_sec}s...")
                 await self.stop()

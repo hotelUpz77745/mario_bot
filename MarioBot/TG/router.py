@@ -36,6 +36,7 @@ class MarioTelegramRouter:
     def _register_routes(self) -> None:
         r = self.router
         r.message(Command("start"))(self.on_status)
+        r.message(Command("help"))(self.on_status)
         r.message(Command("status"))(self.on_status)
         r.message(Command("analytics"))(self.on_analytics)
         r.message(Command("logs"))(self.on_logs)
@@ -72,6 +73,10 @@ class MarioTelegramRouter:
         ]
 
         slot = self._primary_slot()
+        armor = getattr(rt, "armor", None)
+        if armor is not None and hasattr(armor, "format_status_lines"):
+            lines.extend(armor.format_status_lines(slot))
+
         if slot is not None:
             cap = slot.passport.capital
             if cap.sizing_mode == "reinvest":
@@ -179,6 +184,8 @@ class MarioTelegramRouter:
 
     async def cb_analytics_refresh(self, callback: CallbackQuery) -> None:
         await callback.answer("Обновлено")
+        if callback.message is None:
+            return
         try:
             await callback.message.edit_text(
                 self.format_primary_analytics_text(),
@@ -191,7 +198,7 @@ class MarioTelegramRouter:
     async def cb_analytics_csv(self, callback: CallbackQuery) -> None:
         await callback.answer()
         slot = self._primary_slot()
-        if slot is None:
+        if slot is None or callback.message is None:
             return
         slot.analytics.flush()
         csv_path = slot.analytics.ledger_path
@@ -207,7 +214,7 @@ class MarioTelegramRouter:
     async def cb_analytics_txt(self, callback: CallbackQuery) -> None:
         await callback.answer()
         slot = self._primary_slot()
-        if slot is None:
+        if slot is None or callback.message is None:
             return
         slot.analytics.flush()
         txt_path = slot.analytics.report_path

@@ -94,6 +94,40 @@
             "PERPETUAL", "WITH", "USD", "USDT", "FDUSD", "BUSD", "USDC", "API"
         ]
     },
+    "watchdog": {
+        "enabled": true,
+        "_desc_enabled": "Watchdog + тихий Telegram Heartbeat: контроль зависания 0.1с лупы, тишины WS-стрима и failover MASTER<->SLAVE",
+        "loop_timeout_sec": 60.0,
+        "_desc_loop_timeout_sec": "Порог алерта о зависании главной игровой лупы в секундах (60 = 1 мин)",
+        "ws_silence_timeout_sec": 60.0,
+        "_desc_ws_silence_timeout_sec": "Порог алерта о тишине WS/IPC стрима цен в секундах (60 = 1 мин)",
+        "check_interval_sec": 2.0,
+        "heartbeat_interval_sec": 300.0,
+        "_desc_heartbeat_interval_sec": "Период тихого обновления Heartbeat в Telegram в секундах (300 = 5 мин)",
+        "heartbeat_autodelete_sec": 600.0,
+        "_desc_heartbeat_autodelete_sec": "Через сколько секунд пересоздавать сообщение Heartbeat, чтобы не захламлять чат (600 = 10 мин)",
+        "notify_role_switch": true
+    },
+    "equity_cutoff": {
+        "enabled": true,
+        "_desc_enabled": "Emergency Equity Cutoff — аварийный стоп-кран портфеля по просадке от пикового equity (HWM)",
+        "max_drawdown_ratio": 0.25,
+        "_desc_max_drawdown_ratio": "Максимально допустимая просадка слота от пика (доля от 1: 0.25 = -25%); при достижении срабатывает стоп-кран",
+        "close_open_positions_on_trip": true,
+        "_desc_close_open_positions_on_trip": "true = экстренно закрыть все открытые позиции слота MARKET при срабатывании стоп-крана",
+        "pause_runtime_on_trip": true,
+        "_desc_pause_runtime_on_trip": "true = поставить бота на паузу (auto_start=false) до ручного ▶️ Start оператором",
+        "notify_telegram": true
+    },
+    "stale_tick_fallback": {
+        "enabled": true,
+        "_desc_enabled": "Страховочный REST-фоллбек цен (/fapi/v1/ticker/price) при отсутствии живых тиков > stale_threshold_sec",
+        "stale_threshold_sec": 30.0,
+        "_desc_stale_threshold_sec": "Через сколько секунд тишины по символу подтянуть свежую цену через REST (30с)",
+        "poll_interval_sec": 5.0,
+        "open_positions_only": false,
+        "_desc_open_positions_only": "true = страховать только монеты с открытыми позициями; false = все активные монеты слотов"
+    },
     "mock_execution": {
         "start_balance_usd": 1000.0,
         "_desc_start_balance_usd": "Стартовый баланс сухого мок-брокера в USD (1000.0 = $1,000)",

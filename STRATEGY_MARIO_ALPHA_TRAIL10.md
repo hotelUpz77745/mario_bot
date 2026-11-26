@@ -137,10 +137,11 @@ python -m MarioBot.API.BINANCE.ws_price_stream
 1. **Приоритет №1 — Живой форвард в `MarioPaper` (7–14 дней) + сверка с бэктестом:**
    * Запустить `MarioPaper` автономно с `V2_PROFIT_TRAIL10` и `TG_TOKEN_PAPER` в `.env`, пронаблюдать реальные 4H закрытия, тиковые SL/трейл-выходы, 8h funding и рестарты с ресторацией `CFG/runtime/`.
    * В конце окна прогнать контрольный бэктест ровно за те же 14 дней и сверить `trades_ledger_PAPER_*.csv` по цене входа/выхода и слиппеджу.
-2. **Приоритет №2 — Эксплуатационная броня (перед реальными деньгами в `MarioBot`):**
-   * **Внешний Watchdog + Heartbeat** (по образцу `HRON_3/cron3/watchdog.py`): контроль зависания `0.1с` лупы, авто-рестарт процесса при обрыве и тихий Telegram Heartbeat.
-   * **Emergency Equity Cutoff (стоп-кран портфеля):** настраиваемый предохранитель (например, при просадке портфеля `> 30%` от пика — экстренный сброс в кэш и постановка бота на паузу с алертом в TG).
-   * **Проверка `REST failsafe` / сверки тиков:** если от стримера цен по символу нет тика `> 30с` (например, тихая ночь или обрыв WS), автоматический REST-фоллбек `/fapi/v1/ticker/price` для поддержания актуальности виртуальных SL/TP.
+2. **Приоритет №2 — Эксплуатационная броня (`✅ ВЫПОЛНЕНО`, `ADR-023`):**
+   * ✅ **Watchdog + тихий Telegram Heartbeat** ([`watchdog_service.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/SERVICES/watchdog_service.py)): контроль зависания `0.1с` лупы (`> 60с`), тишины WS-стрима (`> 60с`), переключения `MASTER ↔ SLAVE` и тихий автообновляемый Heartbeat с автоудалением.
+   * ✅ **Emergency Equity Cutoff** ([`equity_cutoff_guard.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/SERVICES/equity_cutoff_guard.py)): портфельный стоп-кран (`max_drawdown_ratio = 0.25` от HWM) с экстренным закрытием позиций MARKET, паузой `auto_start=false` и алертом в TG (снимается ручным `▶️ Start`).
+   * ✅ **Stale-Tick REST Fallback** ([`stale_tick_fallback.py`](file:///c:/Users/user/Desktop/My_Pro/HP_EliteBook_735_old/MY/CLAVA/ClavaTrading/MarioBot/CORE/SERVICES/stale_tick_fallback.py)): если по символу тиков нет `> 30с`, один bulk-запрос `/fapi/v1/ticker/price` обновляет цены и прогоняет `game_loop_step()` для виртуальных SL/TP.
+   * ✅ **Аудит и укрепление TG-слоя:** `drop_pending_updates=True`, обработка `TelegramConflictError (409)`, тихий Heartbeat (`editMessageText` + `deleteMessage`), `/help`, защита от `callback.message=None`, телеметрия всех 4 систем брони в `ℹ️ Status`.
 3. **Приоритет №3 — Точечное R&D и защита от делистинга (`✅ ВЫПОЛНЕНО`, `ADR-022`):**
    * ✅ **Сетка `3×3` плато `V2`:** `(10.0, 3.5)` подтверждён в центре устойчивого плато (`5` смежных ячеек `$11.4k–$14.4k` против базы `$9.3k`).
    * ✅ **Тиковый `Profit Trail` vs `4H close`:** доказано на `1m`-бэктесте, что `4H-close` устойчивее к внутрисвечным теням (`$14,408 / DD 45.3%` vs `$9,849 / DD 49.4%`); в паспорте явно зафиксирован `profit_trail_mode = "4h_close"`.
